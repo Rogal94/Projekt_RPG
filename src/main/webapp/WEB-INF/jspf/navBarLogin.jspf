@@ -1,0 +1,42 @@
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+    <img src='<c:url value="/images/home/homeImg.jpg"/>' style="width:100%">
+    <a href='<c:url value="/panel"/>' class="w3-bar-item w3-button w3-padding-large w3-hover-black" id="navMainPanel">
+        <i class="fa fa-hand-o-left w3-xxlarge"></i>
+        <p>MAIN PANEL</p>
+    </a>
+    <a href='<c:url value="/character"/>' class="w3-bar-item w3-button w3-padding-large w3-hover-black" id="navCharacter">
+        <i class="fa fa-meh-o w3-xxlarge"></i>
+        <p>CHARACTER</p>
+    </a>
+    <a href='<c:url value="/items"/>' class="w3-bar-item w3-button w3-padding-large w3-hover-black" id="navItems">
+        <i class="fa fa-flask w3-xxlarge"></i>
+        <p>ITEMS</p>
+    </a>
+    <a href='<c:url value="/shop"/>' class="w3-bar-item w3-button w3-padding-large w3-hover-black" id="navShop">
+        <i class="fa fa-dollar w3-xxlarge"></i>
+        <p>SHOP</p>
+    </a>
+    <a href='<c:url value="/monsters"/>' class="w3-bar-item w3-button w3-padding-large w3-hover-black" id="navMonsters">
+        <i class="fa fa-snapchat-ghost w3-xxlarge"></i>
+        <p>MONSTERS</p>
+    </a>
+    <a href='<c:url value="/quests"/>' class="w3-bar-item w3-button w3-padding-large w3-hover-black" id="navQuests">
+        <i class="fa fa-calendar w3-xxlarge"></i>
+        <p>QUESTS</p>
+    </a>
+    <a href='<c:url value="/logout"/>' class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <i class="fa fa-user w3-xxlarge"></i>
+        <p>LOGOUT</p>
+    </a>
+</nav>
+<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+    <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+        <a href='<c:url value="/mainPanel"/>' class="w3-bar-item w3-button" style="width:14.2857% !important">MAIN PANEL</a>
+        <a href='<c:url value="/character"/>' class="w3-bar-item w3-button" style="width:14.2857% !important">CHAR</a>
+        <a href='<c:url value="/items"/>' class="w3-bar-item w3-button" style="width:14.2857% !important">ITEMS</a>
+        <a href='<c:url value="/shop"/>' class="w3-bar-item w3-button" style="width:14.2857% !important">SHOP</a>
+        <a href='<c:url value="/monsters"/>' class="w3-bar-item w3-button" style="width:14.2857% !important">MONSTERS</a>
+        <a href='<c:url value="/quests"/>' class="w3-bar-item w3-button" style="width:14.2857% !important">QUESTS</a>
+        <a href='<c:url value="/logout"/>' class="w3-bar-item w3-button" style="width:14.2857% !important">LOGOUT</a>
+    </div>
+</div>

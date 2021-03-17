@@ -20,8 +20,9 @@
 
     <div class="w3-padding-64 w3-content w3-text-grey" id="body">
         <form method="post">
-            <p><input class="w3-input w3-padding-16 w3-dark-gray" type="text" placeholder="Login" required name="login"></p>
+            <p><input class="w3-input w3-padding-16 w3-dark-gray" type="text" placeholder="Login" required name="username"></p>
             <p><input class="w3-input w3-padding-16 w3-dark-gray" type="password" placeholder="Password" required name="password"></p>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <p style="height:150px">
                 <button type="submit" class="w3-button w3-light-grey w3-padding-large w3-left w3-circle" style="width:250px; font-size:20px">
                     <i class="fa fa-paper-plane w3-xxlarge"></i> LOGIN

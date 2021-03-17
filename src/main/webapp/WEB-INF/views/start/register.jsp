@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <title>ONE MAN ARMY RPG</title>
@@ -18,17 +19,15 @@
     </header>
 
     <div class="w3-padding-64 w3-content w3-text-grey" id="body">
-        <form method="post">
-            <p><input class="w3-input w3-padding-16 w3-dark-gray" type="text" placeholder="Email" required name="email"></p>
-            <p><input class="w3-input w3-padding-16 w3-dark-gray" type="text" placeholder="Login" required name="login"></p>
-            <p><input class="w3-input w3-padding-16 w3-dark-gray" type="password" placeholder="Password" required name="password"></p>
-            <p><input class="w3-input w3-padding-16 w3-dark-gray" type="password" placeholder="Repeat Password" required name="repassword"></p>
+        <form:form method="post" modelAttribute="user">
+            <p><form:input class="w3-input w3-padding-16 w3-dark-gray" placeholder="Login" path="username" required="true"/></p>
+            <p><form:input class="w3-input w3-padding-16 w3-dark-gray" type="password" placeholder="Password" path="password" required="true"/></p>
             <p style="height:150px">
                 <button type="submit" class="w3-button w3-light-grey w3-padding-large w3-left w3-circle" style="width:250px; font-size:20px">
                     <i class="fa fa-paper-plane w3-xxlarge"></i> REGISTER
                 </button>
             </p>
-        </form>
+        </form:form>
     </div>
 
     <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">

@@ -1,5 +1,7 @@
 package pl.coderslab.Projekt_RPG.project;
 
+import pl.coderslab.Projekt_RPG.user.User;
+
 import javax.persistence.*;
 import java.util.List;
 

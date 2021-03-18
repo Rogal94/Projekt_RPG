@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <title>ONE MAN ARMY RPG</title>
@@ -19,7 +20,7 @@
     </header>
 
     <div class="w3-padding-64 w3-content w3-text-grey" id="body">
-        <form method="post">
+        <form:form method="post" modelAtribute="user" action="/login">
             <p><input class="w3-input w3-padding-16 w3-dark-gray" type="text" placeholder="Login" required name="username"></p>
             <p><input class="w3-input w3-padding-16 w3-dark-gray" type="password" placeholder="Password" required name="password"></p>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
@@ -30,8 +31,11 @@
                 <a href='<c:url value="/register"/>' class="w3-button w3-light-grey w3-padding-large w3-right w3-circle" style="width:250px; font-size:20px" type="submit">
                     <i class="fa fa-paper-plane w3-xxlarge"></i> REGISTER
                 </a>
+                <c:if test="${not empty error}">
+                    <span class="w3-xlarge w3-text-red w3-margin">INVALID USERNAME OR PASSWORD!</span>
+                </c:if>
             </p><br/>
-        </form>
+        </form:form>
     </div>
 
     <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">

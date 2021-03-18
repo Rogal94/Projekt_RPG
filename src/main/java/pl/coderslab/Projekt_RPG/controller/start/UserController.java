@@ -2,10 +2,14 @@ package pl.coderslab.Projekt_RPG.controller.start;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.coderslab.Projekt_RPG.user.User;
 import pl.coderslab.Projekt_RPG.user.UserService;
+
+import javax.validation.Valid;
 
 @Controller
 public class UserController {
@@ -21,6 +25,12 @@ public class UserController {
         return "start/login";
     }
 
+    @GetMapping("/login/{error}")
+    public String loginError(Model model, @PathVariable String error) {
+        model.addAttribute("error", error);
+        return "start/login";
+    }
+
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("user",new User());
@@ -28,8 +38,11 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerPost(User user) {
-        userService.saveUser(user);
-        return "redirect:/login";
+    public String registerPost(@Valid User user, BindingResult result) {
+        if(result.hasErrors()) {
+            return "start/register";
+        }
+            userService.saveUser(user);
+            return "redirect:/login";
     }
 }

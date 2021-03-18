@@ -1,11 +1,15 @@
 package pl.coderslab.Projekt_RPG.project;
 
+import lombok.Getter;
+import lombok.Setter;
 import pl.coderslab.Projekt_RPG.user.User;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Hero {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

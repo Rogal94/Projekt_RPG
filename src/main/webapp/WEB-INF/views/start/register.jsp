@@ -21,7 +21,9 @@
     <div class="w3-padding-64 w3-content w3-text-grey" id="body">
         <form:form method="post" modelAttribute="user">
             <p><form:input class="w3-input w3-padding-16 w3-dark-gray" placeholder="Login" path="username" required="true"/></p>
+            <p><form:errors class="w3-text-red" path="username"/></p>
             <p><form:input class="w3-input w3-padding-16 w3-dark-gray" type="password" placeholder="Password" path="password" required="true"/></p>
+            <p><form:errors class="w3-text-red" path="password"/></p>
             <p style="height:150px">
                 <button type="submit" class="w3-button w3-light-grey w3-padding-large w3-left w3-circle" style="width:250px; font-size:20px">
                     <i class="fa fa-paper-plane w3-xxlarge"></i> REGISTER

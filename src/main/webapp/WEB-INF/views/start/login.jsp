@@ -24,17 +24,17 @@
             <p><input class="w3-input w3-padding-16 w3-dark-gray" type="text" placeholder="Login" required name="username"></p>
             <p><input class="w3-input w3-padding-16 w3-dark-gray" type="password" placeholder="Password" required name="password"></p>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-            <p style="height:150px">
+            <div style="height:150px">
                 <button type="submit" class="w3-button w3-light-grey w3-padding-large w3-left w3-circle" style="width:250px; font-size:20px">
-                    <i class="fa fa-paper-plane w3-xxlarge"></i> LOGIN
+                    <i class="fa fa-paper-plane w3-xxlarge"></i>LOGIN
                 </button>
                 <a href='<c:url value="/register"/>' class="w3-button w3-light-grey w3-padding-large w3-right w3-circle" style="width:250px; font-size:20px" type="submit">
-                    <i class="fa fa-paper-plane w3-xxlarge"></i> REGISTER
+                    <i class="fa fa-paper-plane w3-xxlarge"></i>REGISTER
                 </a>
                 <c:if test="${not empty error}">
-                    <span class="w3-xlarge w3-text-red w3-margin">INVALID USERNAME OR PASSWORD!</span>
+                    <p class="w3-xlarge w3-text-red w3-padding w3-row w3-center">INVALID LOGIN OR PASSWORD!</p>
                 </c:if>
-            </p><br/>
+            </div>
         </form:form>
     </div>
 

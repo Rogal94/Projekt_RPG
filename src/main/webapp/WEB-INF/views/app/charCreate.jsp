@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <title>ONE MAN ARMY RPG</title>
@@ -12,14 +13,14 @@
 <%@include file="/WEB-INF/jspf/navBarLoginL.jspf"%>
 <div class="w3-padding-large" id="main">
     <div class="w3-padding-64 w3-content w3-text-grey" id="body">
-        <form method="post">
+        <form:form method="post" modelAttribute="hero">
             <div class="w3-padding-large w3-center">
                 <p class="w3-xlarge">SELECT CLASS:</p>
             </div>
             <div class="w3-row w3-center w3-section w3-xlarge">
                 <div class="w3-half w3-section">
                     <div class="">
-                        <input class="checkbox-budget" type="radio" name="clas" id="warrior" required>
+                        <form:radiobutton class="checkbox-budget" path="race" id="warrior" value="warrior" required="true"/>
 						<label for="warrior">
                             <img src='<c:url value="/images/hero/orcWarrior.jpg"/>' alt="warrior" class="w3-image" width="300" height="400">
                             WARRIOR
@@ -28,7 +29,7 @@
                 </div>
                 <div class="w3-half w3-section w3-xlarge">
                     <div>
-                        <input class="checkbox-budget" type="radio" name="clas" id="mage" required>
+                        <form:radiobutton class="checkbox-budget" path="race" id="mage" value="mage" required="true"/>
 						<label for="mage">
                             <img src='<c:url value="/images/hero/elfMage.jpg"/>' alt="mage" class="w3-image" width="300" height="400">
                             MAGE
@@ -40,12 +41,12 @@
                 <p class="w3-xlarge">SELECT NAME:</p>
             </div>
             <div class="w3-padding-large w3-center">
-                <input type="text" id="name" name="name" placeholder="Name" class="w3-dark-grey w3-hover-black w3-xxlarge" required/>
+                <form:input id="name" path="name" placeholder="Name" class="w3-dark-grey w3-hover-black w3-xxlarge" required="true"/>
             </div>
             <div class="w3-padding-large w3-center">
-                <button type="submit" class="w3-button w3-light-grey w3-hover-green w3-xxlarge">START</button>
+                <button type="submit" class="w3-button w3-light-grey w3-hover-green w3-xxlarge">CREATE</button>
             </div>
-        </form>
+        </form:form>
     </div>
 </div>
 <%@include file="/WEB-INF/jspf/footer.jspf"%>

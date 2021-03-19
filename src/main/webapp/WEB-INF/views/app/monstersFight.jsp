@@ -28,7 +28,7 @@
                     <div class="w3-blue" style="height:28px;width:85%"><p class="w3-center w3-text-white">1200/2400</p></div>
                 </div>
                 <span class="w3-xlarge">
-                    <img src='<c:url value="/images/hero/orcWarrior.jpg"/>' alt="warrior" class="w3-image" id = "heroImg" width="300" height="400">
+                    <img src='<c:url value="/images/hero/warrior.jpg"/>' alt="warrior" class="w3-image" id = "heroImg" width="300" height="400">
                 </span>
             </div>
             <div class="w3-half w3-section">

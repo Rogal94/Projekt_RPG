@@ -17,6 +17,6 @@ public class Weapon {
     private Long id;
     private String name;
     private String description;
-    private String attack;
+    private Integer attack;
     private String imageUrl;
 }

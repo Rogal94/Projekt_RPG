@@ -1,8 +1,0 @@
-{"name":"Quest 1" , "description":"Villagers complain about constant goblin attacks. Search the area near the village and banish the goblins." , "monsterName":"Goblin"}
-{"name":"Quest 2","description":"Villagers complain about haunting of the ghosts. Search the area near the village and banish the ghosts.","monsterName":"Ghost"}
-{"name":"Quest 3","description":"Villagers complain about taking supplies by trolls. Search the area near the village and banish the trolls.","monsterName":"Troll"}
-{"name":"Quest 4","description":"Villagers complain about people being taken by spiders. Search the area near the village and banish the spiders.","monsterName":"Spider"}
-{"name":"Quest 5","description":"Villagers complain about poisonous snakes. Search the area near the village and banish the snakes.","monsterName":"Snake"},
-{"name":"Quest 6","description":"Villagers complain about howling of wolves. Search the area near the village and banish the werewolfs.","monsterName":"Werewolf"}
-{"name":"Quest 7","description":"Villagers complain about vampire bites. Search the area near the village and banish the vampires.","monsterName":"Vampire"}
-{"name":"Quest 8","description":"Villagers were killed by dragon. Kill the dragon!.","monsterName":"Dragon"}

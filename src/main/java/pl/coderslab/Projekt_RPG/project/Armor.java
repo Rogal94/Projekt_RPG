@@ -18,7 +18,7 @@ public class Armor {
     private String name;
     private String type;
     private String description;
-    private String defence;
+    private Integer defense;
     private String imageUrl;
 }
 

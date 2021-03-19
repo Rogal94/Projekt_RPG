@@ -20,8 +20,9 @@
         <div class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
             <ul class="w3-ul w3-white w3-opacity w3-hover-opacity-off">
                 <li class="w3-dark-grey w3-xlarge w3-padding-24 w3-center">CHARACTER LIST</li>
-                <li class="w3-padding-16">Web Design<a href='<c:url value="/panel"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right">PLAY</a></li>
-                <li class="w3-padding-16">Photography<a href='<c:url value="/panel"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right">PLAY</a></li>
+                <c:forEach items="${heroList}" var="hero">
+                    <li class="w3-padding-16"><c:out value="${hero.name}"/><a href='<c:url value="/panel/${hero.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right">PLAY</a></li>
+                </c:forEach>
                 <li class="w3-light-grey w3-padding-16 w3-center">
                     <a href='<c:url value="/character/create"/>' class="w3-button w3-dark-grey w3-padding-large w3-hover-black">CREATE CHARACTER</a>
                 </li>

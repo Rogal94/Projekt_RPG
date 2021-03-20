@@ -19,4 +19,5 @@ public class Skill {
     private Integer skillRank;
     private String description;
     private Integer skillAttack;
+    private String skillFor;
 }

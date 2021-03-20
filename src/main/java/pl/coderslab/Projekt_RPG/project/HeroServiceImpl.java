@@ -3,6 +3,8 @@ package pl.coderslab.Projekt_RPG.project;
 import org.springframework.stereotype.Service;
 import pl.coderslab.Projekt_RPG.user.User;
 
+import java.util.List;
+
 @Service
 public class HeroServiceImpl implements HeroService{
     private final QuestRepository questRepository;
@@ -31,11 +33,11 @@ public class HeroServiceImpl implements HeroService{
         hero.setStaminaCurrent(hero.getStaminaMax());
         hero.setQuest(questRepository.getOne(1L));
         hero.setEquipWeapon(1L);
-        hero.setEquipHelmet(1L);
-        hero.setEquipChest(5L);
-        hero.setEquipLegs(12L);
-        hero.setEquipGloves(0L);
-        hero.setEquipBoots(0L);
+        hero.setEquipHelmet(3L);
+        hero.setEquipChest(7L);
+        hero.setEquipLegs(14L);
+        hero.setEquipGloves(1L);
+        hero.setEquipBoots(2L);
         hero.setPotionHealth(1);
         hero.setPotionMana(1);
         hero.setPotionStamina(1);
@@ -63,6 +65,14 @@ public class HeroServiceImpl implements HeroService{
     @Override
     public boolean checkHero(Long heroId, User user) {
         return heroRepository.getOne(heroId).getUser() == user;
+    }
+    @Override
+    public void addEquipArmorToList(List<Armor> list, Hero hero) {
+        list.add(armorRepository.getOne(hero.getEquipHelmet()));
+        list.add(armorRepository.getOne(hero.getEquipChest()));
+        list.add(armorRepository.getOne(hero.getEquipLegs()));
+        list.add(armorRepository.getOne(hero.getEquipGloves()));
+        list.add(armorRepository.getOne(hero.getEquipBoots()));
     }
 
     public void createWarrior(Hero hero) {
@@ -98,22 +108,11 @@ public class HeroServiceImpl implements HeroService{
     }
 
     public Integer sumDefense (Hero hero) {
-        Integer armorSum = 0;
-        if(armorRepository.findById(hero.getEquipHelmet()).isPresent()) {
-            armorSum += armorRepository.findById(hero.getEquipHelmet()).get().getDefense();
-        }
-        if(armorRepository.findById(hero.getEquipChest()).isPresent()) {
-            armorSum += armorRepository.findById(hero.getEquipChest()).get().getDefense();
-        }
-        if(armorRepository.findById(hero.getEquipLegs()).isPresent()) {
-            armorSum += armorRepository.findById(hero.getEquipLegs()).get().getDefense();
-        }
-        if(armorRepository.findById(hero.getEquipGloves()).isPresent()) {
-            armorSum += armorRepository.findById(hero.getEquipGloves()).get().getDefense();
-        }
-        if(armorRepository.findById(hero.getEquipBoots()).isPresent()) {
-            armorSum += armorRepository.findById(hero.getEquipBoots()).get().getDefense();
-        }
-        return armorSum;
+        return armorRepository.getOne(hero.getEquipHelmet()).getDefense() +
+        armorRepository.getOne(hero.getEquipHelmet()).getDefense() +
+        armorRepository.getOne(hero.getEquipChest()).getDefense() +
+        armorRepository.getOne(hero.getEquipLegs()).getDefense() +
+        armorRepository.getOne(hero.getEquipGloves()).getDefense() +
+        armorRepository.getOne(hero.getEquipBoots()).getDefense();
     }
 }

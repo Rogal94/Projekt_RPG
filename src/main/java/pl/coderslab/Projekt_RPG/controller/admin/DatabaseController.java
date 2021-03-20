@@ -40,7 +40,7 @@ public class DatabaseController {
     }
 
     @Value("${database.location}")
-    String filePath;
+    private String filePath;
 
     @GetMapping("")
     public String showAdd() {

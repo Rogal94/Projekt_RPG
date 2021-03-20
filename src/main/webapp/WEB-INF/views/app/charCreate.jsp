@@ -22,7 +22,7 @@
                     <div class="">
                         <form:radiobutton class="checkbox-budget" path="race" id="warrior" value="warrior" required="true"/>
 						<label for="warrior">
-                            <img src='<c:url value="/images/hero/orcWarrior.jpg"/>' alt="warrior" class="w3-image" width="300" height="400">
+                            <img src='<c:url value="/images/hero/warrior.jpg"/>' alt="warrior" class="w3-image" width="300" height="400">
                             WARRIOR
                         </label>
                     </div>
@@ -31,7 +31,7 @@
                     <div>
                         <form:radiobutton class="checkbox-budget" path="race" id="mage" value="mage" required="true"/>
 						<label for="mage">
-                            <img src='<c:url value="/images/hero/elfMage.jpg"/>' alt="mage" class="w3-image" width="300" height="400">
+                            <img src='<c:url value="/images/hero/mage.jpg"/>' alt="mage" class="w3-image" width="300" height="400">
                             MAGE
                         </label>
                     </div>

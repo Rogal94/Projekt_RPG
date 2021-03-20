@@ -28,7 +28,7 @@
                 <button type="submit" class="w3-button w3-light-grey w3-padding-large w3-left w3-circle" style="width:250px; font-size:20px">
                     <i class="fa fa-paper-plane w3-xxlarge"></i>LOGIN
                 </button>
-                <a href='<c:url value="/register"/>' class="w3-button w3-light-grey w3-padding-large w3-right w3-circle" style="width:250px; font-size:20px" type="submit">
+                <a href='<c:url value="/register"/>' class="w3-button w3-cyan w3-padding-large w3-right w3-circle" style="width:250px; font-size:20px" type="submit">
                     <i class="fa fa-paper-plane w3-xxlarge"></i>REGISTER
                 </a>
                 <c:if test="${not empty error}">

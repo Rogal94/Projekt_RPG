@@ -15,7 +15,7 @@
 <div class="w3-padding-large" id="main">
     <div class="w3-padding-64 w3-content w3-text-grey" id="body">
         <div class="w3-row w3-center w3-section" style="padding-bottom: 50px">
-            <img src='<c:url value="/images/hero/warrior.jpg"/>' alt="hero" class="w3-image w3-animate-zoom w3-half w3-section" width="600" height="800">
+            <img src='<c:url value="/images/hero/${hero.race}.jpg"/>' alt="hero" class="w3-image w3-animate-zoom w3-half w3-section" width="600" height="800">
             <div class="w3-half w3-section">
                 <h3 class="w3-padding-small w3-text-light-grey"><c:out value="${hero.name}"/></h3>
                 <h3 class="w3-padding-small w3-text-light-grey"><c:out value="${fn:toUpperCase(hero.race)}"/></h3>
@@ -60,13 +60,13 @@
                     <li class="w3-dark-grey w3-xlarge w3-padding-24 w3-center">STATISTICS</li>
                     <li class="w3-padding-16">
                         <c:out value="${fn:toUpperCase(hero.mainStatName)}"/> : <c:out value="${hero.mainStat}"/>
-                        <a href='<c:url value="/character/statAdd/main"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-left">ADD</a>
-                        <a href='<c:url value="/character/statDetails"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-right">DETAILS</a>
+                        <a href='<c:url value="/character/stat/add/main"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-left">ADD</a>
+                        <a href='<c:url value="/character/stat/details"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-right">DETAILS</a>
                     </li>
                     <li class="w3-padding-16">
                         VITALITY : <c:out value="${hero.vitality}"/>
-                        <a href='<c:url value="/character/statAdd/vit"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-left">ADD</a>
-                        <a href='<c:url value="/character/statDetails"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-right">DETAILS</a>
+                        <a href='<c:url value="/character/stat/add/vit"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-left">ADD</a>
+                        <a href='<c:url value="/character/stat/details"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-right">DETAILS</a>
                     </li>
                     <li class="w3-dark-grey w3-padding-16 w3-center">POINTS : <c:out value="${hero.statisticPoints}"/></li>
                 </ul>
@@ -77,12 +77,12 @@
                     <c:forEach items="${hero.skill}" var="skill">
                         <li class="w3-padding-16">
                             <c:out value="${fn:toUpperCase(skill.name)}"/>  RANK : <c:out value="${skill.skillRank}"/>
-                            <a href='<c:url value="/character/skillAdd/${skill.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-left">ADD</a>
-                            <a href='<c:url value="/character/skillDetails/${skill.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-right">DETAILS</a>
+                            <a href='<c:url value="/character/skill/add/${skill.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-left">ADD</a>
+                            <a href='<c:url value="/character/skill/details/${skill.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-right">DETAILS</a>
                         </li>
                     </c:forEach>
                     <li class="w3-light-grey w3-padding-16 w3-center">
-                        <a href='<c:url value="/character/skillAdd"/>' class="w3-button w3-dark-grey w3-padding-large w3-hover-black">LEARN NEW SKILL</a>
+                        <a href='<c:url value="/character/skill/add"/>' class="w3-button w3-dark-grey w3-padding-large w3-hover-black">LEARN NEW SKILL</a>
                     </li>
                     <li class="w3-dark-grey w3-padding-16 w3-center">POINTS : <c:out value="${hero.skillPoints}"/></li>
                 </ul>

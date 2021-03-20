@@ -10,6 +10,7 @@ public class UsernameUniqueValidator implements ConstraintValidator<UsernameUniq
 
     public UsernameUniqueValidator() {
     }
+
     private UserService userService;
     @Autowired
     public UsernameUniqueValidator(UserService userService) {
@@ -23,9 +24,9 @@ public class UsernameUniqueValidator implements ConstraintValidator<UsernameUniq
         if ( value == null ) {
             return true;
         }
-        if(userService == null) {
-            return true;
-        }
+//        if(userService == null) {
+//            return true;
+//        }
         return userService.findByUserName(value) == null;
     }
 }

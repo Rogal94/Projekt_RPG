@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <title>ONE MAN ARMY RPG</title>
@@ -13,28 +14,35 @@
 <div class="w3-padding-large" id="main">
     <div class="w3-padding-64 w3-content w3-text-grey" id="body">
         <div class="w3-row w3-center w3-section w3-dark-grey w3-padding-large">
-            <span class="w3-xxlarge">WEAPON LIST</span>
+            <span class="w3-xxlarge"><c:out value="${fn:toUpperCase(type)}"/> LIST</span>
         </div>
+        <c:forEach items="${itemList}" var="item">
         <div class="w3-row w3-center w3-section w3-light-grey">
             <div class="w3-quarter w3-section">
                     <span class="w3-xlarge">
-                        <img src='<c:url value="/images/item/weapon.jpg"/>' alt="weapon" class="w3-image" width="68" height="76">
+                        <img src='<c:url value="/images/item/${type}.jpg"/>' alt="weapon" class="w3-image" width="68" height="76">
                     </span>
             </div>
             <div class="w3-quarter w3-section">
                     <span class="w3-xlarge">
-                        <img src='<c:url value="/images/item/exampleItemIcon.png"/>' alt="icon" class="w3-image" width="64" height="64">
+                        <img src='<c:url value="${item.imageUrl}"/>' alt="icon" class="w3-image" width="64" height="64">
                     </span>
             </div>
             <div class="w3-quarter w3-section">
-                <span class="w3-xlarge">Attack: 10</span>
+                <c:if test="${type.equals('weapon')}">
+                <span class="w3-xlarge">Attack: ${item.attack}</span>
+                </c:if>
+                <c:if test="${!type.equals('weapon')}">
+                    <span class="w3-xlarge">Defense: ${item.defense}</span>
+                </c:if>
             </div>
             <div class="w3-quarter w3-section">
                     <span class="w3-xlarge">
-                        <a href='<c:url value="/item/changeWeapon"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black">EQUIP<br/>WEAPON</a>
+                        <a href='<c:url value="/item/changeWeapon"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black">EQUIP<br/><c:out value="${fn:toUpperCase(type)}"/></a>
                     </span>
             </div>
         </div>
+        </c:forEach>
     </div>
 </div>
 <%@include file="/WEB-INF/jspf/footer.jspf"%>

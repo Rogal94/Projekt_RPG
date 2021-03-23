@@ -20,5 +20,6 @@ public class Armor {
     private String description;
     private Integer defense;
     private String imageUrl;
+    private Integer price;
 }
 

@@ -19,4 +19,5 @@ public class Weapon {
     private String description;
     private Integer attack;
     private String imageUrl;
+    private Integer price;
 }

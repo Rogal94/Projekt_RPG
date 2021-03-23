@@ -38,7 +38,7 @@
             </div>
             <div class="w3-quarter w3-section">
                     <span class="w3-xlarge">
-                        <a href='<c:url value="/item/changeWeapon"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black">EQUIP<br/><c:out value="${fn:toUpperCase(type)}"/></a>
+                        <a href='<c:url value="/items/change/${type}/${item.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black">EQUIP<br/><c:out value="${fn:toUpperCase(type)}"/></a>
                     </span>
             </div>
         </div>

@@ -17,8 +17,8 @@
         <div class="w3-row w3-center w3-section" style="padding-bottom: 50px">
             <img src='<c:url value="/images/hero/${hero.race}.jpg"/>' alt="hero" class="w3-image w3-animate-zoom w3-half w3-section" width="600" height="800">
             <div class="w3-half w3-section">
-                <h3 class="w3-padding-small w3-text-light-grey"><c:out value="${hero.name}"/></h3>
-                <h3 class="w3-padding-small w3-text-light-grey"><c:out value="${fn:toUpperCase(hero.race)}"/></h3>
+                <h1 class="w3-padding-small w3-text-light-grey"><c:out value="${hero.name}"/></h1>
+                <h1 class="w3-padding-small w3-text-light-grey"><c:out value="${fn:toUpperCase(hero.race)}"/></h1>
                 <h1 class="w3-padding-small w3-text-light-grey">LEVEL : <c:out value="${hero.level}"/></h1>
                 <p class="w3-wide">HP</p>
                 <div class="w3-dark-gray w3-margin">

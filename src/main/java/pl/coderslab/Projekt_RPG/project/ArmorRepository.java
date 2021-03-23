@@ -7,5 +7,4 @@ import java.util.List;
 
 @Repository
 public interface ArmorRepository extends JpaRepository<Armor, Long> {
-    List<Armor> findAllByType(String type);
 }

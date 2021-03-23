@@ -17,21 +17,21 @@
         <div class="w3-row w3-margin">
             <ul class="w3-ul w3-white w3-opacity w3-hover-opacity-off">
                 <li class="w3-dark-grey w3-xxlarge w3-padding-24 w3-center">QUEST</li>
-                <li class="w3-padding-16 w3-xlarge">Quest 1</li>
-                <li class="w3-padding-16 w3-xlarge">Kill 5 goblins</li>
-                <li class="w3-padding-16">Villagers complain of constant goblin attacks. Search the area near the village and banish the goblins.</li>
-                <li class="w3-dark-grey w3-padding-16 w3-center w3-xlarge">PROGRESS : <span id="progress">5/5</span></li>
+                <li class="w3-padding-16 w3-xlarge"><c:out value="${quest.name}"/></li>
+                <li class="w3-padding-16 w3-xlarge">Kill 5 <c:out value="${quest.monsterName}"/></li>
+                <li class="w3-padding-16"><c:out value="${quest.description}"/></li>
+                <li class="w3-dark-grey w3-padding-16 w3-center w3-xlarge">PROGRESS : <span id="progress"><c:out value="${hero.monsterKilled}"/>/5</span></li>
                 <li class="w3-light-grey w3-padding-16 w3-center">
-                    <a href='<c:url value="/reward"/>' class="w3-button w3-green w3-padding-large w3-hover-black w3-xxlarge w3-hide" id="rewardButton">GET REWARD</a>
+                    <a href='<c:url value="/reward/quest/${quest.id}"/>' class="w3-button w3-green w3-padding-large w3-hover-black w3-xxlarge w3-hide" id="rewardButton">GET REWARD</a>
                 </li>
             </ul>
         </div></br>
         <div class="w3-row w3-margin">
             <ul class="w3-ul w3-white w3-opacity w3-hover-opacity-off">
                 <li class="w3-dark-grey w3-xxlarge w3-padding-24 w3-center">NEXT QUEST</li>
-                <li class="w3-padding-16 w3-xlarge">Quest 2</li>
-                <li class="w3-padding-16 w3-xlarge">Kill 5 goblins</li>
-                <li class="w3-padding-16">Villagers complain of constant goblin attacks. Search the area near the village and banish the goblins.</li>
+                <li class="w3-padding-16 w3-xlarge"><c:out value="${nextQuest.name}"/></li>
+                <li class="w3-padding-16 w3-xlarge">Kill 5 <c:out value="${nextQuest.monsterName}"/></li>
+                <li class="w3-padding-16"><c:out value="${nextQuest.description}"/></li>
             </ul>
         </div>
     </div>

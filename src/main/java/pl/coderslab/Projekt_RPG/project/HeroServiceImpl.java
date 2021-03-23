@@ -3,7 +3,11 @@ package pl.coderslab.Projekt_RPG.project;
 import org.springframework.stereotype.Service;
 import pl.coderslab.Projekt_RPG.user.User;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class HeroServiceImpl implements HeroService{
@@ -11,12 +15,14 @@ public class HeroServiceImpl implements HeroService{
     private final WeaponRepository weaponRepository;
     private final ArmorRepository armorRepository;
     private final HeroRepository heroRepository;
+    private final MonsterSession monsterSession;
 
-    public HeroServiceImpl(QuestRepository questRepository, WeaponRepository weaponRepository, ArmorRepository armorRepository, HeroRepository heroRepository) {
+    public HeroServiceImpl(QuestRepository questRepository, WeaponRepository weaponRepository, ArmorRepository armorRepository, HeroRepository heroRepository, MonsterSession monsterSession) {
         this.questRepository = questRepository;
         this.weaponRepository = weaponRepository;
         this.armorRepository = armorRepository;
         this.heroRepository = heroRepository;
+        this.monsterSession = monsterSession;
     }
 
     @Override
@@ -43,6 +49,16 @@ public class HeroServiceImpl implements HeroService{
         hero.setPotionStamina(1);
         hero.setExperienceCurrent(0);
         hero.setExperienceMax(hero.getLevel()*100);
+
+        List <Weapon> weaponList = new ArrayList<>();
+        weaponList.add(weaponRepository.getOne(1L));
+        hero.setWeapon(weaponList);
+
+        List <Armor> armorList = new ArrayList<>();
+        armorList.add(armorRepository.getOne(3L));
+        armorList.add(armorRepository.getOne(7L));
+        armorList.add(armorRepository.getOne(14L));
+        hero.setArmor(armorList);
 
         if(hero.getRace().equals("warrior")){
             createWarrior(hero);
@@ -114,5 +130,146 @@ public class HeroServiceImpl implements HeroService{
         armorRepository.getOne(hero.getEquipLegs()).getDefense() +
         armorRepository.getOne(hero.getEquipGloves()).getDefense() +
         armorRepository.getOne(hero.getEquipBoots()).getDefense();
+    }
+
+    @Override
+    public boolean isArmorEquipped(Armor armor, Hero hero) {
+        List<Long> idList = Arrays.asList(hero.getEquipHelmet(), hero.getEquipChest(), hero.getEquipLegs(), hero.getEquipGloves(), hero.getEquipBoots());
+        for (Long id : idList) {
+            if(armor.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void attack(Hero hero, Monster monster, Integer skillDmg) {
+        Integer monsterDamage = monster.getAttack()*2 - hero.getDefense();
+        if(monsterDamage<10) {
+            monsterDamage = 10;
+        }
+        Integer heroDamage = hero.getAttack()* 2 + skillDmg - monster.getDefense();
+        if(heroDamage<10) {
+            heroDamage = 10;
+        }
+        hero.setHealthPointsCurrent(hero.getHealthPointsCurrent() - monsterDamage);
+        monsterSession.setHealthPointsCurrent(monsterSession.getHealthPointsCurrent() - heroDamage);
+
+        Weapon weapon = weaponRepository.getOne(hero.getEquipWeapon());
+        switch (weapon.getName()) {
+            case "Water Staff":
+                hero.setManaPointsCurrent(hero.getManaPointsCurrent() + 10);
+                break;
+            case "Earth Staff":
+                hero.setManaPointsCurrent(hero.getManaPointsCurrent() + 20);
+                break;
+            case "Air Staff":
+                hero.setManaPointsCurrent(hero.getManaPointsCurrent() + 50);
+                break;
+            case "Fire Staff":
+                hero.setManaPointsCurrent(hero.getManaPointsCurrent() + 100);
+                break;
+        }
+        if(hero.getManaPointsCurrent() > hero.getManaPointsMax()) {
+            hero.setManaPointsCurrent(hero.getManaPointsMax());
+        }
+    }
+
+    @Override
+    public void levelUp(Hero hero) {
+        hero.setExperienceCurrent(hero.getExperienceCurrent()-hero.getExperienceMax());
+        hero.setLevel(hero.getLevel() + 1);
+        hero.setStatisticPoints(hero.getStatisticPoints() + 2);
+        if(hero.getLevel() % 5 == 0) {
+            hero.setSkillPoints(hero.getSkillPoints() + 1);
+        }
+    }
+
+    @Override
+    public Armor getRandomArmor(int power) {
+        Armor armor;
+        Random rand = new Random();
+        List<Armor> armorList = new ArrayList<>();
+        switch(power) {
+            case 1:
+                armorList = armorRepository.findAll().stream()
+                        .filter(a->a.getDefense()>0)
+                        .filter(a->a.getDefense()<15)
+                        .collect(Collectors.toList());
+
+                break;
+            case 2:
+                armorList = armorRepository.findAll().stream()
+                        .filter(a->a.getDefense()>5)
+                        .filter(a->a.getDefense()<35)
+                        .collect(Collectors.toList());
+                break;
+            case 3:
+                armorList = armorRepository.findAll().stream()
+                        .filter(a->a.getDefense()>15)
+                        .filter(a->a.getDefense()<60)
+                        .collect(Collectors.toList());
+                break;
+            case 4:
+                armorList = armorRepository.findAll().stream()
+                        .filter(a->a.getDefense()>35)
+                        .filter(a->a.getDefense()<60)
+                        .collect(Collectors.toList());
+                break;
+        }
+        int randomIndex = rand.nextInt(armorList.size());
+        armor = armorList.get(randomIndex);
+        return armor;
+    }
+
+    @Override
+    public Weapon getRandomWeapon(int power) {
+        Weapon weapon;
+        Random rand = new Random();
+        List<Weapon> weaponList = new ArrayList<>();
+        switch(power) {
+            case 1:
+                weaponList = weaponRepository.findAll().stream()
+                        .filter(w->w.getAttack()>0)
+                        .filter(w->w.getAttack()<15)
+                        .filter(w->w.getId()<23)
+                        .collect(Collectors.toList());
+                break;
+            case 2:
+                weaponList = weaponRepository.findAll().stream()
+                        .filter(w->w.getAttack()>5)
+                        .filter(w->w.getAttack()<35)
+                        .filter(w->w.getId()<24)
+                        .collect(Collectors.toList());
+                break;
+            case 3:
+                weaponList = weaponRepository.findAll().stream()
+                        .filter(w->w.getAttack()>15)
+                        .filter(w->w.getAttack()<60)
+                        .collect(Collectors.toList());
+                weaponList.add(weaponRepository.getOne(24L));
+                break;
+            case 4:
+                weaponList = weaponRepository.findAll().stream()
+                        .filter(w->w.getAttack()>35)
+                        .filter(w->w.getAttack()<60)
+                        .collect(Collectors.toList());
+                weaponList.add(weaponRepository.getOne(25L));
+                break;
+        }
+        int randomIndex = rand.nextInt(weaponList.size());
+        weapon = weaponList.get(randomIndex);
+        return weapon;
+    }
+
+    @Override
+    public String randomItem() {
+        Random rand = new Random();
+        int random = rand.nextInt(5);
+        if(random <= 1) {
+            return "weapon";
+        }
+        return "armor";
     }
 }

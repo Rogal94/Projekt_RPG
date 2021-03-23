@@ -34,7 +34,7 @@
                     <div class="w3-quarter w3-section">AMOUNT:<br><c:out value="${hero.potionHealth}"/></div>
                     <div class="w3-quarter w3-section">
                         <div class="w3-dark-gray">
-                            <div class="w3-red" style="height:36px;width:60%"><p class="w3-center w3-text-white"><c:out value="${hero.healthPointsCurrent}"/>/<c:out value="${hero.healthPointsMax}"/></p></div>
+                            <div class="w3-red" style="height:36px;width:<c:out value="${(hero.healthPointsCurrent/hero.healthPointsMax)*100}"/>%"><p class="w3-center w3-text-white"><c:out value="${hero.healthPointsCurrent}"/>/<c:out value="${hero.healthPointsMax}"/></p></div>
                         </div>
                     </div>
                     <div class="w3-quarter w3-section">
@@ -46,7 +46,7 @@
                     <div class="w3-quarter w3-section">AMOUNT:<br><c:out value="${hero.potionMana}"/></div>
                     <div class="w3-quarter w3-section">
                         <div class="w3-dark-gray">
-                            <div class="w3-blue" style="height:36px;width:60%"><p class="w3-center w3-text-white"><c:out value="${hero.manaPointsCurrent}"/>/<c:out value="${hero.manaPointsMax}"/></p></div>
+                            <div class="w3-blue" style="height:36px;width:<c:out value="${(hero.manaPointsCurrent/hero.manaPointsMax)*100}"/>%"><p class="w3-center w3-text-white"><c:out value="${hero.manaPointsCurrent}"/>/<c:out value="${hero.manaPointsMax}"/></p></div>
                         </div>
                     </div>
                     <div class="w3-quarter w3-section">
@@ -58,7 +58,7 @@
                     <div class="w3-quarter w3-section">AMOUNT:<br><c:out value="${hero.potionStamina}"/></div>
                     <div class="w3-quarter w3-section">
                         <div class="w3-dark-gray">
-                            <div class="w3-orange" style="height:36px;width:60%"><p class="w3-center w3-text-white"><c:out value="${hero.staminaCurrent}"/>/<c:out value="${hero.staminaMax}"/></p></div>
+                            <div class="w3-orange" style="height:36px;width:<c:out value="${(hero.staminaCurrent/hero.staminaMax)*100}"/>%"><p class="w3-center w3-text-white"><c:out value="${hero.staminaCurrent}"/>/<c:out value="${hero.staminaMax}"/></p></div>
                         </div>
                     </div>
                     <div class="w3-quarter w3-section">

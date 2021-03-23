@@ -1,14 +1,36 @@
 package pl.coderslab.Projekt_RPG.controller.app;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.Projekt_RPG.project.*;
+import pl.coderslab.Projekt_RPG.user.UserService;
 
 @Controller
 @RequestMapping("/quests")
 public class QuestsController {
+    private final HeroRepository heroRepository;
+    private final UserService userService;
+    private final QuestRepository questRepository;
+
+    public QuestsController(HeroRepository heroRepository, UserService userService, QuestRepository questRepository) {
+        this.heroRepository = heroRepository;
+        this.userService = userService;
+        this.questRepository = questRepository;
+    }
+
     @GetMapping("")
-    public String quests() {
+    public String quests(Model model, @AuthenticationPrincipal UserDetails customUser) {
+        Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
+        Quest quest = hero.getQuest();
+        Quest nextQuest = questRepository.getOne(quest.getId() + 1);
+        model.addAttribute("quest", quest);
+        model.addAttribute("nextQuest", nextQuest);
+        model.addAttribute("hero", hero);
         return "app/quests";
     }
 }

@@ -47,4 +47,6 @@ public class MainPanelController {
         }
         return "redirect:/logout";
     }
+
+
 }

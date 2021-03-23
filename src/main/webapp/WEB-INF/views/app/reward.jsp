@@ -22,7 +22,7 @@
                         <span class="w3-xlarge">EXP:</span>
                     </div>
                     <div class="w3-half w3-section">
-                        <span class="w3-xlarge">100</span>
+                        <span class="w3-xlarge"><c:out value="${exp}"/></span>
                     </div>
                 </div>
                 <div class="w3-row w3-center w3-section w3-light-grey w3-margin">
@@ -30,7 +30,7 @@
                         <span class="w3-xlarge">GOLD:</span>
                     </div>
                     <div class="w3-half w3-section">
-                        <span class="w3-xlarge">100</span>
+                        <span class="w3-xlarge"><c:out value="${gold}"/></span>
                     </div>
                 </div>
             </div>
@@ -40,10 +40,10 @@
                 </div>
                 <div class="w3-row w3-center w3-section w3-light-grey w3-margin">
                     <div class="w3-half w3-section">
-                        <span class="w3-xlarge">NAME</span>
+                        <span class="w3-xlarge">${item.name}</span>
                     </div>
                     <div class="w3-half w3-section">
-                        <img src='<c:url value="/images/item/exampleItemIcon.png"/>' alt="icon" class="w3-image" width="32" height="32">
+                        <img src='<c:url value="${item.imageUrl}"/>' alt="icon" class="w3-image" width="32" height="32">
                     </div>
                 </div>
             </div>

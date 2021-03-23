@@ -77,6 +77,7 @@ public class HeroController {
                 hero.setStatisticPoints(hero.getStatisticPoints() -1);
             }
             heroService.updateHero(hero);
+            heroRepository.save(hero);
         }
         return "redirect:/character";
     }
@@ -90,6 +91,7 @@ public class HeroController {
     public String charSkillAddList(@AuthenticationPrincipal UserDetails customUser, Model model) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         List <Skill> skillList = skillRepository.findAllBySkillForAndSkillRank(hero.getRace(), 1);
+        model.addAttribute("hero", hero);
         model.addAttribute("skillList", skillList);
         return "app/charSkillList";
     }
@@ -105,6 +107,7 @@ public class HeroController {
                 hero.setSkillPoints(hero.getSkillPoints() -1);
             }
         }
+        heroRepository.save(hero);
         return "redirect:/character";
     }
 
@@ -115,5 +118,19 @@ public class HeroController {
         model.addAttribute("skill", skill);
         model.addAttribute("skillList", skillList);
         return "app/charSkillDetails";
+    }
+
+    @GetMapping("/died")
+    public String charDied(@AuthenticationPrincipal UserDetails customUser, Model model) {
+        Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
+        if(hero.getHealthPointsCurrent() <= 0) {
+            hero.setHealthPointsCurrent(hero.getHealthPointsMax()/10);
+            hero.setExperienceCurrent(0);
+            hero.setStaminaCurrent(0);
+            heroRepository.save(hero);
+        }
+        model.addAttribute("died", true);
+        model.addAttribute("hero", hero);
+        return "app/character";
     }
 }

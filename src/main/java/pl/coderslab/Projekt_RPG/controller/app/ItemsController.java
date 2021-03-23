@@ -13,6 +13,7 @@ import pl.coderslab.Projekt_RPG.user.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/items")
@@ -20,14 +21,12 @@ public class ItemsController {
     private final HeroRepository heroRepository;
     private final UserService userService;
     private final WeaponRepository weaponRepository;
-    private final ArmorRepository armorRepository;
     private final HeroService heroService;
 
-    public ItemsController(HeroRepository heroRepository, UserService userService, WeaponRepository weaponRepository, ArmorRepository armorRepository, HeroService heroService) {
+    public ItemsController(HeroRepository heroRepository, UserService userService, WeaponRepository weaponRepository, HeroService heroService) {
         this.heroRepository = heroRepository;
         this.userService = userService;
         this.weaponRepository = weaponRepository;
-        this.armorRepository = armorRepository;
         this.heroService = heroService;
     }
 
@@ -44,12 +43,13 @@ public class ItemsController {
     }
 
     @GetMapping("/list/{type}")
-    public String itemsList(@PathVariable String type, Model model) {
+    public String itemsList(@PathVariable String type, Model model, @AuthenticationPrincipal UserDetails customUser) {
+        Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         if(type.equals("weapon")) {
-            List<Weapon> itemList = weaponRepository.findAll();
+            List<Weapon> itemList = hero.getWeapon();
             model.addAttribute("itemList",itemList);
         }else {
-            List<Armor> itemList = armorRepository.findAllByType(type);
+            List<Armor> itemList = hero.getArmor().stream().filter(a->a.getType().equals(type)).collect(Collectors.toList());
             model.addAttribute("itemList",itemList);
         }
         model.addAttribute("type",type);
@@ -57,29 +57,58 @@ public class ItemsController {
     }
 
     @GetMapping("/add/{points}")
-    public String itemsList(@PathVariable String points, @AuthenticationPrincipal UserDetails customUser) {
+    public String itemsPoints(@PathVariable String points, @AuthenticationPrincipal UserDetails customUser) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         if(points.equals("health") && hero.getPotionHealth() > 0) {
-            hero.setHealthPointsCurrent(hero.getHealthPointsMax() + 100);
+            hero.setHealthPointsCurrent(hero.getHealthPointsCurrent() + 100);
             if(hero.getHealthPointsCurrent() > hero.getHealthPointsMax()) {
                 hero.setHealthPointsCurrent(hero.getHealthPointsMax());
             }
             hero.setPotionHealth(hero.getPotionHealth() - 1);
         }
         if(points.equals("mana") && hero.getPotionMana() > 0) {
-            hero.setManaPointsCurrent(hero.getManaPointsMax() + 100);
+            hero.setManaPointsCurrent(hero.getManaPointsCurrent() + 100);
             if(hero.getManaPointsCurrent() > hero.getManaPointsMax()) {
                 hero.setManaPointsCurrent(hero.getManaPointsMax());
             }
             hero.setPotionMana(hero.getPotionMana() - 1);
         }
         if(points.equals("stamina") && hero.getPotionStamina() > 0) {
-            hero.setStaminaCurrent(hero.getStaminaMax() + 100);
+            hero.setStaminaCurrent(hero.getStaminaCurrent() + 100);
             if(hero.getStaminaCurrent() > hero.getStaminaMax()) {
                 hero.setStaminaCurrent(hero.getStaminaMax());
             }
             hero.setPotionStamina(hero.getPotionStamina() - 1);
         }
+        heroRepository.save(hero);
+        return "redirect:/items";
+    }
+
+    @GetMapping("/change/{type}/{id}")
+    public String itemsChange(@PathVariable String type, @PathVariable Long id, @AuthenticationPrincipal UserDetails customUser) {
+        Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
+        switch(type) {
+            case "weapon":
+                hero.setEquipWeapon(id);
+                break;
+            case "helmet":
+                hero.setEquipHelmet(id);
+                break;
+            case "chest":
+                hero.setEquipChest(id);
+                break;
+            case "legs":
+                hero.setEquipLegs(id);
+                break;
+            case "gloves":
+                hero.setEquipGloves(id);
+                break;
+            case "boots":
+                hero.setEquipBoots(id);
+                break;
+        }
+        heroService.updateHero(hero);
+        heroRepository.save(hero);
         return "redirect:/items";
     }
 }

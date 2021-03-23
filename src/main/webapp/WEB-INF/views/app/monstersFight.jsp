@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <title>ONE MAN ARMY RPG</title>
@@ -21,36 +22,38 @@
             <div class="w3-half w3-section">
                 <p class="w3-wide">HP</p>
                 <div class="w3-dark-gray w3-margin">
-                    <div class="w3-red" style="height:28px;width:60%"><p class="w3-center w3-text-white">1200/2400</p></div>
+                    <div class="w3-red" style="height:28px;width:<c:out value="${(hero.healthPointsCurrent/hero.healthPointsMax) * 100}"/>%"><p class="w3-center w3-text-white"><c:out value="${hero.healthPointsCurrent}"/>/<c:out value="${hero.healthPointsMax}"/></p></div>
                 </div>
                 <p class="w3-wide">MP</p>
                 <div class="w3-dark-gray w3-margin">
-                    <div class="w3-blue" style="height:28px;width:85%"><p class="w3-center w3-text-white">1200/2400</p></div>
+                    <div class="w3-blue" style="height:28px;width:<c:out value="${(hero.manaPointsCurrent/hero.manaPointsMax) * 100}"/>%"><p class="w3-center w3-text-white"><c:out value="${hero.manaPointsCurrent}"/>/<c:out value="${hero.manaPointsCurrent}"/></p></div>
                 </div>
                 <span class="w3-xlarge">
-                    <img src='<c:url value="/images/hero/warrior.jpg"/>' alt="warrior" class="w3-image" id = "heroImg" width="300" height="400">
+                    <img src='<c:url value="/images/hero/${hero.race}.jpg"/>' alt="warrior" class="w3-image" id = "heroImg" width="300" height="400">
                 </span>
             </div>
             <div class="w3-half w3-section">
                 <p class="w3-wide">HP</p>
                 <div class="w3-dark-gray w3-margin">
-                    <div class="w3-red" style="height:28px;width:60%"><p class="w3-center w3-text-white">1200/2400</p></div>
+                    <div class="w3-red" style="height:28px;width:<c:out value="${(monsterSession.healthPointsCurrent/monster.healthPointsMax) * 100}"/>%"><p class="w3-center w3-text-white"><c:out value="${monsterSession.healthPointsCurrent}"/>/<c:out value="${monster.healthPointsMax}"/></p></div>
                 </div>
                 <p class="w3-wide">MP</p>
                 <div class="w3-dark-gray w3-margin">
                     <div style="height:28px;width:100%"></div>
                 </div>
                 <span class="w3-xlarge">
-                    <img src='<c:url value="/images/monster/vampire.jpg"/>' alt="vampire" class="w3-image" id= "monsterImg" width="300" height="400">
+                    <img src='<c:url value="/images/monster/${fn:toLowerCase(monster.name)}.jpg"/>' alt="vampire" class="w3-image" id= "monsterImg" width="300" height="400">
                 </span>
             </div>
         </div>
         <div class="w3-padding-large w3-center">
-            <button onclick="setTimeout(buttonRedirect, 2000, 'vampire'); buttonAttack()" id="normalAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">NORMAL ATTACK!</button>
+            <button onclick="setTimeout(buttonRedirectAttack, 2000, '${monster.id}'); buttonAttack()" id="normalAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">NORMAL ATTACK!</button>
         </div>
+        <c:forEach items="${hero.skill}" var="skill">
         <div class="w3-padding-large w3-center">
-            <button onclick="setTimeout(buttonRedirect, 2000, 'vampire'); buttonAttack()" id="skillAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">SKILL ATTACK!</button>
+            <button onclick="setTimeout(buttonRedirectSkill, 2000, '${monster.id}'); buttonAttack()" id="skillAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">${fn:toUpperCase(skill.name)} ATTACK!</button>
         </div>
+        </c:forEach>
     </div>
 </div>
 <%@include file="/WEB-INF/jspf/footer.jspf"%>

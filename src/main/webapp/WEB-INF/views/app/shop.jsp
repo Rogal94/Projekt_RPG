@@ -20,14 +20,14 @@
             <div class="w3-third w3-section w3-dark-grey">
                 <div class="w3-row w3-section">
                     <span class="w3-xxxlarge">
-                        <a href='<c:url value="/shop/list"/>' class="w3-button w3-dark-grey w3-hover-black">SELL</a>
+                        <a href='<c:url value="/shop/list/sell"/>' class="w3-button w3-dark-grey w3-hover-black">SELL</a>
                     </span>
                 </div>
             </div>
             <div class="w3-third w3-section w3-dark-grey w3-right">
                 <div class="w3-row w3-section">
                     <span class="w3-xxxlarge">
-                        <a href='<c:url value="/shop/list"/>' class="w3-button w3-dark-grey w3-hover-black">BUY</a>
+                        <a href='<c:url value="/shop/list/buy"/>' class="w3-button w3-dark-grey w3-hover-black">BUY</a>
                     </span>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <span class="w3-xlarge">GOLD AMOUNT :</span>
             </div>
             <div class="w3-half w3-section">
-                <span class="w3-xlarge">5400</span>
+                <span class="w3-xlarge"><c:out value="${hero.goldAmount}"/></span>
             </div>
         </div>
     </div>

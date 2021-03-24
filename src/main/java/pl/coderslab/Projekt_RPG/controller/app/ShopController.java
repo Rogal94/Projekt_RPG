@@ -49,10 +49,7 @@ public class ShopController {
             weaponList.remove(weaponList.stream()
                     .filter(w->w.getId().equals(hero.getEquipWeapon()))
                     .findFirst().orElse(null));
-            armorList.removeAll(armorList.stream()
-                    .distinct()
-                    .filter(w->heroService.isArmorEquipped(w,hero))
-                    .collect(Collectors.toList()));
+            heroService.removeEquippedArmor(armorList, hero);
             model.addAttribute("weaponList",weaponList);
             model.addAttribute("armorList",armorList);
 
@@ -78,26 +75,26 @@ public class ShopController {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         switch (type) {
             case "health":
-                if(hero.getGoldAmount() > 100) {
+                if(hero.getGoldAmount() >= 100) {
                     hero.setPotionHealth(hero.getPotionHealth() + 1);
                     hero.setGoldAmount(hero.getGoldAmount() - 100);
                 }
                 break;
             case "mana":
-                if(hero.getGoldAmount() > 100) {
+                if(hero.getGoldAmount() >= 100) {
                     hero.setPotionMana(hero.getPotionMana() + 1);
                     hero.setGoldAmount(hero.getGoldAmount() - 100);
                 }
                 break;
             case "stamina":
-                if(hero.getGoldAmount() > 2000) {
+                if(hero.getGoldAmount() >= 2000) {
                     hero.setPotionStamina(hero.getPotionStamina() + 1);
                     hero.setGoldAmount(hero.getGoldAmount() - 2000);
                 }
                 break;
         }
         heroRepository.save(hero);
-        return "redirect:/shop";
+        return "redirect:/shop/list/buy";
     }
 
     @GetMapping("/{transaction}/weapon/{id}")
@@ -107,7 +104,7 @@ public class ShopController {
         List <Weapon> weaponList = hero.getWeapon();
         switch (transaction) {
             case "buy":
-                if(hero.getGoldAmount() > weapon.getPrice()) {
+                if(hero.getGoldAmount() >= weapon.getPrice()) {
                     weaponList.add(weaponRepository.getOne(id));
                     hero.setGoldAmount(hero.getGoldAmount() - weapon.getPrice());
                 }
@@ -119,7 +116,7 @@ public class ShopController {
         }
         hero.setWeapon(weaponList);
         heroRepository.save(hero);
-        return "redirect:/shop";
+        return "redirect:/shop/list/" + transaction;
     }
 
     @GetMapping("/{transaction}/armor/{id}")
@@ -129,7 +126,7 @@ public class ShopController {
         List <Armor> armorList = hero.getArmor();
         switch (transaction) {
             case "buy":
-                if(hero.getGoldAmount() > armor.getPrice()) {
+                if(hero.getGoldAmount() >= armor.getPrice()) {
                     armorList.add(armorRepository.getOne(id));
                     hero.setGoldAmount(hero.getGoldAmount() - armor.getPrice());
                 }

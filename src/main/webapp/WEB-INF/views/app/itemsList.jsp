@@ -30,11 +30,12 @@
             </div>
             <div class="w3-quarter w3-section">
                 <c:if test="${type.equals('weapon')}">
-                <span class="w3-xlarge">Attack: ${item.attack}</span>
+                <span class="w3-xlarge">Attack: <c:out value="${item.attack}"/></span>
                 </c:if>
                 <c:if test="${!type.equals('weapon')}">
-                    <span class="w3-xlarge">Defense: ${item.defense}</span>
+                    <span class="w3-xlarge">Defense: <c:out value="${item.defense}"/></span>
                 </c:if>
+                <br><a href='<c:url value="/items/details/${type}/${item.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black">DETAILS</a>
             </div>
             <div class="w3-quarter w3-section">
                     <span class="w3-xlarge">

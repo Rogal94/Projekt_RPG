@@ -22,12 +22,14 @@ public class ItemsController {
     private final UserService userService;
     private final WeaponRepository weaponRepository;
     private final HeroService heroService;
+    private final ArmorRepository armorRepository;
 
-    public ItemsController(HeroRepository heroRepository, UserService userService, WeaponRepository weaponRepository, HeroService heroService) {
+    public ItemsController(HeroRepository heroRepository, UserService userService, WeaponRepository weaponRepository, HeroService heroService, ArmorRepository armorRepository) {
         this.heroRepository = heroRepository;
         this.userService = userService;
         this.weaponRepository = weaponRepository;
         this.heroService = heroService;
+        this.armorRepository = armorRepository;
     }
 
     @GetMapping("")
@@ -110,5 +112,16 @@ public class ItemsController {
         heroService.updateHero(hero);
         heroRepository.save(hero);
         return "redirect:/items";
+    }
+
+    @GetMapping("/details/{type}/{id}")
+    public String itemsDetails(@PathVariable Long id,@PathVariable String type, Model model, @AuthenticationPrincipal UserDetails customUser) {
+        if(type.equals("weapon")) {
+            model.addAttribute("item", weaponRepository.getOne(id));
+        }else {
+            model.addAttribute("item", armorRepository.getOne(id));
+        }
+        model.addAttribute("type", type);
+        return "app/itemsDetails";
     }
 }

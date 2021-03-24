@@ -11,7 +11,7 @@ public interface HeroService{
     void updateHero(Hero hero);
     boolean checkHero(Long heroId , User user);
     void addEquipArmorToList(List<Armor> list , Hero hero);
-    boolean isArmorEquipped(Armor armor , Hero hero);
+    void removeEquippedArmor(List<Armor> armorList, Hero hero);
     void attack(Hero hero, Monster monster, Integer skillDmg);
     void levelUp(Hero hero);
     Armor getRandomArmor (int power);

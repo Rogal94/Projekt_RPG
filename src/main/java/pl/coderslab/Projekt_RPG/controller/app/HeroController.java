@@ -91,6 +91,9 @@ public class HeroController {
     public String charSkillAddList(@AuthenticationPrincipal UserDetails customUser, Model model) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         List <Skill> skillList = skillRepository.findAllBySkillForAndSkillRank(hero.getRace(), 1);
+        for(Skill elem : hero.getSkill()) {
+            skillList.removeAll(skillRepository.findAllByName(elem.getName()));
+        }
         model.addAttribute("hero", hero);
         model.addAttribute("skillList", skillList);
         return "app/charSkillList";
@@ -101,11 +104,13 @@ public class HeroController {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         Skill skill = skillRepository.getOne(skillId);
         if(hero.getSkillPoints()>0) {
-            if(skill.getSkillRank()<5 && skill.getSkillRank()>1) {
+            if(skill.getSkillRank() == 1) {
+                hero.getSkill().add(skillRepository.getOne(skillId));
+            }else if(skill.getSkillRank()<5) {
                 hero.getSkill().add(skillRepository.getOne(skillId + 1));
                 hero.getSkill().remove(skillRepository.getOne(skillId));
-                hero.setSkillPoints(hero.getSkillPoints() -1);
             }
+            hero.setSkillPoints(hero.getSkillPoints() -1);
         }
         heroRepository.save(hero);
         return "redirect:/character";

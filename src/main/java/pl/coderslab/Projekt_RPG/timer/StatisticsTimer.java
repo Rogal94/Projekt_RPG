@@ -14,7 +14,7 @@ public class StatisticsTimer {
         this.heroRepository = heroRepository;
     }
 
-    @Scheduled(fixedDelay = 60000)
+    @Scheduled(fixedRate = 60000)
     public void addStats () {
         for(Hero hero : heroRepository.findAll()) {
             if(hero.getHealthPointsCurrent() + 100 < hero.getHealthPointsMax()) {

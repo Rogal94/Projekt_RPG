@@ -26,7 +26,7 @@
                 </div>
                 <p class="w3-wide">MP</p>
                 <div class="w3-dark-gray w3-margin">
-                    <div class="w3-blue" style="height:28px;width:<c:out value="${(hero.manaPointsCurrent/hero.manaPointsMax) * 100}"/>%"><p class="w3-center w3-text-white"><c:out value="${hero.manaPointsCurrent}"/>/<c:out value="${hero.manaPointsCurrent}"/></p></div>
+                    <div class="w3-blue" style="height:28px;width:<c:out value="${(hero.manaPointsCurrent/hero.manaPointsMax) * 100}"/>%"><p class="w3-center w3-text-white"><c:out value="${hero.manaPointsCurrent}"/>/<c:out value="${hero.manaPointsMax}"/></p></div>
                 </div>
                 <span class="w3-xlarge">
                     <img src='<c:url value="/images/hero/${hero.race}.jpg"/>' alt="warrior" class="w3-image" id = "heroImg" width="300" height="400">
@@ -51,7 +51,7 @@
         </div>
         <c:forEach items="${hero.skill}" var="skill">
         <div class="w3-padding-large w3-center">
-            <button onclick="setTimeout(buttonRedirectSkill, 2000, '${monster.id}'); buttonAttack()" id="skillAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">${fn:toUpperCase(skill.name)} ATTACK!</button>
+            <button onclick="setTimeout(buttonRedirectSkill, 2000, '${monster.id}' ,'${skill.id}'); buttonAttack()" id="skillAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">${fn:toUpperCase(skill.name)} ATTACK!</button>
         </div>
         </c:forEach>
     </div>

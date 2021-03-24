@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.Projekt_RPG.project.*;
 import pl.coderslab.Projekt_RPG.user.UserService;
 
@@ -19,13 +20,15 @@ public class MonsterController {
     private final HeroRepository heroRepository;
     private final UserService userService;
     private final HeroService heroService;
+    private final SkillRepository skillRepository;
 
-    public MonsterController(MonsterRepository monsterRepository, HeroRepository heroRepository, UserService userService, MonsterSession monsterSession, HeroService heroService) {
+    public MonsterController(MonsterRepository monsterRepository, HeroRepository heroRepository, UserService userService, MonsterSession monsterSession, HeroService heroService, SkillRepository skillRepository) {
         this.monsterRepository = monsterRepository;
         this.heroRepository = heroRepository;
         this.userService = userService;
         this.monsterSession = monsterSession;
         this.heroService = heroService;
+        this.skillRepository = skillRepository;
     }
 
     @GetMapping("")
@@ -39,7 +42,7 @@ public class MonsterController {
     public String monstersFightStart(@PathVariable Long id, Model model, @AuthenticationPrincipal UserDetails customUser) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         Monster monster = monsterRepository.getOne(id);
-        if(monsterSession.getId() == null && hero.getStaminaCurrent()>10) {
+        if(monsterSession.getId() == null && hero.getStaminaCurrent() >= 10) {
             monsterSession.setId(monster.getId());
             monsterSession.setHealthPointsCurrent(monster.getHealthPointsMax());
             hero.setStaminaCurrent(hero.getStaminaCurrent()-10);
@@ -79,13 +82,17 @@ public class MonsterController {
     }
 
     @GetMapping("/fight/{id}/skill")
-    public String monstersFightSkill(@PathVariable Long id, @AuthenticationPrincipal UserDetails customUser) {
+    public String monstersFightSkill(@PathVariable Long id, @RequestParam Long skillId, @AuthenticationPrincipal UserDetails customUser) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         Monster monster = monsterRepository.getOne(id);
-        Integer skillDmg = hero.getSkill().get(0).getSkillAttack();
-        heroService.attack(hero, monster, skillDmg);
-        heroRepository.save(hero);
-
+        if(hero.getSkill().contains(skillRepository.getOne(skillId))) {
+            Integer skillDmg = skillRepository.getOne(skillId).getSkillAttack();
+            if(hero.getManaPointsCurrent() >= 100) {
+                heroService.attack(hero, monster, skillDmg);
+                hero.setManaPointsCurrent(hero.getManaPointsCurrent() - 100);
+            }
+            heroRepository.save(hero);
+        }
         return "redirect:start";
     }
 }

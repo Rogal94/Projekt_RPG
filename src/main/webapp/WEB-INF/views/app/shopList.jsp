@@ -70,15 +70,15 @@
             </div>
             <div class="w3-quarter w3-section">
                 <c:if test="${transaction.equals('buy')}">
-                    <span class="w3-xlarge">PRICE: <br><c:out value="${weapon.price}"/></span>
+                    <span class="w3-xlarge">PRICE: <c:out value="${weapon.price}"/><br>ATTACK: <c:out value="${weapon.attack}"/></span>
                 </c:if>
                 <c:if test="${transaction.equals('sell')}">
-                    <span class="w3-xlarge">PRICE: <br><fmt:formatNumber type="number" value="${weapon.price/5}"/></span>
+                    <span class="w3-xlarge">PRICE: <fmt:formatNumber type="number" value="${weapon.price/5}"/><br>ATTACK: <c:out value="${weapon.attack}"/></span>
                 </c:if>
             </div>
             <div class="w3-quarter w3-section">
                     <span class="w3-xxlarge">
-                        <a href='<c:url value="/shop/${transaction}/weapon"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black"><c:out value="${fn:toUpperCase(transaction)}"/></a>
+                        <a href='<c:url value="/shop/${transaction}/weapon/${weapon.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black"><c:out value="${fn:toUpperCase(transaction)}"/></a>
                     </span>
             </div>
         </div>
@@ -97,10 +97,10 @@
                 </div>
                 <div class="w3-quarter w3-section">
                     <c:if test="${transaction.equals('buy')}">
-                        <span class="w3-xlarge">PRICE: <br><c:out value="${armor.price}"/></span>
+                        <span class="w3-xlarge">PRICE: <c:out value="${armor.price}"/><br>DEFENSE: <c:out value="${armor.defense}"/></span>
                     </c:if>
                     <c:if test="${transaction.equals('sell')}">
-                        <span class="w3-xlarge">PRICE: <br><fmt:formatNumber type="number" value="${armor.price/5}"/></span>
+                        <span class="w3-xlarge">PRICE: <fmt:formatNumber type="number" value="${armor.price/5}"/><br>DEFENSE: <c:out value="${armor.defense}"/></span>
                     </c:if>
                 </div>
                 <div class="w3-quarter w3-section">

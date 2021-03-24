@@ -27,9 +27,11 @@ public class QuestsController {
     public String quests(Model model, @AuthenticationPrincipal UserDetails customUser) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         Quest quest = hero.getQuest();
-        Quest nextQuest = questRepository.getOne(quest.getId() + 1);
+        if(hero.getQuest().getId()<9) {
+            Quest nextQuest = questRepository.getOne(quest.getId() + 1);
+            model.addAttribute("nextQuest", nextQuest);
+        }
         model.addAttribute("quest", quest);
-        model.addAttribute("nextQuest", nextQuest);
         model.addAttribute("hero", hero);
         return "app/quests";
     }

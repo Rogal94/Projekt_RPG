@@ -101,7 +101,7 @@ public class RewardController {
         }
         hero.setExperienceCurrent(hero.getExperienceCurrent() + exp);
         hero.setGoldAmount(hero.getGoldAmount() + gold);
-        while(hero.getExperienceCurrent() > hero.getExperienceMax()) {
+        while(hero.getExperienceCurrent() >= hero.getExperienceMax()) {
             heroService.levelUp(hero);
             heroService.updateHero(hero);
         }

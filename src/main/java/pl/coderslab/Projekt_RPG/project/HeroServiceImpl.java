@@ -29,10 +29,10 @@ public class HeroServiceImpl implements HeroService{
     public void createHero(Hero hero) {
         hero.setLevel(1);
         hero.setStatisticPoints(0);
-        hero.setSkillPoints(0);
-        hero.setMainStat(10);
-        hero.setVitality(10);
-        hero.setGoldAmount(100);
+        hero.setSkillPoints(1);
+        hero.setMainStat(16);
+        hero.setVitality(14);
+        hero.setGoldAmount(500);
         hero.setMonsterKilled(0L);
         hero.setReward(0L);
         hero.setStaminaMax(200);
@@ -44,9 +44,9 @@ public class HeroServiceImpl implements HeroService{
         hero.setEquipLegs(14L);
         hero.setEquipGloves(1L);
         hero.setEquipBoots(2L);
-        hero.setPotionHealth(1);
-        hero.setPotionMana(1);
-        hero.setPotionStamina(1);
+        hero.setPotionHealth(5);
+        hero.setPotionMana(5);
+        hero.setPotionStamina(2);
         hero.setExperienceCurrent(0);
         hero.setExperienceMax(hero.getLevel()*100);
 
@@ -96,14 +96,14 @@ public class HeroServiceImpl implements HeroService{
         hero.setHealthPointsMax(hero.getVitality()*100 + hero.getMainStat()*50);
         hero.setManaPointsMax(hero.getMainStat()*50);
         hero.setAttack(hero.getMainStat()*5);
-        hero.setDefense(hero.getVitality()*10 + sumDefense(hero));
+        hero.setDefense(hero.getVitality()*5 + sumDefense(hero));
     }
 
     public void createMage(Hero hero) {
         hero.setMainStatName("intellect");
         hero.setHealthPointsMax(hero.getVitality()*100);
         hero.setManaPointsMax(hero.getMainStat()*100);
-        hero.setAttack(hero.getMainStat()*10);
+        hero.setAttack(hero.getMainStat()*5);
         hero.setDefense(hero.getVitality()*5 + sumDefense(hero));
     }
 
@@ -111,14 +111,14 @@ public class HeroServiceImpl implements HeroService{
         hero.setHealthPointsMax(hero.getVitality()*100 + hero.getMainStat()*50);
         hero.setManaPointsMax(hero.getMainStat()*50);
         hero.setAttack(hero.getMainStat()*5 + weaponRepository.getOne(hero.getEquipWeapon()).getAttack());
-        hero.setDefense(hero.getVitality()*10 + sumDefense(hero));
+        hero.setDefense(hero.getVitality()*5 + sumDefense(hero));
         hero.setExperienceMax(hero.getLevel()*100);
     }
 
     public void updateMage(Hero hero) {
         hero.setHealthPointsMax(hero.getVitality()*100);
         hero.setManaPointsMax(hero.getMainStat()*100);
-        hero.setAttack(hero.getMainStat()*10 + weaponRepository.getOne(hero.getEquipWeapon()).getAttack());
+        hero.setAttack(hero.getMainStat()*5 + weaponRepository.getOne(hero.getEquipWeapon()).getAttack());
         hero.setDefense(hero.getVitality()*5 + sumDefense(hero));
         hero.setExperienceMax(hero.getLevel()*100);
     }
@@ -133,14 +133,11 @@ public class HeroServiceImpl implements HeroService{
     }
 
     @Override
-    public boolean isArmorEquipped(Armor armor, Hero hero) {
+    public void removeEquippedArmor(List<Armor> armorList, Hero hero) {
         List<Long> idList = Arrays.asList(hero.getEquipHelmet(), hero.getEquipChest(), hero.getEquipLegs(), hero.getEquipGloves(), hero.getEquipBoots());
         for (Long id : idList) {
-            if(armor.getId().equals(id)) {
-                return true;
-            }
+            armorList.remove(armorRepository.getOne(id));
         }
-        return false;
     }
 
     @Override

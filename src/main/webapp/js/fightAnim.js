@@ -1,8 +1,8 @@
 function buttonRedirectAttack(monster) {
     location.replace("/monsters/fight/"+monster+"/attack");
 }
-function buttonRedirectSkill(monster) {
-    location.replace("/monsters/fight/"+monster+"/skill");
+function buttonRedirectSkill(monster, skillId) {
+    location.replace("/monsters/fight/"+monster+"/skill?skillId=" +skillId);
 }
 
 function buttonAttack() {

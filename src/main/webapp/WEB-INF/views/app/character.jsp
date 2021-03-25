@@ -83,7 +83,7 @@
                     <c:forEach items="${hero.skill}" var="skill">
                         <li class="w3-padding-16">
                             <c:out value="${fn:toUpperCase(skill.name)}"/>  RANK : <c:out value="${skill.skillRank}"/>
-                            <a href='<c:url value="/character/skill/add/${skill.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-left">ADD</a>
+                            <a href='<c:url value="/character/skill/add/${skill.id + 1}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-left">ADD</a>
                             <a href='<c:url value="/character/skill/details/${skill.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-right">DETAILS</a>
                         </li>
                     </c:forEach>

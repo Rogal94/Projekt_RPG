@@ -8,7 +8,6 @@
 <link href='<c:url value="/css/w3.css"/>' rel="stylesheet" type="text/css">
 <link href='<c:url value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>' rel="stylesheet" type="text/css">
 <script src='<c:url value="/js/navBar.js"/>'></script>
-
 <body class="w3-black">
 <%@include file="/WEB-INF/jspf/navBar.jspf"%>
 <div class="w3-padding-large" id="main">
@@ -41,5 +40,10 @@
 <%@include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
 <script>navBarBlack('navHome')</script>
+<audio loop="loop" id="music">
+    <source src='<c:url value="/music/start.ogg"/>' type="audio/ogg">
+    <source src='<c:url value="/music/start.mp3"/>' type="audio/mpeg">
+</audio>
+<script src='<c:url value="/js/music.js"/>'></script>
 </html>
 

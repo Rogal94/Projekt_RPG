@@ -104,13 +104,25 @@ public class HeroController {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         Skill skill = skillRepository.getOne(skillId);
         if(hero.getSkillPoints()>0) {
+            if(skill.getSkillRank()<5) {
+                hero.getSkill().add(skillRepository.getOne(skillId + 1));
+                hero.getSkill().remove(skillRepository.getOne(skillId));
+                hero.setSkillPoints(hero.getSkillPoints() -1);
+            }
+        }
+        heroRepository.save(hero);
+        return "redirect:/character";
+    }
+
+    @GetMapping("/skill/add/{skillId}/new")
+    public String charSkillAddNew(@AuthenticationPrincipal UserDetails customUser, @PathVariable Long skillId) {
+        Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
+        Skill skill = skillRepository.getOne(skillId);
+        if(hero.getSkillPoints()>0) {
             if(skill.getSkillRank() == 1) {
                 hero.getSkill().add(skillRepository.getOne(skillId));
-            }else if(skill.getSkillRank()<=5) {
-                hero.getSkill().add(skillRepository.getOne(skillId));
-                hero.getSkill().remove(skillRepository.getOne(skillId - 1));
+                hero.setSkillPoints(hero.getSkillPoints() -1);
             }
-            hero.setSkillPoints(hero.getSkillPoints() -1);
         }
         heroRepository.save(hero);
         return "redirect:/character";

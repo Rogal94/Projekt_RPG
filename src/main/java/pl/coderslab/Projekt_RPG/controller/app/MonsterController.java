@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.Projekt_RPG.project.*;
 import pl.coderslab.Projekt_RPG.user.UserService;
 
+import java.util.List;
+import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/monsters")
@@ -68,6 +71,25 @@ public class MonsterController {
         model.addAttribute("monster", monster);
         model.addAttribute("monsterSession", monsterSession);
         return "app/monstersFight";
+    }
+
+    @GetMapping("/fight/{id}/{coordinates}")
+    public String monstersFightAttack(@PathVariable Long id, @AuthenticationPrincipal UserDetails customUser, @PathVariable List<Double> coordinates) {
+        Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
+        String result = heroService.checkCoordinates(coordinates);
+        switch (result) {
+            case "skill1":
+                Optional<Skill> skill = hero.getSkill().stream().filter(s->s.getName().equals("FireBall") || s.getName().equals("Whirlwind")).findFirst();
+                if(skill.isPresent()) {
+                    Long skillId = skill.get().getId();
+                    return "redirect:skill?skillId=" + skillId;
+                }
+                return "redirect:start";
+            case "attack":
+                return "redirect:attack";
+            default:
+                return "redirect:start";
+        }
     }
 
     @GetMapping("/fight/{id}/attack")

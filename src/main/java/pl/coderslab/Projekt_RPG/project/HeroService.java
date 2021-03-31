@@ -17,4 +17,5 @@ public interface HeroService{
     Armor getRandomArmor (int power);
     Weapon getRandomWeapon (int power);
     String randomItem();
+    String checkCoordinates(List<Double> list);
 }

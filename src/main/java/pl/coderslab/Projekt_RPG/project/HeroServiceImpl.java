@@ -269,4 +269,20 @@ public class HeroServiceImpl implements HeroService{
         }
         return "armor";
     }
+
+    @Override
+    public String checkCoordinates(List<Double> list) {
+        double xStart = list.get(0);
+        double yStart = list.get(1);
+        double xEnd = list.get(2);
+        double yEnd = list.get(3);
+
+        if(Math.abs(xStart - xEnd) < 30 && Math.abs(yStart - yEnd) < 30) {
+            return "skill1";
+        }else if(Math.abs(xStart - xEnd) < 30 && Math.abs(yStart - yEnd) > 150) {
+            return "attack";
+        }else{
+            return "fail";
+        }
+    }
 }

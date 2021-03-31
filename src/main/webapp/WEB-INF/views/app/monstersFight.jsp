@@ -42,21 +42,25 @@
                     <div style="height:28px;width:100%"></div>
                 </div>
                 <span class="w3-xlarge">
-                    <img src='<c:url value="/images/monster/${fn:toLowerCase(monster.name)}.jpg"/>' alt="vampire" class="w3-image" id= "monsterImg" width="300" height="400">
+                    <img src='<c:url value="/images/monster/${fn:toLowerCase(monster.name)}.jpg"/>' alt="monster" class="w3-image" id= "monsterImg" width="300" height="400">
                 </span>
             </div>
         </div>
-        <div class="w3-padding-large w3-center">
-            <button onclick="setTimeout(buttonRedirectAttack, 2000, '${monster.id}'); buttonAttack()" id="normalAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">NORMAL ATTACK!</button>
+<%--        <div class="w3-padding-large w3-center">--%>
+<%--            <button onclick="setTimeout(buttonRedirectAttack, 2000, '${monster.id}'); buttonAttack()" id="normalAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">NORMAL ATTACK!</button>--%>
+<%--        </div>--%>
+<%--        <c:forEach items="${hero.skill}" var="skill">--%>
+<%--        <div class="w3-padding-large w3-center">--%>
+<%--            <button onclick="setTimeout(buttonRedirectSkill, 2000, '${monster.id}' ,'${skill.id}'); buttonAttack()" id="skillAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">${fn:toUpperCase(skill.name)} ATTACK!</button>--%>
+<%--        </div>--%>
+<%--        </c:forEach>--%>
+        <div class="w3-row w3-section w3-center">
+        <canvas class="w3-border-red w3-border" id="canvasAttack"></canvas>
         </div>
-        <c:forEach items="${hero.skill}" var="skill">
-        <div class="w3-padding-large w3-center">
-            <button onclick="setTimeout(buttonRedirectSkill, 2000, '${monster.id}' ,'${skill.id}'); buttonAttack()" id="skillAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">${fn:toUpperCase(skill.name)} ATTACK!</button>
-        </div>
-        </c:forEach>
     </div>
 </div>
 <%@include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
+<script src='<c:url value="/js/canvas.js"/>'></script>
 </html>
 

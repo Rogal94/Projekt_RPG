@@ -24,8 +24,7 @@
                     <li class="w3-padding-16">HP : <c:out value="${monster.healthPointsMax}"/></li>
                     <li class="w3-padding-16">Recommended Level : <c:out value="${monster.levelPreferred}"/></li>
                     <li class="w3-dark-grey w3-padding-small w3-center">
-                        <button class="w3-button w3-light-grey w3-hover-red w3-xlarge" onclick="attackClick('${monster.id}')">ATTACK!
-                        </button>
+                        <button class="w3-button w3-light-grey w3-hover-red w3-xlarge" onclick="attackClick('${monster.id}')">ATTACK!</button>
                     </li>
                 </ul>
             </div>
@@ -44,7 +43,7 @@
 </div>
 <%@include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
-<script>navBarBlack('navMonsters')</script>
+<%--<script>navBarBlack('navMonsters')</script>--%>
 <script src='<c:url value="/js/attackButton.js"/>'></script>
 </html>
 

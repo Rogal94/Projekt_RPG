@@ -44,6 +44,7 @@ public class Hero {
     private Integer potionHealth;
     private Integer potionMana;
     private Integer potionStamina;
+    private String lastMap;
 
     @ManyToMany
     private List<Skill> skill;

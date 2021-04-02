@@ -11,7 +11,7 @@
 <script src='<c:url value="/js/navBar.js"/>'></script>
 
 <body class="w3-black">
-<%@include file="/WEB-INF/jspf/navBarLogin.jspf"%>
+<%@include file="/WEB-INF/jspf/navBarLoginChar.jspf"%>
 <div class="w3-padding-large" id="main">
     <div class="w3-padding-64 w3-content w3-text-grey" id="body">
         <c:if test="${!empty died}">
@@ -46,17 +46,11 @@
         </div>
         <div class="w3-row w3-center w3-padding-large w3-section w3-light-grey">
             <div class="w3-half w3-section">
-                <span class="w3-xlarge">ATTACK :</span>
-            </div>
-            <div class="w3-half w3-section">
+                <span class="w3-xlarge">ATTACK : </span>
                 <span class="w3-xlarge"><c:out value="${hero.attack}"/></span>
             </div>
-        </div><br/>
-        <div class="w3-row w3-center w3-padding-large w3-section w3-light-grey">
             <div class="w3-half w3-section">
-                <span class="w3-xlarge">DEFENCE :</span>
-            </div>
-            <div class="w3-half w3-section">
+                <span class="w3-xlarge">DEFENCE : </span>
                 <span class="w3-xlarge"><c:out value="${hero.defense}"/></span>
             </div>
         </div>

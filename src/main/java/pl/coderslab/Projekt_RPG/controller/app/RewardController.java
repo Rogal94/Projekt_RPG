@@ -64,6 +64,7 @@ public class RewardController {
                         hero.setArmor(armors);
                     }
                     hero.setReward(0L);
+                    model.addAttribute("monsterId", id);
                 }
                 break;
             case "quest":
@@ -108,6 +109,7 @@ public class RewardController {
         heroRepository.save(hero);
         model.addAttribute("exp", exp);
         model.addAttribute("gold", gold);
+        model.addAttribute("hero", hero);
         return "app/reward";
     }
 }

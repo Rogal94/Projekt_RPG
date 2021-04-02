@@ -277,9 +277,9 @@ public class HeroServiceImpl implements HeroService{
         double xEnd = list.get(2);
         double yEnd = list.get(3);
 
-        if(Math.abs(xStart - xEnd) < 30 && Math.abs(yStart - yEnd) < 30) {
+        if(Math.abs(xStart - xEnd) < 40 && Math.abs(yStart - yEnd) < 40) {
             return "skill1";
-        }else if(Math.abs(xStart - xEnd) < 30 && Math.abs(yStart - yEnd) > 150) {
+        }else if(Math.abs(xStart - xEnd) < 40 && Math.abs(yStart - yEnd) > 150) {
             return "attack";
         }else{
             return "fail";

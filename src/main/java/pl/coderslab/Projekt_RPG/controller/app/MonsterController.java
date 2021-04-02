@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.Projekt_RPG.project.*;
+import pl.coderslab.Projekt_RPG.user.User;
 import pl.coderslab.Projekt_RPG.user.UserService;
 
 import java.util.List;
@@ -43,34 +44,39 @@ public class MonsterController {
 
     @GetMapping("/fight/{id}/start")
     public String monstersFightStart(@PathVariable Long id, Model model, @AuthenticationPrincipal UserDetails customUser) {
+        User user = userService.findByUserName(customUser.getUsername());
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         Monster monster = monsterRepository.getOne(id);
-        if(monsterSession.getId() == null && hero.getStaminaCurrent() >= 10) {
-            monsterSession.setId(monster.getId());
-            monsterSession.setHealthPointsCurrent(monster.getHealthPointsMax());
-            hero.setStaminaCurrent(hero.getStaminaCurrent()-10);
-            heroRepository.save(hero);
-        }else if(!monsterSession.getId().equals(id)) {
-            return "redirect:/monsters";
-        }
-
-        if(monsterSession.getHealthPointsCurrent() <= 0) {
-            monsterSession.setId(null);
-            hero.setReward(id);
-            if(hero.getQuest().getMonsterName().equals(monster.getName())){
-                hero.setMonsterKilled(hero.getMonsterKilled()+1);
+        if(hero.getStaminaCurrent() >= 10 || (hero.getStaminaCurrent() == 0 && monsterSession.getId() != null)) {
+            if (monsterSession.getId() == null) {
+                monsterSession.setId(monster.getId());
+                monsterSession.setHealthPointsCurrent(monster.getHealthPointsMax());
+                hero.setStaminaCurrent(hero.getStaminaCurrent() - 10);
+                heroRepository.save(hero);
+            } else if (!monsterSession.getId().equals(id)) {
+                return "redirect:/monsters";
             }
-            heroRepository.save(hero);
-            return "redirect:/reward/monster/" + id;
-        }else if(hero.getHealthPointsCurrent() <= 0) {
-            monsterSession.setId(null);
-            return "redirect:/character/died";
-        }
 
-        model.addAttribute("hero", hero);
-        model.addAttribute("monster", monster);
-        model.addAttribute("monsterSession", monsterSession);
-        return "app/monstersFight";
+            if (monsterSession.getHealthPointsCurrent() <= 0) {
+                monsterSession.setId(null);
+                hero.setReward(id);
+                if (hero.getQuest().getMonsterName().equals(monster.getName())) {
+                    hero.setMonsterKilled(hero.getMonsterKilled() + 1);
+                }
+                heroRepository.save(hero);
+                return "redirect:/reward/monster/" + id;
+            } else if (hero.getHealthPointsCurrent() <= 0) {
+                monsterSession.setId(null);
+                return "redirect:/character/died";
+            }
+
+            model.addAttribute("user", user);
+            model.addAttribute("hero", hero);
+            model.addAttribute("monster", monster);
+            model.addAttribute("monsterSession", monsterSession);
+            return "app/monstersFight";
+        }
+        return "redirect:/character/char";
     }
 
     @GetMapping("/fight/{id}/{coordinates}")

@@ -68,7 +68,7 @@
                     <li class="w3-dark-grey w3-xlarge w3-padding-24 w3-center">STATISTICS</li>
                     <li class="w3-white w3-padding-16 w3-center">NEW POINTS : <c:out value="${hero.statisticPoints}"/></li>
                     <li class="w3-dark-grey w3-padding-16 w3-center">
-                        <a href='<c:url value="/character"/>' class="w3-button w3-white w3-padding-large w3-hover-black">SPEND</a>
+                        <a href='<c:url value="/character/char"/>' class="w3-button w3-white w3-padding-large w3-hover-black">SPEND</a>
                     </li>
                 </ul>
             </div>
@@ -77,7 +77,7 @@
                     <li class="w3-dark-grey w3-xlarge w3-padding-24 w3-center">SKILLS</li>
                     <li class="w3-white w3-padding-16 w3-center">NEW POINTS : <c:out value="${hero.skillPoints}"/></li>
                     <li class="w3-dark-grey w3-padding-16 w3-center">
-                        <a href='<c:url value="/character"/>' class="w3-button w3-white w3-padding-large w3-hover-black">SPEND</a>
+                        <a href='<c:url value="/character/char"/>' class="w3-button w3-white w3-padding-large w3-hover-black">SPEND</a>
                     </li>
                 </ul>
             </div>

@@ -33,6 +33,13 @@ public class HeroController {
     }
 
     @GetMapping("")
+    public String charPanel(@AuthenticationPrincipal UserDetails customUser, Model model) {
+        Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
+        model.addAttribute("hero", hero);
+        return "app/char";
+    }
+
+    @GetMapping("/char")
     public String character(@AuthenticationPrincipal UserDetails customUser, Model model) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         model.addAttribute("hero", hero);
@@ -79,7 +86,7 @@ public class HeroController {
             heroService.updateHero(hero);
             heroRepository.save(hero);
         }
-        return "redirect:/character";
+        return "redirect:/character/char";
     }
 
     @GetMapping("/stat/details")
@@ -111,7 +118,7 @@ public class HeroController {
             }
         }
         heroRepository.save(hero);
-        return "redirect:/character";
+        return "redirect:/character/char";
     }
 
     @GetMapping("/skill/add/{skillId}/new")
@@ -125,7 +132,7 @@ public class HeroController {
             }
         }
         heroRepository.save(hero);
-        return "redirect:/character";
+        return "redirect:/character/char";
     }
 
     @GetMapping("/skill/details/{skillId}")

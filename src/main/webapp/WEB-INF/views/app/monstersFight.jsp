@@ -16,8 +16,8 @@
     <img src='<c:url value="/images/home/homeImg.jpg"/>' style="width:100%">
 </nav>
 
-<div class="w3-padding-large" id="main">
-    <div class="w3-padding-64 w3-content w3-text-grey" id="body">
+<div class="w3-padding-small" id="main">
+    <div class="w3-padding-32 w3-content w3-text-grey" id="body">
         <div class="w3-row w3-center w3-section">
             <div class="w3-half w3-section">
                 <p class="w3-wide">HP</p>
@@ -46,17 +46,21 @@
                 </span>
             </div>
         </div>
-<%--        <div class="w3-padding-large w3-center">--%>
-<%--            <button onclick="setTimeout(buttonRedirectAttack, 2000, '${monster.id}'); buttonAttack()" id="normalAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">NORMAL ATTACK!</button>--%>
-<%--        </div>--%>
-<%--        <c:forEach items="${hero.skill}" var="skill">--%>
-<%--        <div class="w3-padding-large w3-center">--%>
-<%--            <button onclick="setTimeout(buttonRedirectSkill, 2000, '${monster.id}' ,'${skill.id}'); buttonAttack()" id="skillAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">${fn:toUpperCase(skill.name)} ATTACK!</button>--%>
-<%--        </div>--%>
-<%--        </c:forEach>--%>
-        <div class="w3-row w3-section w3-center">
-        <canvas class="w3-border-red w3-border" id="canvasAttack"></canvas>
+        <c:if test="${user.combatStyle == 1}">
+        <div class="w3-padding-large w3-center">
+            <button onclick="setTimeout(buttonRedirectAttack, 1000, '${monster.id}'); buttonAttack()" id="normalAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">NORMAL ATTACK!</button>
         </div>
+        <c:forEach items="${hero.skill}" var="skill">
+        <div class="w3-padding-large w3-center">
+            <button onclick="setTimeout(buttonRedirectSkill, 1000, '${monster.id}' ,'${skill.id}'); buttonAttack()" id="skillAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">${fn:toUpperCase(skill.name)} ATTACK!</button>
+        </div>
+        </c:forEach>
+        </c:if>
+        <c:if test="${user.combatStyle == 2}">
+        <div class="w3-row w3-center">
+            <canvas class="w3-border-red w3-border" id="canvasAttack"></canvas>
+        </div>
+        </c:if>
     </div>
 </div>
 <%@include file="/WEB-INF/jspf/footer.jspf"%>

@@ -11,7 +11,7 @@
 <script src='<c:url value="/js/navBar.js"/>'></script>
 
 <body class="w3-black">
-<%@include file="/WEB-INF/jspf/navBarLogin.jspf"%>
+<%@include file="/WEB-INF/jspf/navBarLoginChar.jspf"%>
 <div class="w3-padding-large" id="main">
     <div class="w3-padding-64 w3-content w3-text-grey" id="body">
         <div class="w3-row w3-center w3-section">

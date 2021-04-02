@@ -44,6 +44,6 @@
 </div>
 <%@include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
-<script>navBarBlack('navShop')</script>
+<%--<script>navBarBlack('navShop')</script>--%>
 </html>
 

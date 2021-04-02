@@ -138,6 +138,6 @@ public class ShopController {
         }
         hero.setArmor(armorList);
         heroRepository.save(hero);
-        return "redirect:/shop";
+        return "redirect:/shop/list/" + transaction;
     }
 }

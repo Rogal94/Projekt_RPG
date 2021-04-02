@@ -1079,7 +1079,7 @@ a {
 
 .w3-animate-left {
     position: relative;
-    animation: animateleft 2s
+    animation: animateleft 1s
 }
 
 @keyframes animateleft {
@@ -1095,7 +1095,7 @@ a {
 
 .w3-animate-right {
     position: relative;
-    animation: animateright 2s
+    animation: animateright 1s
 }
 
 @keyframes animateright {
@@ -1870,4 +1870,26 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 .color--4 {
     background-color: black;
     transition-delay:1s;
+}
+
+.container-img {
+    position: relative;
+    width: 80%;
+    left: 10%;
+}
+
+.container-img .button-img {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    opacity: 0.6;
+    text-decoration: none;
+    border: 2px solid #616161;
+}
+
+.container-img .button-img:hover {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    opacity: 1;
 }

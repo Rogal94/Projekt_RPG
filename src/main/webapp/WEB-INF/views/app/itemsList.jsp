@@ -10,7 +10,7 @@
 <link href='<c:url value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>' rel="stylesheet" type="text/css">
 
 <body class="w3-black">
-<%@include file="/WEB-INF/jspf/navBarLogin.jspf"%>
+<%@include file="/WEB-INF/jspf/navBarLoginChar.jspf"%>
 <div class="w3-padding-large" id="main">
     <div class="w3-padding-64 w3-content w3-text-grey" id="body">
         <div class="w3-row w3-center w3-section w3-dark-grey w3-padding-large">

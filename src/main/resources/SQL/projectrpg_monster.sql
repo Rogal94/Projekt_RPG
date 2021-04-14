@@ -1,0 +1,14 @@
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (1, 50, 50, 1000, 1, 'Goblin');
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (2, 55, 55, 1200, 3, 'Zombie');
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (3, 60, 60, 1400, 5, 'Skeleton');
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (4, 65, 65, 1600, 7, 'Ghost');
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (5, 70, 70, 1800, 9, 'Centaur');
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (6, 80, 80, 2000, 11, 'Troll');
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (7, 85, 85, 2200, 13, 'Demon');
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (8, 90, 90, 2400, 15, 'Spider');
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (9, 95, 95, 2600, 17, 'Snake');
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (10, 100, 100, 2800, 19, 'Lich');
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (11, 105, 105, 3000, 21, 'Werewolf');
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (12, 115, 115, 3200, 23, 'Vampire');
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (13, 130, 130, 3400, 25, 'Hydra');
+INSERT INTO projectrpg.monster (id, attack, defense, health_points_max, level_preferred, name) VALUES (14, 150, 150, 4000, 30, 'Dragon');

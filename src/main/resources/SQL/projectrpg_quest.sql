@@ -1,0 +1,9 @@
+INSERT INTO projectrpg.quest (id, description, monster_name, name) VALUES (1, 'Villagers complain about constant goblin attacks. Search the area near the village and banish the goblins.', 'Goblin', 'Quest 1');
+INSERT INTO projectrpg.quest (id, description, monster_name, name) VALUES (2, 'Villagers complain about haunting of the ghosts. Search the area near the village and banish the ghosts.', 'Ghost', 'Quest 2');
+INSERT INTO projectrpg.quest (id, description, monster_name, name) VALUES (3, 'Villagers complain about taking supplies by trolls. Search the area near the village and banish the trolls.', 'Troll', 'Quest 3');
+INSERT INTO projectrpg.quest (id, description, monster_name, name) VALUES (4, 'Villagers complain about people being taken by spiders. Search the area near the village and banish the spiders.', 'Spider', 'Quest 4');
+INSERT INTO projectrpg.quest (id, description, monster_name, name) VALUES (5, 'Villagers complain about poisonous snakes. Search the area near the village and banish the snakes.', 'Snake', 'Quest 5');
+INSERT INTO projectrpg.quest (id, description, monster_name, name) VALUES (6, 'Villagers complain about howling of wolves. Search the area near the village and banish the werewolfs.', 'Werewolf', 'Quest 6');
+INSERT INTO projectrpg.quest (id, description, monster_name, name) VALUES (7, 'Villagers complain about vampire bites. Search the area near the village and banish the vampires.', 'Vampire', 'Quest 7');
+INSERT INTO projectrpg.quest (id, description, monster_name, name) VALUES (8, 'Villagers were killed by dragon. Kill the dragon!.', 'Dragon', 'Quest 8');
+INSERT INTO projectrpg.quest (id, description, monster_name, name) VALUES (9, 'ALL QUESTS DONE!', 'None', 'ALL QUESTS DONE!');

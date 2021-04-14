@@ -1,0 +1,10 @@
+INSERT INTO projectrpg.skill (id, description, name, skill_attack, skill_for, skill_rank) VALUES (1, 'Fire spell.', 'FireBall', 40, 'mage', 1);
+INSERT INTO projectrpg.skill (id, description, name, skill_attack, skill_for, skill_rank) VALUES (2, 'Fire spell.', 'FireBall', 80, 'mage', 2);
+INSERT INTO projectrpg.skill (id, description, name, skill_attack, skill_for, skill_rank) VALUES (3, 'Fire spell.', 'FireBall', 120, 'mage', 3);
+INSERT INTO projectrpg.skill (id, description, name, skill_attack, skill_for, skill_rank) VALUES (4, 'Fire spell.', 'FireBall', 160, 'mage', 4);
+INSERT INTO projectrpg.skill (id, description, name, skill_attack, skill_for, skill_rank) VALUES (5, 'Fire spell.', 'FireBall', 200, 'mage', 5);
+INSERT INTO projectrpg.skill (id, description, name, skill_attack, skill_for, skill_rank) VALUES (6, 'Whirlwind.', 'Whirlwind', 30, 'warrior', 1);
+INSERT INTO projectrpg.skill (id, description, name, skill_attack, skill_for, skill_rank) VALUES (7, 'Whirlwind.', 'Whirlwind', 60, 'warrior', 2);
+INSERT INTO projectrpg.skill (id, description, name, skill_attack, skill_for, skill_rank) VALUES (8, 'Whirlwind.', 'Whirlwind', 90, 'warrior', 3);
+INSERT INTO projectrpg.skill (id, description, name, skill_attack, skill_for, skill_rank) VALUES (9, 'Whirlwind.', 'Whirlwind', 120, 'warrior', 4);
+INSERT INTO projectrpg.skill (id, description, name, skill_attack, skill_for, skill_rank) VALUES (10, 'Whirlwind.', 'Whirlwind', 150, 'warrior', 5);

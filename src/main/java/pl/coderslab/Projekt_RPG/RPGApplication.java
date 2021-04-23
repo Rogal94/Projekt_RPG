@@ -2,13 +2,19 @@ package pl.coderslab.Projekt_RPG;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @SpringBootApplication
 @EnableScheduling
-public class RPGApplication {
+public class RPGApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(RPGApplication.class, args);
     }
+//    @Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+//        return builder.sources(RPGApplication.class);
+//    }
 }

@@ -13,8 +13,8 @@ public class RPGApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(RPGApplication.class, args);
     }
-//    @Override
-//    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-//        return builder.sources(RPGApplication.class);
-//    }
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(RPGApplication.class);
+    }
 }

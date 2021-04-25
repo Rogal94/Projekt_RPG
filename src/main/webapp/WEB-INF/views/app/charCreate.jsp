@@ -18,7 +18,7 @@
                 <p class="w3-xlarge">SELECT CLASS:</p>
             </div>
             <div class="w3-row w3-center w3-section w3-xlarge">
-                <div class="w3-half w3-section">
+                <div class="w3-quarter w3-section">
                     <div class="">
                         <form:radiobutton class="checkbox-budget" path="race" id="warrior" value="warrior" required="true"/>
 						<label for="warrior">
@@ -27,12 +27,30 @@
                         </label>
                     </div>
                 </div>
-                <div class="w3-half w3-section w3-xlarge">
+                <div class="w3-quarter w3-section w3-xlarge">
+                    <div>
+                        <form:radiobutton class="checkbox-budget" path="race" id="assassin" value="assasin" required="true"/>
+                        <label for="assassin">
+                            <img src='<c:url value="/images/hero/assassin.jpg"/>' alt="assassin" class="w3-image" width="300" height="400">
+                            ASSASIN
+                        </label>
+                    </div>
+                </div>
+                <div class="w3-quarter w3-section w3-xlarge">
                     <div>
                         <form:radiobutton class="checkbox-budget" path="race" id="mage" value="mage" required="true"/>
 						<label for="mage">
                             <img src='<c:url value="/images/hero/mage.jpg"/>' alt="mage" class="w3-image" width="300" height="400">
                             MAGE
+                        </label>
+                    </div>
+                </div>
+                <div class="w3-quarter w3-section w3-xlarge">
+                    <div>
+                        <form:radiobutton class="checkbox-budget" path="race" id="necromancer" value="necromancer" required="true"/>
+                        <label for="necromancer">
+                            <img src='<c:url value="/images/hero/necromancer.jpg"/>' alt="necromancer" class="w3-image" width="300" height="400">
+                            NECROMANCER
                         </label>
                     </div>
                 </div>

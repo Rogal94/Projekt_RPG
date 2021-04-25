@@ -42,7 +42,6 @@ public class Hero {
     private Long equipGloves;
     private Long equipBoots;
     private Integer potionHealth;
-    private Integer potionMana;
     private Integer potionStamina;
     private String lastMap;
 

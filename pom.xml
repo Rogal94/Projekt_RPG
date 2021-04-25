@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>Projekt_RPG</name>
     <description>Projekt koncowy CodersLab</description>
-<!--    <packaging>war</packaging>-->
+    <packaging>war</packaging>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -64,10 +64,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-tomcat</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>

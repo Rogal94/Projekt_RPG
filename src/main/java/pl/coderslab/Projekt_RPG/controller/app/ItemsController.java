@@ -68,19 +68,26 @@ public class ItemsController {
             }
             hero.setPotionHealth(hero.getPotionHealth() - 1);
         }
-        if(points.equals("mana") && hero.getPotionMana() > 0) {
-            hero.setManaPointsCurrent(hero.getManaPointsCurrent() + 100);
-            if(hero.getManaPointsCurrent() > hero.getManaPointsMax()) {
-                hero.setManaPointsCurrent(hero.getManaPointsMax());
-            }
-            hero.setPotionMana(hero.getPotionMana() - 1);
-        }
         if(points.equals("stamina") && hero.getPotionStamina() > 0) {
-            hero.setStaminaCurrent(hero.getStaminaCurrent() + 100);
+            hero.setStaminaCurrent(hero.getStaminaCurrent() + 10);
             if(hero.getStaminaCurrent() > hero.getStaminaMax()) {
                 hero.setStaminaCurrent(hero.getStaminaMax());
             }
             hero.setPotionStamina(hero.getPotionStamina() - 1);
+        }
+        if(points.equals("health10") && hero.getPotionHealth() > 9) {
+            hero.setHealthPointsCurrent(hero.getHealthPointsCurrent() + 1000);
+            if(hero.getHealthPointsCurrent() > hero.getHealthPointsMax()) {
+                hero.setHealthPointsCurrent(hero.getHealthPointsMax());
+            }
+            hero.setPotionHealth(hero.getPotionHealth() - 10);
+        }
+        if(points.equals("stamina10") && hero.getPotionStamina() > 9) {
+            hero.setStaminaCurrent(hero.getStaminaCurrent() + 100);
+            if(hero.getStaminaCurrent() > hero.getStaminaMax()) {
+                hero.setStaminaCurrent(hero.getStaminaMax());
+            }
+            hero.setPotionStamina(hero.getPotionStamina() - 10);
         }
         heroRepository.save(hero);
         return "redirect:/items";

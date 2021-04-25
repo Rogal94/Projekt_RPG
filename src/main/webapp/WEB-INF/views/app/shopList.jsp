@@ -35,14 +35,6 @@
                     </div>
                 </li>
                 <li class="w3-row w3-center w3-xlarge">
-                    <div class="w3-quarter w3-section">MANA POTION</div>
-                    <div class="w3-quarter w3-section">AMOUNT:<br><c:out value="${hero.potionMana}"/></div>
-                    <div class="w3-quarter w3-section">PRICE:<br>100</div>
-                    <div class="w3-quarter w3-section">
-                        <a href='<c:url value="/shop/buy/potion/mana"/>' class="w3-button w3-dark-grey w3-hover-black">BUY</a>
-                    </div>
-                </li>
-                <li class="w3-row w3-center w3-xlarge">
                     <div class="w3-quarter w3-section">STAMINA POTION</div>
                     <div class="w3-quarter w3-section">AMOUNT:<br><c:out value="${hero.potionStamina}"/></div>
                     <div class="w3-quarter w3-section">PRICE:<br>2000</div>

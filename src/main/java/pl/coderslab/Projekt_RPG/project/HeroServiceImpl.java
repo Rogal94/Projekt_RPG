@@ -45,7 +45,6 @@ public class HeroServiceImpl implements HeroService{
         hero.setEquipGloves(1L);
         hero.setEquipBoots(2L);
         hero.setPotionHealth(5);
-        hero.setPotionMana(5);
         hero.setPotionStamina(2);
         hero.setExperienceCurrent(0);
         hero.setExperienceMax(hero.getLevel()*100);
@@ -62,9 +61,14 @@ public class HeroServiceImpl implements HeroService{
 
         if(hero.getRace().equals("warrior")){
             createWarrior(hero);
-        }else if(hero.getRace().equals("mage")) {
+        }else if(hero.getRace().equals("assassin")){
+            createAssassin(hero);
+        }else if(hero.getRace().equals("mage")){
             createMage(hero);
+        }else if(hero.getRace().equals("necromancer")){
+            createNecromancer(hero);
         }
+
         hero.setHealthPointsCurrent(hero.getHealthPointsMax());
         hero.setManaPointsCurrent(hero.getManaPointsMax());
     }
@@ -73,8 +77,12 @@ public class HeroServiceImpl implements HeroService{
     public void updateHero(Hero hero) {
         if(hero.getRace().equals("warrior")){
             updateWarrior(hero);
+        }else if(hero.getRace().equals("assassin")) {
+            updateAssassin(hero);
         }else if(hero.getRace().equals("mage")) {
             updateMage(hero);
+        }else if(hero.getRace().equals("necromancer")) {
+            updateNecromancer(hero);
         }
     }
 
@@ -99,8 +107,24 @@ public class HeroServiceImpl implements HeroService{
         hero.setDefense(hero.getVitality()*5 + sumDefense(hero));
     }
 
+    public void createAssassin(Hero hero) {
+        hero.setMainStatName("agility");
+        hero.setHealthPointsMax(hero.getVitality()*100);
+        hero.setManaPointsMax(hero.getMainStat()*100);
+        hero.setAttack(hero.getMainStat()*5);
+        hero.setDefense(hero.getVitality()*5 + sumDefense(hero));
+    }
+
     public void createMage(Hero hero) {
         hero.setMainStatName("intellect");
+        hero.setHealthPointsMax(hero.getVitality()*100);
+        hero.setManaPointsMax(hero.getMainStat()*100);
+        hero.setAttack(hero.getMainStat()*5);
+        hero.setDefense(hero.getVitality()*5 + sumDefense(hero));
+    }
+    
+    public void createNecromancer(Hero hero) {
+        hero.setMainStatName("energy");
         hero.setHealthPointsMax(hero.getVitality()*100);
         hero.setManaPointsMax(hero.getMainStat()*100);
         hero.setAttack(hero.getMainStat()*5);
@@ -115,7 +139,23 @@ public class HeroServiceImpl implements HeroService{
         hero.setExperienceMax(hero.getLevel()*100);
     }
 
+    public void updateAssassin(Hero hero) {
+        hero.setHealthPointsMax(hero.getVitality()*100 + hero.getMainStat()*50);
+        hero.setManaPointsMax(hero.getMainStat()*50);
+        hero.setAttack(hero.getMainStat()*5 + weaponRepository.getOne(hero.getEquipWeapon()).getAttack());
+        hero.setDefense(hero.getVitality()*5 + sumDefense(hero));
+        hero.setExperienceMax(hero.getLevel()*100);
+    }
+
     public void updateMage(Hero hero) {
+        hero.setHealthPointsMax(hero.getVitality()*100);
+        hero.setManaPointsMax(hero.getMainStat()*100);
+        hero.setAttack(hero.getMainStat()*5 + weaponRepository.getOne(hero.getEquipWeapon()).getAttack());
+        hero.setDefense(hero.getVitality()*5 + sumDefense(hero));
+        hero.setExperienceMax(hero.getLevel()*100);
+    }
+
+    public void updateNecromancer(Hero hero) {
         hero.setHealthPointsMax(hero.getVitality()*100);
         hero.setManaPointsMax(hero.getMainStat()*100);
         hero.setAttack(hero.getMainStat()*5 + weaponRepository.getOne(hero.getEquipWeapon()).getAttack());

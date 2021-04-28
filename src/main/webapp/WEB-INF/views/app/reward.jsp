@@ -51,7 +51,7 @@
                     <span class="w3-xxlarge">
                         <br>
                         <c:if test="${not empty monsterId}">
-                        <a href='<c:url value="/map/${hero.lastMap}/monster/${monsterId}"/>' class="w3-button w3-margin w3-dark-grey w3-padding-small w3-hover-lightgray">MAP</a><br>
+                        <a href='<c:url value="/map/${lastMap}/monster/${monsterId}"/>' class="w3-button w3-margin w3-dark-grey w3-padding-small w3-hover-lightgray">MAP</a><br>
                         </c:if>
                         <a href='<c:url value="/panel"/>' class="w3-button w3-margin w3-dark-grey w3-padding-small w3-hover-lightgray">MAIN PANEL</a>
                     </span>

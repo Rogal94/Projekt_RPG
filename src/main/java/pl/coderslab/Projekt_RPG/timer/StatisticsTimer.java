@@ -2,8 +2,8 @@ package pl.coderslab.Projekt_RPG.timer;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import pl.coderslab.Projekt_RPG.project.Hero;
-import pl.coderslab.Projekt_RPG.project.HeroRepository;
+import pl.coderslab.Projekt_RPG.project.hero.Hero;
+import pl.coderslab.Projekt_RPG.project.hero.HeroRepository;
 
 @Service
 public class StatisticsTimer {
@@ -21,12 +21,6 @@ public class StatisticsTimer {
                 hero.setHealthPointsCurrent(hero.getHealthPointsCurrent()+100);
             }else {
                 hero.setHealthPointsCurrent(hero.getHealthPointsMax());
-            }
-
-            if(hero.getManaPointsCurrent() + 100 < hero.getManaPointsMax()) {
-                hero.setManaPointsCurrent(hero.getManaPointsCurrent()+100);
-            }else {
-                hero.setManaPointsCurrent(hero.getManaPointsMax());
             }
 
             if(hero.getStaminaCurrent() + 10 < hero.getStaminaMax()) {

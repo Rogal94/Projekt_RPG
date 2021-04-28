@@ -52,7 +52,7 @@
         <div class="w3-row w3-center w3-section w3-light-grey">
             <div class="w3-quarter w3-section">
                     <span class="w3-xlarge">
-                        <img src='<c:url value="/images/item/weapon.jpg"/>' alt="weapon" class="w3-image" width="68" height="76">
+                        <img src='<c:url value="/images/items/weapon/weapon.png"/>' alt="weapon" class="w3-image" width="64" height="64">
                     </span>
             </div>
             <div class="w3-quarter w3-section">
@@ -70,7 +70,7 @@
             </div>
             <div class="w3-quarter w3-section">
                     <span class="w3-xxlarge">
-                        <a href='<c:url value="/shop/${transaction}/weapon/${weapon.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black"><c:out value="${fn:toUpperCase(transaction)}"/></a>
+                        <a href='<c:url value="/shop/${transaction}/${weapon.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black"><c:out value="${fn:toUpperCase(transaction)}"/></a>
                     </span>
             </div>
         </div>
@@ -79,7 +79,7 @@
             <div class="w3-row w3-center w3-section w3-light-grey">
                 <div class="w3-quarter w3-section">
                     <span class="w3-xlarge">
-                        <img src='<c:url value="/images/item/${armor.type}.jpg"/>' alt="weapon" class="w3-image" width="68" height="76">
+                        <img src='<c:url value="/images/items/armor/${armor.type}.png"/>' alt="weapon" class="w3-image" width="68" height="76">
                     </span>
                 </div>
                 <div class="w3-quarter w3-section">
@@ -97,7 +97,7 @@
                 </div>
                 <div class="w3-quarter w3-section">
                     <span class="w3-xxlarge">
-                        <a href='<c:url value="/shop/${transaction}/armor/${armor.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black"><c:out value="${fn:toUpperCase(transaction)}"/></a>
+                        <a href='<c:url value="/shop/${transaction}/${armor.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black"><c:out value="${fn:toUpperCase(transaction)}"/></a>
                     </span>
                 </div>
             </div>

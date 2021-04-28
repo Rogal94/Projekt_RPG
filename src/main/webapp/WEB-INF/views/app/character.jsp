@@ -21,18 +21,18 @@
         </div>
         </c:if>
         <div class="w3-row w3-center w3-section" style="padding-bottom: 50px">
-            <img src='<c:url value="/images/hero/${hero.race}.jpg"/>' alt="hero" class="w3-image w3-animate-zoom w3-half w3-section" width="600" height="800">
+            <img src='<c:url value="/images/hero/${hero.race.name}.jpg"/>' alt="hero" class="w3-image w3-animate-zoom w3-half w3-section" width="600" height="800">
             <div class="w3-half w3-section">
                 <h1 class="w3-padding-small w3-text-light-grey"><c:out value="${hero.name}"/></h1>
-                <h1 class="w3-padding-small w3-text-light-grey"><c:out value="${fn:toUpperCase(hero.race)}"/></h1>
+                <h1 class="w3-padding-small w3-text-light-grey"><c:out value="${fn:toUpperCase(hero.race.name)}"/></h1>
                 <h1 class="w3-padding-small w3-text-light-grey">LEVEL : <c:out value="${hero.level}"/></h1>
                 <p class="w3-wide">HP</p>
                 <div class="w3-dark-gray w3-margin">
                     <div class="w3-red" style="height:36px;width:<c:out value="${(hero.healthPointsCurrent/hero.healthPointsMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.healthPointsCurrent}"/>/<c:out value="${hero.healthPointsMax}"/></p></div>
                 </div>
-                <p class="w3-wide">MP</p>
+                <p class="w3-wide"><c:out value="${fn:toUpperCase(hero.race.secPointsName)}"/></p>
                 <div class="w3-dark-gray w3-margin">
-                    <div class="w3-blue" style="height:36px;width:<c:out value="${(hero.manaPointsCurrent/hero.manaPointsMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.manaPointsCurrent}"/>/<c:out value="${hero.manaPointsMax}"/></p></div>
+                    <div class="w3-blue" style="height:36px;width:<c:out value="${(hero.secPointsCurrent/hero.secPointsMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.secPointsCurrent}"/>/<c:out value="${hero.secPointsMax}"/></p></div>
                 </div>
                 <p class="w3-wide">STAMINA</p>
                 <div class="w3-dark-gray w3-margin">
@@ -59,7 +59,7 @@
                 <ul class="w3-ul w3-white w3-opacity w3-hover-opacity-off">
                     <li class="w3-dark-grey w3-xlarge w3-padding-24 w3-center">STATISTICS</li>
                     <li class="w3-padding-16">
-                        <c:out value="${fn:toUpperCase(hero.mainStatName)}"/> : <c:out value="${hero.mainStat}"/>
+                        <c:out value="${fn:toUpperCase(hero.race.mainStatName)}"/> : <c:out value="${hero.mainStat}"/>
                         <a href='<c:url value="/character/stat/add/main"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-left">ADD</a>
                         <a href='<c:url value="/character/stat/details"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-right">DETAILS</a>
                     </li>

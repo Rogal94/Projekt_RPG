@@ -20,7 +20,7 @@
 <%--        <i class="fa fa-snapchat-ghost w3-xxlarge"></i>--%>
 <%--        <p>MONSTERS</p>--%>
 <%--    </a>--%>
-    <a href='<c:url value="/ranking"/>' class="w3-bar-item w3-button w3-padding-large w3-hover-black" id="navRanking">
+    <a href='<c:url value="/ranking/level"/>' class="w3-bar-item w3-button w3-padding-large w3-hover-black" id="navRanking">
         <i class="fa fa-trophy w3-xxlarge"></i>
         <p>RANKING</p>
     </a>
@@ -38,10 +38,11 @@
 </nav>
 <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
     <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-        <a href='<c:url value="/mainPanel"/>' class="w3-bar-item w3-button" style="width:20% !important">PANEL</a>
-        <a href='<c:url value="/character"/>' class="w3-bar-item w3-button" style="width:20% !important">CHAR</a>
-        <a href='<c:url value="/map"/>' class="w3-bar-item w3-button" style="width:20% !important">MAP</a>
-        <a href='<c:url value="/settings"/>' class="w3-bar-item w3-button" style="width:20% !important">SETTINGS</a>
-        <a href='<c:url value="/logout"/>' class="w3-bar-item w3-button" style="width:20% !important">LOGOUT</a>
+        <a href='<c:url value="/mainPanel"/>' class="w3-bar-item w3-button" style="width:16.66% !important">PANEL</a>
+        <a href='<c:url value="/character"/>' class="w3-bar-item w3-button" style="width:16.66% !important">CHAR</a>
+        <a href='<c:url value="/map"/>' class="w3-bar-item w3-button" style="width:16.66% !important">MAP</a>
+        <a href='<c:url value="/ranking/level"/>' class="w3-bar-item w3-button" style="width:16.66% !important">RANKING</a>
+        <a href='<c:url value="/settings"/>' class="w3-bar-item w3-button" style="width:16.66% !important">SETTINGS</a>
+        <a href='<c:url value="/logout"/>' class="w3-bar-item w3-button" style="width:16.66% !important">LOGOUT</a>
     </div>
 </div>

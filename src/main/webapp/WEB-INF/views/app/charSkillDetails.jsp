@@ -19,9 +19,9 @@
                 <li class="w3-padding-16">
                     <c:out value="${skill.description}"/>
                 </li>
-                <c:forEach items="${skillList}" var="skillRank">
+                <c:forEach begin ="1" end="5" var="i">
                     <li class="w3-padding-16">
-                        RANK <c:out value="${skillRank.skillRank}"/> : BONUS ATTACK : <c:out value="${skillRank.skillAttack}"/>
+                        RANK <c:out value="${i}"/> : BONUS ATTACK : <c:out value="${skill.damage * i}"/>
                     </li>
                 </c:forEach>
             </ul>

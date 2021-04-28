@@ -22,39 +22,68 @@
             </div>
             <div class="w3-third w3-section w3-dark-grey w3-right">
                 <div class="w3-row w3-section">
-                    <span class="w3-xxlarge">DEFENCE: <c:out value="${hero.defense}"/></span>
+                    <span class="w3-xxlarge">DEFENCE: <c:out value="${hero.defence}"/></span>
                 </div>
             </div>
         </div>
-        <div class="w3-row w3-margin-bottom">
+        <div class="w3-row w3-center w3-section">
+            <div class="" style="width: 50%; margin: auto">
+                <ul class="w3-ul w3-white w3-opacity w3-hover-opacity-off">
+                    <li class="w3-dark-grey w3-xlarge w3-padding-24">EQUIPMENT</li>
+                    <li class="w3-row w3-center w3-xlarge">
+                        <img src='<c:url value="${itemList.get('helmet').imageUrl}"/>' alt="helmet" class="w3-image" width="128" height="128" style="border: 5px solid white">
+                    </li>
+                    <li class="w3-row w3-center w3-xlarge">
+                        <div class="w3-third w3-section">
+                            <img src='<c:url value="${itemList.get('weapon').imageUrl}"/>' alt="weapon" class="w3-image" width="128" height="128" style="border: 5px solid white">
+                        </div>
+                        <div class="w3-third w3-section">
+                            <img src='<c:url value="${itemList.get('armor').imageUrl}"/>' alt="armor" class="w3-image" width="128" height="128" style="border: 5px solid white">
+                        </div>
+                        <div class="w3-third w3-section">
+                            <img src='<c:url value="${itemList.get('gloves').imageUrl}"/>' alt="gloves" class="w3-image" width="128" height="128" style="border: 5px solid white">
+                        </div>
+                    </li>
+                    <li class="w3-row w3-center w3-xlarge">
+                        <img src='<c:url value="${itemList.get('pants').imageUrl}"/>' alt="pants" class="w3-image" width="128" height="128" style="border: 5px solid white">
+                    </li>
+                    <li class="w3-row w3-center w3-xlarge">
+                        <img src='<c:url value="${itemList.get('boots').imageUrl}"/>' alt="boots" class="w3-image" width="128" height="128" style="border: 5px solid white">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="w3-row">
             <ul class="w3-ul w3-white w3-opacity w3-hover-opacity-off">
                 <li class="w3-dark-grey w3-xlarge w3-padding-24 w3-center">POTIONS</li>
                 <li class="w3-row w3-center w3-xlarge">
-                    <div class="w3-quarter w3-section">HEALTH POTION<br>x <c:out value="${hero.potionHealth}"/></div>
+                    <div class="w3-quarter w3-section">
+                        <img src='<c:url value="/images/items/potion/healthPotion.png"/>' alt="potion" class="w3-image" width="64" height="64" style="border: 5px solid red">
+                    </div>
                     <div class="w3-quarter w3-section">
                         <div class="w3-dark-gray">
                             <div class="w3-red" style="height:36px;width:<c:out value="${(hero.healthPointsCurrent/hero.healthPointsMax)*100}"/>%"><p class="w3-center w3-text-white"><c:out value="${hero.healthPointsCurrent}"/>/<c:out value="${hero.healthPointsMax}"/></p></div>
                         </div>
                     </div>
+                    <div class="w3-quarter w3-section">HEALTH POTION<br>x <c:out value="${hero.potionHealth}"/></div>
                     <div class="w3-quarter w3-section">
-                        <a href='<c:url value="/items/add/health"/>' class="w3-button w3-dark-grey w3-hover-black">RECOVER<br>100 POINTS</a>
-                    </div>
-                    <div class="w3-quarter w3-section">
-                        <a href='<c:url value="/items/add/health10"/>' class="w3-button w3-dark-grey w3-hover-black">RECOVER<br>10x100 POINTS</a>
+                        <a href='<c:url value="/items/add/health10"/>' class="w3-button w3-dark-grey w3-hover-black">USE</a>
+                        <a href='<c:url value="/items/add/health"/>' class="w3-button w3-dark-grey w3-hover-black">USE x 10</a>
                     </div>
                 </li>
                 <li class="w3-row w3-center w3-xlarge">
-                    <div class="w3-quarter w3-section">STAMINA POTION<br>x <c:out value="${hero.potionStamina}"/></div>
+                    <div class="w3-quarter w3-section">
+                        <img src='<c:url value="/images/items/potion/staminaPotion.png"/>' alt="potion" class="w3-image" width="64" height="64" style="border: 5px solid yellow">
+                    </div>
                     <div class="w3-quarter w3-section">
                         <div class="w3-dark-gray">
                             <div class="w3-orange" style="height:36px;width:<c:out value="${(hero.staminaCurrent/hero.staminaMax)*100}"/>%"><p class="w3-center w3-text-white"><c:out value="${hero.staminaCurrent}"/>/<c:out value="${hero.staminaMax}"/></p></div>
                         </div>
                     </div>
+                    <div class="w3-quarter w3-section">STAMINA POTION<br>x <c:out value="${hero.potionStamina}"/></div>
                     <div class="w3-quarter w3-section">
-                        <a href='<c:url value="/items/add/stamina"/>' class="w3-button w3-dark-grey w3-hover-black">RECOVER<br>10 POINTS</a>
-                    </div>
-                    <div class="w3-quarter w3-section">
-                        <a href='<c:url value="/items/add/stamina10"/>' class="w3-button w3-dark-grey w3-hover-black">RECOVER<br>10x10 POINTS</a>
+                        <a href='<c:url value="/items/add/stamina10"/>' class="w3-button w3-dark-grey w3-hover-black">USE</a>
+                        <a href='<c:url value="/items/add/stamina"/>' class="w3-button w3-dark-grey w3-hover-black">USE x 10</a>
                     </div>
                 </li>
             </ul>
@@ -62,7 +91,7 @@
         <div class="w3-row w3-center w3-section w3-light-grey">
             <div class="w3-quarter w3-section">
                     <span class="w3-xlarge">
-                        <img src='<c:url value="/images/item/weapon.jpg"/>' alt="weapon" class="w3-image" width="68" height="76">
+                        <img src='<c:url value="/images/items/weapon/weapon.png"/>' alt="weapon" class="w3-image" width="64" height="64">
                     </span>
             </div>
             <div class="w3-quarter w3-section">
@@ -83,7 +112,7 @@
         <div class="w3-row w3-center w3-section w3-light-grey">
             <div class="w3-quarter w3-section">
                     <span class="w3-xlarge">
-                        <img src='<c:url value="/images/item/${armor.type}.jpg"/>' alt="helmet" class="w3-image" width="68" height="76">
+                        <img src='<c:url value="/images/items/armor/${armor.type}.png"/>' alt="helmet" class="w3-image" width="64" height="64">
                     </span>
             </div>
             <div class="w3-quarter w3-section">
@@ -92,7 +121,7 @@
                     </span>
             </div>
             <div class="w3-quarter w3-section">
-                <span class="w3-xlarge">Defence: <c:out value="${armor.defense}"/></span>
+                <span class="w3-xlarge">Defence: <c:out value="${armor.defence}"/></span>
             </div>
             <div class="w3-quarter w3-section">
                     <span class="w3-xlarge">

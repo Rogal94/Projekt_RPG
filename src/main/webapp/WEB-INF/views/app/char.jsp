@@ -15,10 +15,10 @@
 <div class="w3-padding-large" id="main">
     <div class="w3-padding-64 w3-content w3-text-grey" id="body">
         <div class="w3-row w3-center w3-section" style="padding-bottom: 50px">
-            <img src='<c:url value="/images/hero/${hero.race}.jpg"/>' alt="hero" class="w3-image w3-animate-zoom w3-half w3-section" width="600" height="800">
+            <img src='<c:url value="/images/hero/${hero.race.name}.jpg"/>' alt="hero" class="w3-image w3-animate-zoom w3-half w3-section" width="600" height="800">
             <div class="w3-half w3-section">
                 <h1 class="w3-padding-small w3-text-light-grey"><c:out value="${hero.name}"/></h1>
-                <h1 class="w3-padding-small w3-text-light-grey"><c:out value="${fn:toUpperCase(hero.race)}"/></h1>
+                <h1 class="w3-padding-small w3-text-light-grey"><c:out value="${fn:toUpperCase(hero.race.name)}"/></h1>
                 <h1 class="w3-padding-small w3-text-light-grey">LEVEL : <c:out value="${hero.level}"/></h1>
                     <div class="w3-margin w3-center w3-dark-grey ">
                         <a href='<c:url value="/character/char"/>' class="w3-button w3-dark-grey w3-padding-large w3-hover-light-grey w3-xxlarge">STATS AND SKILLS</a>

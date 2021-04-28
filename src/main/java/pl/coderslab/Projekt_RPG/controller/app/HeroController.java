@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.coderslab.Projekt_RPG.project.*;
+import pl.coderslab.Projekt_RPG.project.hero.*;
+import pl.coderslab.Projekt_RPG.project.hero.races.Race;
+import pl.coderslab.Projekt_RPG.project.hero.races.RaceRepository;
 import pl.coderslab.Projekt_RPG.user.User;
 import pl.coderslab.Projekt_RPG.user.UserRepository;
 import pl.coderslab.Projekt_RPG.user.UserService;
@@ -23,13 +25,15 @@ public class HeroController {
     private final UserService userService;
     private final UserRepository userRepository;
     private final SkillRepository skillRepository;
+    private final RaceRepository raceRepository;
 
-    public HeroController(HeroRepository heroRepository, HeroService heroService, UserService userService, UserRepository userRepository, SkillRepository skillRepository) {
+    public HeroController(HeroRepository heroRepository, HeroService heroService, UserService userService, UserRepository userRepository, SkillRepository skillRepository,RaceRepository raceRepository) {
         this.heroRepository = heroRepository;
         this.heroService = heroService;
         this.userService = userService;
         this.userRepository = userRepository;
         this.skillRepository = skillRepository;
+        this.raceRepository = raceRepository;
     }
 
     @GetMapping("")
@@ -59,7 +63,9 @@ public class HeroController {
     @GetMapping("/create")
     public String charCreate(Model model) {
         Hero hero = new Hero();
+        List<Race> raceList = raceRepository.findAll();
         model.addAttribute("hero", hero);
+        model.addAttribute("raceList", raceList);
         return "app/charCreate";
     }
 
@@ -97,9 +103,9 @@ public class HeroController {
     @GetMapping("/skill/add")
     public String charSkillAddList(@AuthenticationPrincipal UserDetails customUser, Model model) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
-        List <Skill> skillList = skillRepository.findAllBySkillForAndSkillRank(hero.getRace(), 1);
-        for(Skill elem : hero.getSkill()) {
-            skillList.removeAll(skillRepository.findAllByName(elem.getName()));
+        List <Skill> skillList = skillRepository.findAllByRace(hero.getRace());
+        for(Skill skill : hero.getSkill()) {
+            skillList.remove(skillRepository.getOne(skill.getId()));
         }
         model.addAttribute("hero", hero);
         model.addAttribute("skillList", skillList);
@@ -112,8 +118,9 @@ public class HeroController {
         Skill skill = skillRepository.getOne(skillId);
         if(hero.getSkillPoints()>0) {
             if(skill.getSkillRank()<5) {
-                hero.getSkill().add(skillRepository.getOne(skillId + 1));
-                hero.getSkill().remove(skillRepository.getOne(skillId));
+                List<Skill> skillList = hero.getSkill();
+                skillList.stream().filter(s->s.getId().equals(skillId)).forEach(s->s.setSkillRank(s.getSkillRank()+1));
+                hero.setSkill(skillList);
                 hero.setSkillPoints(hero.getSkillPoints() -1);
             }
         }
@@ -124,10 +131,13 @@ public class HeroController {
     @GetMapping("/skill/add/{skillId}/new")
     public String charSkillAddNew(@AuthenticationPrincipal UserDetails customUser, @PathVariable Long skillId) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
-        Skill skill = skillRepository.getOne(skillId);
         if(hero.getSkillPoints()>0) {
-            if(skill.getSkillRank() == 1) {
-                hero.getSkill().add(skillRepository.getOne(skillId));
+            if(hero.getSkill().stream().noneMatch(s->s.getId().equals(skillId))) {
+                Skill skill = skillRepository.getOne(skillId);
+                List<Skill> skillList = hero.getSkill();
+                skill.setSkillRank(1);
+                skillList.add(skill);
+                hero.setSkill(skillList);
                 hero.setSkillPoints(hero.getSkillPoints() -1);
             }
         }
@@ -138,9 +148,7 @@ public class HeroController {
     @GetMapping("/skill/details/{skillId}")
     public String charSkillDetails(@PathVariable Long skillId, Model model) {
         Skill skill = skillRepository.getOne(skillId);
-        List <Skill> skillList = skillRepository.findAllByName(skill.getName());
         model.addAttribute("skill", skill);
-        model.addAttribute("skillList", skillList);
         return "app/charSkillDetails";
     }
 

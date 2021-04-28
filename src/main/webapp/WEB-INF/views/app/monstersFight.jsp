@@ -26,10 +26,10 @@
                 </div>
                 <p class="w3-wide">MP</p>
                 <div class="w3-dark-gray w3-margin">
-                    <div class="w3-blue" style="height:28px;width:<c:out value="${(hero.manaPointsCurrent/hero.manaPointsMax) * 100}"/>%"><p class="w3-center w3-text-white"><c:out value="${hero.manaPointsCurrent}"/>/<c:out value="${hero.manaPointsMax}"/></p></div>
+                    <div class="w3-blue" style="height:28px;width:<c:out value="${(hero.secPointsCurrent/hero.secPointsMax) * 100}"/>%"><p class="w3-center w3-text-white"><c:out value="${hero.secPointsCurrent}"/>/<c:out value="${hero.secPointsMax}"/></p></div>
                 </div>
                 <span class="w3-xlarge">
-                    <img src='<c:url value="/images/hero/${hero.race}.jpg"/>' alt="warrior" class="w3-image" id = "heroImg" width="300" height="400">
+                    <img src='<c:url value="/images/hero/${hero.race.name}.jpg"/>' alt="hero" class="w3-image" id = "heroImg" width="300" height="400">
                 </span>
             </div>
             <div class="w3-half w3-section">

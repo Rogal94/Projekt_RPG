@@ -5,9 +5,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.coderslab.Projekt_RPG.project.*;
+import pl.coderslab.Projekt_RPG.project.hero.Hero;
+import pl.coderslab.Projekt_RPG.project.hero.HeroRepository;
+import pl.coderslab.Projekt_RPG.project.hero.Quest;
+import pl.coderslab.Projekt_RPG.project.hero.QuestRepository;
 import pl.coderslab.Projekt_RPG.user.UserService;
 
 @Controller

@@ -20,7 +20,7 @@
         <div class="w3-row w3-center w3-section w3-light-grey">
             <div class="w3-quarter w3-section">
                     <span class="w3-xlarge">
-                        <img src='<c:url value="/images/item/${type}.jpg"/>' alt="weapon" class="w3-image" width="68" height="76">
+                        <img src='<c:url value="/images/items/${fn:toLowerCase(item.category)}/${type}.png"/>' alt="${type}" class="w3-image" width="64" height="64">
                     </span>
             </div>
             <div class="w3-quarter w3-section">
@@ -33,7 +33,7 @@
                 <span class="w3-xlarge">Attack: <c:out value="${item.attack}"/></span>
                 </c:if>
                 <c:if test="${!type.equals('weapon')}">
-                    <span class="w3-xlarge">Defense: <c:out value="${item.defense}"/></span>
+                    <span class="w3-xlarge">Defense: <c:out value="${item.defence}"/></span>
                 </c:if>
                 <br><a href='<c:url value="/items/details/${type}/${item.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black">DETAILS</a>
             </div>

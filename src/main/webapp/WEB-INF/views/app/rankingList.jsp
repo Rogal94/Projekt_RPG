@@ -53,7 +53,7 @@
                         ${hero.name}
                     </div>
                     <div class="w3-quarter w3-center w3-xlarge">
-                        ${fn:toUpperCase(hero.race)}
+                        ${fn:toUpperCase(hero.race.name)}
                     </div>
                     <c:choose>
                         <c:when test="${rankingBy.equals('level')}"><div class="w3-quarter w3-center w3-xlarge">${hero.level}</div></c:when>

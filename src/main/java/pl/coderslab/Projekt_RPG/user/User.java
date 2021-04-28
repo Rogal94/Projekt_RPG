@@ -2,7 +2,7 @@ package pl.coderslab.Projekt_RPG.user;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.coderslab.Projekt_RPG.project.Hero;
+import pl.coderslab.Projekt_RPG.project.hero.Hero;
 import pl.coderslab.Projekt_RPG.validation.UsernameUnique;
 
 import javax.persistence.*;

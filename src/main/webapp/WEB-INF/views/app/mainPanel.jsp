@@ -15,18 +15,18 @@
 <div class="w3-padding-large" id="main">
     <div class="w3-padding-64 w3-content w3-text-grey" id="body">
         <div class="w3-row w3-center w3-section" style="padding-bottom: 50px">
-            <img src='<c:url value="/images/hero/${hero.race}.jpg"/>' alt="hero" class="w3-image w3-animate-zoom w3-half w3-section" width="600" height="800">
+            <img src='<c:url value="/images/hero/${hero.race.name}.jpg"/>' alt="hero" class="w3-image w3-animate-zoom w3-half w3-section" width="600" height="800">
             <div class="w3-half w3-section">
                 <h1 class="w3-padding-small w3-text-light-grey"><c:out value="${hero.name}"/></h1>
-                <h1 class="w3-padding-small w3-text-light-grey"><c:out value="${fn:toUpperCase(hero.race)}"/></h1>
+                <h1 class="w3-padding-small w3-text-light-grey"><c:out value="${fn:toUpperCase(hero.race.name)}"/></h1>
                 <h1 class="w3-padding-small w3-text-light-grey">LEVEL : <c:out value="${hero.level}"/></h1>
                 <p class="w3-wide">HP</p>
                 <div class="w3-dark-gray w3-margin">
                     <div class="w3-red" style="height:36px;width:<c:out value="${(hero.healthPointsCurrent/hero.healthPointsMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.healthPointsCurrent}"/>/<c:out value="${hero.healthPointsMax}"/></p></div>
                 </div>
-                <p class="w3-wide">MP</p>
+                <p class="w3-wide"><c:out value="${fn:toUpperCase(hero.race.secPointsName)}"/></p>
                 <div class="w3-dark-gray w3-margin">
-                    <div class="w3-blue" style="height:36px;width:<c:out value="${(hero.manaPointsCurrent/hero.manaPointsMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.manaPointsCurrent}"/>/<c:out value="${hero.manaPointsMax}"/></p></div>
+                    <div class="w3-blue" style="height:36px;width:<c:out value="${(hero.secPointsCurrent/hero.secPointsMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.secPointsCurrent}"/>/<c:out value="${hero.secPointsMax}"/></p></div>
                 </div>
                 <p class="w3-wide">STAMINA</p>
                 <div class="w3-dark-gray w3-margin">
@@ -40,7 +40,7 @@
         </div>
         <div class="w3-row w3-center w3-padding-large w3-section w3-light-grey">
             <div class="w3-half w3-section">
-                <span class="w3-xlarge">GOLD AMOUNT :</span>
+                <img src='<c:url value="/images/shop/gold.png"/>' alt="gold" class="w3-image" width="64" height="64" style="border: 5px solid yellow">
             </div>
             <div class="w3-half w3-section">
                 <span class="w3-xlarge"><c:out value="${hero.goldAmount}"/></span>
@@ -48,7 +48,7 @@
         </div><br/>
         <div class="w3-row w3-center w3-padding-large w3-section w3-light-grey">
             <div class="w3-quarter w3-section">
-                <span class="w3-xlarge">QUEST:</span>
+                <span class="w3-xlarge">QUEST: </span>
             </div>
             <div class="w3-quarter w3-section">
                 <span class="w3-xlarge"><c:out value="${hero.quest.monsterName}"/></span>
@@ -68,7 +68,7 @@
                     <li class="w3-dark-grey w3-xlarge w3-padding-24 w3-center">STATISTICS</li>
                     <li class="w3-white w3-padding-16 w3-center">NEW POINTS : <c:out value="${hero.statisticPoints}"/></li>
                     <li class="w3-dark-grey w3-padding-16 w3-center">
-                        <a href='<c:url value="/character/char"/>' class="w3-button w3-white w3-padding-large w3-hover-black">SPEND</a>
+                        <a href='<c:url value="/character/char"/>' class="w3-button w3-white w3-padding-large w3-hover-black">CHARACTER</a>
                     </li>
                 </ul>
             </div>
@@ -77,7 +77,7 @@
                     <li class="w3-dark-grey w3-xlarge w3-padding-24 w3-center">SKILLS</li>
                     <li class="w3-white w3-padding-16 w3-center">NEW POINTS : <c:out value="${hero.skillPoints}"/></li>
                     <li class="w3-dark-grey w3-padding-16 w3-center">
-                        <a href='<c:url value="/character/char"/>' class="w3-button w3-white w3-padding-large w3-hover-black">SPEND</a>
+                        <a href='<c:url value="/character/char"/>' class="w3-button w3-white w3-padding-large w3-hover-black">CHARACTER</a>
                     </li>
                 </ul>
             </div>

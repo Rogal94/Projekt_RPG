@@ -26,7 +26,7 @@
                         Attack: <c:out value="${item.attack}"/>
                     </c:if>
                     <c:if test="${!type.equals('weapon')}">
-                        Defense: <c:out value="${item.defense}"/>
+                        Defense: <c:out value="${item.defence}"/>
                     </c:if>
                 </li>
                 <li class="w3-padding-16">

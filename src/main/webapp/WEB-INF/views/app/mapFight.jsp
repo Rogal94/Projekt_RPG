@@ -16,7 +16,7 @@
 <div class="w3-padding-large" id="main">
     <div class="w3-padding-64 w3-content w3-text-grey w3-center" id="body">
         <div class="container-img w3-margin w3-center">
-            <img src='<c:url value="/images/map/${hero.lastMap}.jpg"/>' alt="hero" class="w3-image w3-animate-zoom" width="90%" id="map">
+            <img src='<c:url value="/images/map/${lastMap}.jpg"/>' alt="hero" class="w3-image w3-animate-zoom" width="90%" id="map">
             <c:if test="${not empty city}">
             <a href='<c:url value="/shop"/>' class="button-img w3-light-grey w3-hover-black w3-xxlarge" style="left:20%; top:80%">${city}</a>
             </c:if>

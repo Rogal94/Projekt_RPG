@@ -9,10 +9,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.coderslab.Projekt_RPG.project.*;
+import pl.coderslab.Projekt_RPG.project.hero.Quest;
+import pl.coderslab.Projekt_RPG.project.hero.QuestRepository;
+import pl.coderslab.Projekt_RPG.project.hero.Skill;
+import pl.coderslab.Projekt_RPG.project.hero.SkillRepository;
+import pl.coderslab.Projekt_RPG.project.hero.races.Race;
+import pl.coderslab.Projekt_RPG.project.hero.races.RaceRepository;
+import pl.coderslab.Projekt_RPG.project.items.Item;
+import pl.coderslab.Projekt_RPG.project.items.ItemRepository;
+import pl.coderslab.Projekt_RPG.project.items.items.Armor;
+import pl.coderslab.Projekt_RPG.project.items.items.ArmorRepository;
+import pl.coderslab.Projekt_RPG.project.items.items.Weapon;
+import pl.coderslab.Projekt_RPG.project.items.items.WeaponRepository;
+import pl.coderslab.Projekt_RPG.project.monster.Monster;
+import pl.coderslab.Projekt_RPG.project.monster.MonsterRepository;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.Scanner;
 
 //File fileRes = new ClassPathResource("database/quests.txt").getFile();   file z resource
@@ -29,14 +43,16 @@ public class DatabaseController {
     private final MonsterRepository monsterRepository;
     private final QuestRepository questRepository;
     private final SkillRepository skillRepository;
+    private final RaceRepository raceRepository;
 
-    public DatabaseController(ObjectMapper objectMapper, WeaponRepository weaponRepository, ArmorRepository armorRepository, MonsterRepository monsterRepository, QuestRepository questRepository, SkillRepository skillRepository) {
+    public DatabaseController(ObjectMapper objectMapper, WeaponRepository weaponRepository, ArmorRepository armorRepository, MonsterRepository monsterRepository, QuestRepository questRepository, SkillRepository skillRepository, RaceRepository raceRepository) {
         this.objectMapper = objectMapper;
         this.weaponRepository = weaponRepository;
         this.armorRepository = armorRepository;
         this.monsterRepository = monsterRepository;
         this.questRepository = questRepository;
         this.skillRepository = skillRepository;
+        this.raceRepository = raceRepository;
     }
 
     @Value("${database.location}")
@@ -49,14 +65,33 @@ public class DatabaseController {
 
     @PostMapping("/all")
     public String addAll() {
+        addRaces();
+        addMonsters();
+        addQuests();
         addWeapons();
         addArmors();
         addSkills();
-        addMonsters();
-        addQuests();
         return "redirect:/";
     }
 
+
+    @PostMapping("/races")
+    public String addRaces() {
+        try(Scanner scanner = new Scanner(new File(filePath+"\\races.txt"))) {
+            while (scanner.hasNext()) {
+                try {
+                    objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+                    Race race = objectMapper.readValue(scanner.nextLine(), Race.class);
+                    raceRepository.save(race);
+                }catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/";
+    }
 
     @PostMapping("/weapons")
     public String addWeapons() {
@@ -64,7 +99,11 @@ public class DatabaseController {
             while (scanner.hasNext()) {
                 try {
                     objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-                    Weapon weapon = objectMapper.readValue(scanner.nextLine(), Weapon.class);
+                    String line = scanner.nextLine();
+                    Weapon weapon = objectMapper.readValue(line, Weapon.class);
+                    Map<String,String> map = objectMapper.readValue(line,Map.class);
+                    Race race = raceRepository.findByName(map.get("itemFor"));
+                    weapon.setRace(race);
                     weaponRepository.save(weapon);
                 }catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -82,7 +121,11 @@ public class DatabaseController {
             while (scanner.hasNext()) {
                 try {
                     objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-                    Armor armor = objectMapper.readValue(scanner.nextLine(), Armor.class);
+                    String line = scanner.nextLine();
+                    Armor armor = objectMapper.readValue(line,Armor.class);
+                    Map<String,String> map = objectMapper.readValue(line,Map.class);
+                    Race race = raceRepository.findByName(map.get("itemFor"));
+                    armor.setRace(race);
                     armorRepository.save(armor);
                 }catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -136,7 +179,11 @@ public class DatabaseController {
             while (scanner.hasNext()) {
                 try {
                     objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-                    Skill skill = objectMapper.readValue(scanner.nextLine(),Skill.class);
+                    String line = scanner.nextLine();
+                    Skill skill = objectMapper.readValue(line,Skill.class);
+                    Map<String,String> map = objectMapper.readValue(line,Map.class);
+                    Race race = raceRepository.findByName(map.get("skillFor"));
+                    skill.setRace(race);
                     skillRepository.save(skill);
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();

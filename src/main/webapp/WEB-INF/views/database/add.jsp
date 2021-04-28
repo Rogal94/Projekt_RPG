@@ -18,6 +18,10 @@
             <button type="submit" class="w3-button w3-light-grey w3-padding-large w3-circle w3-margin" style="width:400px; font-size:30px">ADD ALL</button>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
+        <form method="post" action="/add/races">
+            <button type="submit" class="w3-button w3-light-grey w3-padding-large w3-circle w3-margin" style="width:250px; font-size:20px">ADD RACES</button>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
         <form method="post" action="/add/weapons">
             <button type="submit" class="w3-button w3-light-grey w3-padding-large w3-circle w3-margin" style="width:250px; font-size:20px">ADD WEAPONS</button>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

@@ -10,4 +10,6 @@ import java.util.List;
 public interface SkillRepository extends JpaRepository<Skill, Long> {
     List<Skill> findAllByRace(Race race);
     List<Skill> findAllByRaceAndType(Race race, String type);
+    Skill findByNameAndSkillRank(String name, Integer skillRank);
+    List<Skill> findAllByRaceAndSkillRank(Race race, Integer skillRank);
 }

@@ -16,6 +16,7 @@ import pl.coderslab.Projekt_RPG.user.UserRepository;
 import pl.coderslab.Projekt_RPG.user.UserService;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/character")
@@ -46,6 +47,10 @@ public class HeroController {
     @GetMapping("/char")
     public String character(@AuthenticationPrincipal UserDetails customUser, Model model) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
+        List<Skill> buffSkill = skillRepository.findAllByRaceAndType(hero.getRace(),"buff");
+        List<Skill> damageSkill = skillRepository.findAllByRaceAndType(hero.getRace(),"damage");
+        model.addAttribute("buffSkill", buffSkill);
+        model.addAttribute("damageSkill", damageSkill);
         model.addAttribute("hero", hero);
         return "app/character";
     }
@@ -95,18 +100,15 @@ public class HeroController {
         return "redirect:/character/char";
     }
 
-    @GetMapping("/stat/details")
-    public String charStatDetails() {
-        return "app/charStatDetails";
-    }
-
     @GetMapping("/skill/add")
     public String charSkillAddList(@AuthenticationPrincipal UserDetails customUser, Model model) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
-        List <Skill> skillList = skillRepository.findAllByRace(hero.getRace());
-        for(Skill skill : hero.getSkill()) {
-            skillList.remove(skillRepository.getOne(skill.getId()));
-        }
+        List <Skill> skillList = skillRepository.findAllByRaceAndSkillRank(hero.getRace(),1);
+        skillList.removeIf(skill -> hero.getSkill().containsKey(skill.getType()));
+        List<Skill> buffSkill = skillRepository.findAllByRaceAndType(hero.getRace(),"buff");
+        List<Skill> damageSkill = skillRepository.findAllByRaceAndType(hero.getRace(),"damage");
+        model.addAttribute("buffSkill", buffSkill);
+        model.addAttribute("damageSkill", damageSkill);
         model.addAttribute("hero", hero);
         model.addAttribute("skillList", skillList);
         return "app/charSkillList";
@@ -115,12 +117,14 @@ public class HeroController {
     @GetMapping("/skill/add/{skillId}")
     public String charSkillAdd(@AuthenticationPrincipal UserDetails customUser, @PathVariable Long skillId) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
-        Skill skill = skillRepository.getOne(skillId);
         if(hero.getSkillPoints()>0) {
-            if(skill.getSkillRank()<5) {
-                List<Skill> skillList = hero.getSkill();
-                skillList.stream().filter(s->s.getId().equals(skillId)).forEach(s->s.setSkillRank(s.getSkillRank()+1));
-                hero.setSkill(skillList);
+            Map<String,Skill> skillMap = hero.getSkill();
+            Skill skillToAdd = skillRepository.getOne(skillId);
+            Skill skill = skillMap.get(skillToAdd.getType());
+            if(skill.getSkillRank()<5 && skill.getName().equals(skillToAdd.getName())) {
+                skillToAdd = skillRepository.findByNameAndSkillRank(skill.getName(),skill.getSkillRank()+1);
+                skillMap.put(skillToAdd.getType(),skillToAdd);
+//                hero.setSkill(skillMap);
                 hero.setSkillPoints(hero.getSkillPoints() -1);
             }
         }
@@ -132,24 +136,16 @@ public class HeroController {
     public String charSkillAddNew(@AuthenticationPrincipal UserDetails customUser, @PathVariable Long skillId) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         if(hero.getSkillPoints()>0) {
-            if(hero.getSkill().stream().noneMatch(s->s.getId().equals(skillId))) {
-                Skill skill = skillRepository.getOne(skillId);
-                List<Skill> skillList = hero.getSkill();
-                skill.setSkillRank(1);
-                skillList.add(skill);
-                hero.setSkill(skillList);
-                hero.setSkillPoints(hero.getSkillPoints() -1);
+            Skill skillToAdd = skillRepository.getOne(skillId);
+            if(!hero.getSkill().containsKey(skillToAdd.getType()) && skillRepository.findAllByRace(hero.getRace()).contains(skillToAdd)) {
+                Map<String,Skill> skillMap = hero.getSkill();
+                skillMap.put(skillToAdd.getType(), skillToAdd);
+//                hero.setSkill(skillMap);
+                hero.setSkillPoints(hero.getSkillPoints() - 1);
             }
         }
         heroRepository.save(hero);
         return "redirect:/character/char";
-    }
-
-    @GetMapping("/skill/details/{skillId}")
-    public String charSkillDetails(@PathVariable Long skillId, Model model) {
-        Skill skill = skillRepository.getOne(skillId);
-        model.addAttribute("skill", skill);
-        return "app/charSkillDetails";
     }
 
     @GetMapping("/died")
@@ -159,6 +155,7 @@ public class HeroController {
             hero.setHealthPointsCurrent(hero.getHealthPointsMax()/10);
             hero.setExperienceCurrent(0);
             hero.setStaminaCurrent(0);
+            heroService.endFight(hero);
             heroRepository.save(hero);
         }
         model.addAttribute("died", true);

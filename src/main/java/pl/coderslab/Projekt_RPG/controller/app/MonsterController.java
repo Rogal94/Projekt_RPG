@@ -55,6 +55,7 @@ public class MonsterController {
                 monsterSession.setId(monster.getId());
                 monsterSession.setHealthPointsCurrent(monster.getHealthPointsMax());
                 monsterSession.setSpecialAttack(false);
+                heroService.endFight(hero);
                 hero.setStaminaCurrent(hero.getStaminaCurrent() - 10);
                 heroRepository.save(hero);
             } else if (!monsterSession.getId().equals(id)) {
@@ -89,7 +90,7 @@ public class MonsterController {
         String result = heroService.checkCoordinates(coordinates);
         switch (result) {
             case "skill1":
-                Optional<Skill> skill = hero.getSkill().stream().filter(s->s.getName().equals("FireBall") || s.getName().equals("Whirlwind")).findFirst();
+                Optional<Skill> skill = hero.getSkill().values().stream().filter(s->s.getName().equals("FireBall") || s.getName().equals("Whirlwind")).findFirst();
                 if(skill.isPresent()) {
                     Long skillId = skill.get().getId();
                     return "redirect:skill?skillId=" + skillId;
@@ -118,7 +119,7 @@ public class MonsterController {
     public String monstersFightSkill(@PathVariable Long id, @RequestParam Long skillId, @AuthenticationPrincipal UserDetails customUser) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         Monster monster = monsterRepository.getOne(id);
-        if(hero.getSkill().contains(skillRepository.getOne(skillId))) {
+        if(hero.getSkill().containsValue(skillRepository.getOne(skillId))) {
             Skill skill = skillRepository.getOne(skillId);
             heroService.attackSkill(hero, monster, skill);
             heroService.updateHero(hero);

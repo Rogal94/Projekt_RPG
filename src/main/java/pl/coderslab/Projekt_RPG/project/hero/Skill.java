@@ -18,6 +18,8 @@ public class Skill {
     private String type;
     private String description;
     private Integer damage;
+    private Integer cost;
+    private Integer effect;
     @ManyToOne
     private Race race;
 }

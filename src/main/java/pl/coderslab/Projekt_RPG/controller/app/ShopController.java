@@ -21,6 +21,7 @@ import pl.coderslab.Projekt_RPG.user.UserService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/shop")
@@ -30,16 +31,12 @@ public class ShopController {
     private final ItemRepository itemRepository;
     private final UserService userService;
     private final WeaponRepository weaponRepository;
-    private final ArmorRepository armorRepository;
-    private final ItemService itemService;
 
-    public ShopController(ItemService itemService, HeroRepository heroRepository, ItemRepository itemRepository, UserService userService, WeaponRepository weaponRepository, ArmorRepository armorRepository) {
+    public ShopController(HeroRepository heroRepository, ItemRepository itemRepository, UserService userService, WeaponRepository weaponRepository) {
         this.heroRepository = heroRepository;
         this.itemRepository = itemRepository;
         this.userService = userService;
         this.weaponRepository = weaponRepository;
-        this.armorRepository = armorRepository;
-        this.itemService = itemService;
     }
 
     @GetMapping("")
@@ -52,30 +49,14 @@ public class ShopController {
     @GetMapping("/list/{transaction}")
     public String shopList(@AuthenticationPrincipal UserDetails customUser, @PathVariable String transaction, Model model) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
-
         if(transaction.equals("sell")) {
-            List<Weapon> weaponList = itemService.getWeaponFromItems(hero.getItem());
-            List<Armor> armorList = itemService.getArmorFromItems(hero.getItem());
-            weaponList.remove(weaponList.stream()
-                    .filter(w->w.getId().equals(hero.getItemEquiped().get("weapon").getId()))
-                    .findFirst().orElse(null));
-            List<Armor> armorListToRemove = itemService.getArmorFromItems(new ArrayList<>(hero.getItemEquiped().values()));
-            armorListToRemove.forEach(armorList::remove);
-            model.addAttribute("weaponList",weaponList);
-            model.addAttribute("armorList",armorList);
+            model.addAttribute("itemList", hero.getItem());
 
         }else if(transaction.equals("buy")){
-            List<Weapon> weaponList = weaponRepository.findAll().stream()
-                    .filter(w->w.getAttack() > 0 && w.getAttack() < 40)
-                    .filter(w->w.getId() %2 == 0 && w.getId() < 23L)
-                    .collect(Collectors.toList());
-            List<Armor> armorList = armorRepository.findAll().stream()
-                    .filter(w->w.getDefence() > 0 && w.getDefence() < 40)
-                    .filter(w->w.getId() %2 == 1)
-                    .collect(Collectors.toList());
-            model.addAttribute("weaponList",weaponList);
-            model.addAttribute("armorList",armorList);
+            List<Item> itemList = Stream.concat(itemRepository.findAllByTier(1).stream(), itemRepository.findAllByTier(2).stream()).collect(Collectors.toList());
+            model.addAttribute("itemList", itemList);
         }
+
         model.addAttribute("hero", hero);
         model.addAttribute("transaction" , transaction);
         return "app/shopList";
@@ -110,12 +91,12 @@ public class ShopController {
         switch (transaction) {
             case "buy":
                 if(hero.getGoldAmount() >= item.getPrice()) {
-                    itemList.add(weaponRepository.getOne(id));
+                    itemList.add(itemRepository.getOne(id));
                     hero.setGoldAmount(hero.getGoldAmount() - item.getPrice());
                 }
                 break;
             case "sell":
-                itemList.remove(weaponRepository.getOne(id));
+                itemList.remove(itemRepository.getOne(id));
                 hero.setGoldAmount(hero.getGoldAmount() + item.getPrice()/5);
                 break;
         }
@@ -123,26 +104,4 @@ public class ShopController {
         heroRepository.save(hero);
         return "redirect:/shop/list/" + transaction;
     }
-
-//    @GetMapping("/{transaction}/armor/{id}")
-//    public String shopBuyArmor(@AuthenticationPrincipal UserDetails customUser, @PathVariable String transaction, @PathVariable Long id) {
-//        Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
-//        Armor armor = armorRepository.getOne(id);
-//        List <Armor> armorList = hero.getArmor();
-//        switch (transaction) {
-//            case "buy":
-//                if(hero.getGoldAmount() >= armor.getPrice()) {
-//                    armorList.add(armorRepository.getOne(id));
-//                    hero.setGoldAmount(hero.getGoldAmount() - armor.getPrice());
-//                }
-//                break;
-//            case "sell":
-//                armorList.remove(armorRepository.getOne(id));
-//                hero.setGoldAmount(hero.getGoldAmount() + armor.getPrice()/5);
-//                break;
-//        }
-//        hero.setArmor(armorList);
-//        heroRepository.save(hero);
-//        return "redirect:/shop/list/" + transaction;
-//    }
 }

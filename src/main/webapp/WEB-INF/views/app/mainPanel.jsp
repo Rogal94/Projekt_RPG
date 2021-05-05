@@ -22,19 +22,19 @@
                 <h1 class="w3-padding-small w3-text-light-grey">LEVEL : <c:out value="${hero.level}"/></h1>
                 <p class="w3-wide">HP</p>
                 <div class="w3-dark-gray w3-margin">
-                    <div class="w3-red" style="height:36px;width:<c:out value="${(hero.healthPointsCurrent/hero.healthPointsMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.healthPointsCurrent}"/>/<c:out value="${hero.healthPointsMax}"/></p></div>
+                    <div class="w3-green" style="height:36px;width:<c:out value="${(hero.healthPointsCurrent/hero.healthPointsMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.healthPointsCurrent}"/>/<c:out value="${hero.healthPointsMax}"/></p></div>
                 </div>
                 <p class="w3-wide"><c:out value="${fn:toUpperCase(hero.race.secPointsName)}"/></p>
                 <div class="w3-dark-gray w3-margin">
-                    <div class="w3-blue" style="height:36px;width:<c:out value="${(hero.secPointsCurrent/hero.secPointsMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.secPointsCurrent}"/>/<c:out value="${hero.secPointsMax}"/></p></div>
+                    <div class="w3-purple" style="height:36px;width:<c:out value="${(hero.secPointsCurrent/hero.secPointsMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.secPointsCurrent}"/>/<c:out value="${hero.secPointsMax}"/></p></div>
                 </div>
                 <p class="w3-wide">STAMINA</p>
                 <div class="w3-dark-gray w3-margin">
-                    <div class="w3-orange" style="height:36px;width:<c:out value="${(hero.staminaCurrent/hero.staminaMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.staminaCurrent}"/>/<c:out value="${hero.staminaMax}"/></p></div>
+                    <div class="w3-pink" style="height:36px;width:<c:out value="${(hero.staminaCurrent/hero.staminaMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.staminaCurrent}"/>/<c:out value="${hero.staminaMax}"/></p></div>
                 </div>
                 <p class="w3-wide">EXP</p>
                 <div class="w3-dark-gray w3-margin">
-                    <div class="w3-green" style="height:36px;width:<c:out value="${(hero.experienceCurrent/hero.experienceMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.experienceCurrent}"/>/<c:out value="${hero.experienceMax}"/></p></div>
+                    <div class="w3-light-blue" style="height:36px;width:<c:out value="${(hero.experienceCurrent/hero.experienceMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.experienceCurrent}"/>/<c:out value="${hero.experienceMax}"/></p></div>
                 </div>
             </div>
         </div>

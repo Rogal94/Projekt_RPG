@@ -18,4 +18,5 @@ public class Quest {
     private String name;
     private String description;
     private String monsterName;
+    private Integer tier;
 }

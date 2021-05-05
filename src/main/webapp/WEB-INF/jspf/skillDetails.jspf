@@ -1,0 +1,32 @@
+<div class="w3-hide" style="position:absolute" id="detailsSkill">
+    <ul class="w3-ul w3-white w3-opacity w3-hover-opacity-off">
+        <li class="w3-dark-grey w3-xlarge w3-padding-16 w3-center">SKILL DETAILS</li>
+        <li class="w3-padding-16">
+            Name:
+        </li>
+        <li class="w3-padding-16">
+            Cost :
+        </li>
+        <li class="w3-padding-16">
+            Description :
+        </li>
+        <li class="w3-padding-small w3-dark-grey">
+            Rank1 :
+        </li>
+        <li class="w3-padding-small w3-dark-grey">
+            Rank2 :
+        </li>
+        <li class="w3-padding-small w3-dark-grey">
+            Rank3 :
+        </li>
+        <li class="w3-padding-small w3-dark-grey">
+            Rank4 :
+        </li>
+        <li class="w3-padding-small w3-dark-grey">
+            Rank5 :
+        </li>
+        <li class="w3-padding-16">
+            <button class="w3-button w3-dark-grey w3-hover-black" onclick="closeSkillDetails()">CLOSE</button>
+        </li>
+    </ul>
+</div>

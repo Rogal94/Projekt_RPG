@@ -37,9 +37,10 @@ public class Necromancer extends RaceService {
     @Override
     public void attack(Hero hero, Monster monster,boolean buff) {
         if(buff) {
-            Skill skill = getBuffSkill(hero);
-            hero.setAttack(hero.getAttack() + 15 +skill.getSkillRank() * 5);
-            hero.setDefence(hero.getDefence() + 15 + skill.getSkillRank() * 5);
+            if(hero.getSkill().get("buff").getName().equals(getBuffSkill(hero).getName())) {
+                hero.setAttack(hero.getAttack() + hero.getSkill().get("buff").getEffect());
+                hero.setDefence(hero.getDefence() + hero.getSkill().get("buff").getEffect());
+            }
         }
         dealDamage(hero,monster);
         hero.setSecPointsCurrent(hero.getSecPointsCurrent()+20);
@@ -47,16 +48,17 @@ public class Necromancer extends RaceService {
 
     @Override
     public void attackSkill(Hero hero, Monster monster, Skill skill, boolean buff) {
-        if(getBuffSkill(hero).getId().equals(skill.getId()) && hero.getSecPointsCurrent()>=100) {
+        if(getBuffSkill(hero).getName().equals(skill.getName()) && hero.getSecPointsCurrent() >= getBuffSkill(hero).getCost()) {
             monsterSession.setSpecialAttack(true);
-            hero.setSecPointsCurrent(hero.getSecPointsCurrent()-100);
+            hero.setSecPointsCurrent(hero.getSecPointsCurrent() - getBuffSkill(hero).getCost());
             hero.setAttack(0);
-        }else if(getDamageSkill(hero).getId().equals(skill.getId()) && hero.getSecPointsCurrent()>=30) {
+        }else if(getDamageSkill(hero).getName().equals(skill.getName()) && hero.getSecPointsCurrent() >= getDamageSkill(hero).getCost()) {
             hero.setAttack(hero.getAttack() + skill.getDamage());
             if(buff) {
-                Skill skillBuff = getBuffSkill(hero);
-                hero.setAttack(hero.getAttack() + 15 +skillBuff.getSkillRank() * 5);
-                hero.setDefence(hero.getDefence() + 15 + skillBuff.getSkillRank() * 5);
+                if(hero.getSkill().get("buff").getName().equals(getBuffSkill(hero).getName())) {
+                    hero.setAttack(hero.getAttack() + hero.getSkill().get("buff").getEffect());
+                    hero.setDefence(hero.getDefence() + hero.getSkill().get("buff").getEffect());
+                }
             }
             Integer points = hero.getSecPointsCurrent();
             if(points>100){
@@ -64,13 +66,13 @@ public class Necromancer extends RaceService {
             }else if(points<100){
                 hero.setHealthPointsCurrent(hero.getHealthPointsCurrent() - points * 2);
             }
-            hero.setSecPointsCurrent(hero.getSecPointsCurrent()-30);
+            hero.setSecPointsCurrent(hero.getSecPointsCurrent() - getDamageSkill(hero).getCost());
         }
         dealDamage(hero,monster);
     }
 
     @Override
     public void endFight(Hero hero) {
-        hero.setSecPointsCurrent(100);
+        hero.setSecPointsCurrent(hero.getSecPointsMax()/2);
     }
 }

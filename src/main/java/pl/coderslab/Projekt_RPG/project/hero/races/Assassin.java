@@ -37,36 +37,39 @@ public class Assassin extends RaceService {
     @Override
     public void attack(Hero hero, Monster monster, boolean buff) {
         if(buff) {
-            Skill skill = getBuffSkill(hero);
-            double attack = 1.25 + skill.getSkillRank() * 0.25;
-            hero.setAttack((int)attack);
-            monsterSession.setSpecialAttack(false);
+            if(hero.getSkill().get("buff").getName().equals(getBuffSkill(hero).getName())) {
+                double effect = hero.getSkill().get("buff").getEffect().doubleValue();
+                double attack = (effect/100) * hero.getAttack();
+                hero.setAttack((int)attack);
+                monsterSession.setSpecialAttack(false);
+            }
         }
         dealDamage(hero,monster);
-        hero.setSecPointsCurrent(hero.getSecPointsCurrent()+10);
+        hero.setSecPointsCurrent(hero.getSecPointsCurrent() + 10);
     }
 
     @Override
     public void attackSkill(Hero hero, Monster monster, Skill skill, boolean buff) {
-        if(getBuffSkill(hero).getId().equals(skill.getId()) && hero.getSecPointsCurrent()>=50) {
+        if(getBuffSkill(hero).getName().equals(skill.getName()) && hero.getSecPointsCurrent() >= getBuffSkill(hero).getCost()) {
             monsterSession.setSpecialAttack(true);
-            hero.setSecPointsCurrent(hero.getSecPointsCurrent()-40);
+            hero.setSecPointsCurrent(hero.getSecPointsCurrent() - getBuffSkill(hero).getCost() + 10);
             hero.setAttack(0);
-        }else if(getDamageSkill(hero).getId().equals(skill.getId()) && hero.getSecPointsCurrent()>=20) {
+        }else if(getDamageSkill(hero).getName().equals(skill.getName()) && hero.getSecPointsCurrent() >= getDamageSkill(hero).getCost()) {
             hero.setAttack(hero.getAttack() + skill.getDamage());
             if(buff) {
-                Skill skillBuff = getBuffSkill(hero);
-                double attack = 1.25 + skillBuff.getSkillRank() * 0.25;
-                hero.setAttack((int)attack);
-                monsterSession.setSpecialAttack(false);
+                if(hero.getSkill().get("buff").getName().equals(getBuffSkill(hero).getName())) {
+                    double effect = hero.getSkill().get("buff").getEffect().doubleValue();
+                    double attack = (effect/100) * hero.getAttack();
+                    hero.setAttack((int) attack);
+                    monsterSession.setSpecialAttack(false);
+                }
             }
-            hero.setSecPointsCurrent(hero.getSecPointsCurrent()-20);
-
+            hero.setSecPointsCurrent(hero.getSecPointsCurrent() - getDamageSkill(hero).getCost() + 10);
         }
         dealDamage(hero,monster);
     }
     @Override
     public void endFight(Hero hero) {
-        hero.setSecPointsCurrent(100);
+        hero.setSecPointsCurrent(hero.getSecPointsMax());
     }
 }

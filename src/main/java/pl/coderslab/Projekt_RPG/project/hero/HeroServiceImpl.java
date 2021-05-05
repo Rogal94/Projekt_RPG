@@ -57,16 +57,16 @@ public class HeroServiceImpl implements HeroService{
         hero.setStaminaMax(200);
         hero.setStaminaCurrent(hero.getStaminaMax());
         hero.setQuest(questRepository.getOne(1L));
-        Map<String,Item> itemMap = new TreeMap<>();
+        LinkedHashMap<String,Item> itemMap = new LinkedHashMap<>();
         itemMap.put("weapon",itemRepository.findByName("Small Axe"));
-        List<Item> itemList = new ArrayList<>(itemMap.values());
         itemMap.put("helmet",itemRepository.findByName("helmet"));
         itemMap.put("armor",itemRepository.findByName("armor"));
         itemMap.put("pants",itemRepository.findByName("pants"));
         itemMap.put("gloves",itemRepository.findByName("gloves"));
         itemMap.put("boots",itemRepository.findByName("boots"));
         hero.setItemEquiped(itemMap);
-        hero.setItem(itemList);
+//        List<Item> itemList = new ArrayList<>();
+//        hero.setItem(itemList);
         hero.setPotionHealth(5);
         hero.setPotionStamina(2);
         hero.setExperienceCurrent(0);
@@ -87,22 +87,6 @@ public class HeroServiceImpl implements HeroService{
     public boolean checkHero(Long heroId, User user) {
         return heroRepository.getOne(heroId).getUser() == user;
     }
-//    @Override
-//    public void addEquipArmorToList(List<Armor> list, Hero hero) {
-//        list.add(armorRepository.getOne(hero.getEquipHelmet()));
-//        list.add(armorRepository.getOne(hero.getEquipChest()));
-//        list.add(armorRepository.getOne(hero.getEquipLegs()));
-//        list.add(armorRepository.getOne(hero.getEquipGloves()));
-//        list.add(armorRepository.getOne(hero.getEquipBoots()));
-//    }
-
-//    @Override
-//    public void removeEquippedArmor(List<Armor> armorList, Hero hero) {
-//        List<Long> idList = Arrays.asList(hero.getEquipHelmet(), hero.getEquipChest(), hero.getEquipLegs(), hero.getEquipGloves(), hero.getEquipBoots());
-//        for (Long id : idList) {
-//            armorList.remove(armorRepository.getOne(id));
-//        }
-//    }
 
     public void checkMax (Hero hero) {
         if(hero.getSecPointsCurrent()>hero.getSecPointsMax()) {

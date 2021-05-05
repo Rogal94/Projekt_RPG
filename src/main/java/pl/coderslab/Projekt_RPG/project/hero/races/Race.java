@@ -14,5 +14,7 @@ public class Race {
     private Long id;
     private String name;
     public String mainStatName;
+    public String mainStatDesc;
     public String secPointsName;
+    public String secPointsDesc;
 }

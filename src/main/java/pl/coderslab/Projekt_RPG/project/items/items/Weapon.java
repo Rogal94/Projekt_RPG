@@ -12,6 +12,4 @@ import javax.persistence.*;
 @Setter
 public class Weapon extends Item {
     private Integer attack;
-    @ManyToOne
-    private Race race;
 }

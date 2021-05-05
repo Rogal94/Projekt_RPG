@@ -35,8 +35,9 @@ public class Warrior extends RaceService {
     @Override
     public void attack(Hero hero, Monster monster,boolean buff) {
         if(buff) {
-            Skill skill = getBuffSkill(hero);
-            hero.setAttack(hero.getAttack() + 20 + skill.getSkillRank() * 10);
+            if(hero.getSkill().get("buff").getName().equals(getBuffSkill(hero).getName())) {
+                hero.setAttack(hero.getAttack() + hero.getSkill().get("buff").getEffect());
+            }
         }
         dealDamage(hero,monster);
         hero.setSecPointsCurrent(hero.getSecPointsCurrent()+20);
@@ -44,17 +45,18 @@ public class Warrior extends RaceService {
 
     @Override
     public void attackSkill(Hero hero, Monster monster, Skill skill, boolean buff) {
-        if(getBuffSkill(hero).getId().equals(skill.getId()) && hero.getSecPointsCurrent()>=100) {
+        if(getBuffSkill(hero).getName().equals(skill.getName()) && hero.getSecPointsCurrent() >= getBuffSkill(hero).getCost()) {
             monsterSession.setSpecialAttack(true);
-            hero.setSecPointsCurrent(hero.getSecPointsCurrent()-100);
+            hero.setSecPointsCurrent(hero.getSecPointsCurrent() - getBuffSkill(hero).getCost());
             hero.setAttack(0);
-        }else if(getDamageSkill(hero).getId().equals(skill.getId()) && hero.getSecPointsCurrent()>=30) {
+        }else if(getDamageSkill(hero).getName().equals(skill.getName()) && hero.getSecPointsCurrent() >= getDamageSkill(hero).getCost()) {
             hero.setAttack(hero.getAttack() + skill.getDamage());
             if(buff) {
-                Skill skillBuff = getBuffSkill(hero);
-                hero.setAttack(hero.getAttack() + 20 + skillBuff.getSkillRank() * 10);
+                if(hero.getSkill().get("buff").getName().equals(getBuffSkill(hero).getName())) {
+                    hero.setAttack(hero.getAttack() + hero.getSkill().get("buff").getEffect());
+                }
             }
-            hero.setSecPointsCurrent(hero.getSecPointsCurrent()-20);
+            hero.setSecPointsCurrent(hero.getSecPointsCurrent() - getDamageSkill(hero).getCost());
         }
         dealDamage(hero,monster);
     }

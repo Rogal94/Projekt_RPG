@@ -16,6 +16,7 @@ import pl.coderslab.Projekt_RPG.project.items.Item;
 import pl.coderslab.Projekt_RPG.project.items.ItemService;
 import pl.coderslab.Projekt_RPG.project.items.items.Armor;
 import pl.coderslab.Projekt_RPG.project.items.items.Weapon;
+import pl.coderslab.Projekt_RPG.project.monster.MonsterRepository;
 import pl.coderslab.Projekt_RPG.project.monster.MonsterSession;
 import pl.coderslab.Projekt_RPG.user.UserService;
 
@@ -32,14 +33,16 @@ public class RewardController {
     private final QuestRepository questRepository;
     private final ItemService itemService;
     private final MonsterSession monsterSession;
+    private final MonsterRepository monsterRepository;
 
-    public RewardController(MonsterSession monsterSession, ItemService itemService, HeroRepository heroRepository, UserService userService, HeroService heroService, QuestRepository questRepository) {
+    public RewardController(MonsterRepository monsterRepository, MonsterSession monsterSession, ItemService itemService, HeroRepository heroRepository, UserService userService, HeroService heroService, QuestRepository questRepository) {
         this.heroRepository = heroRepository;
         this.userService = userService;
         this.heroService = heroService;
         this.questRepository = questRepository;
         this.itemService = itemService;
         this.monsterSession = monsterSession;
+        this.monsterRepository = monsterRepository;
     }
 
     @GetMapping("/{from}/{id}")
@@ -47,36 +50,15 @@ public class RewardController {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         int exp = 0;
         int gold = 0;
-        String random = itemService.randomItem();
         List<Item> items = hero.getItem();
         switch (from) {
             case "monster":
                 if(monsterSession.getRewardFromMonster().equals(id) && id > 0) {
                     exp = id.intValue() * 10;
                     gold = id.intValue() * 20;
-                    if(random.equals("weapon")) {
-                        Weapon weapon;
-                        if(id < 6) {
-                            weapon = itemService.getRandomWeapon(1);
-                        }else if(id < 12) {
-                            weapon = itemService.getRandomWeapon(2);
-                        }else {
-                            weapon = itemService.getRandomWeapon(3);
-                        }
-                        model.addAttribute("item",weapon);
-                        items.add(weapon);
-                    }else if(random.equals("armor")) {
-                        Armor armor;
-                        if(id < 6) {
-                            armor = itemService.getRandomArmor(1);
-                        }else if(id < 12) {
-                            armor = itemService.getRandomArmor(2);
-                        }else {
-                            armor = itemService.getRandomArmor(3);
-                        }
-                        model.addAttribute("item",armor);
-                        items.add(armor);
-                    }
+                    Item item = itemService.getRandomItem(monsterRepository.getOne(id).getTier());
+                    model.addAttribute("item",item);
+                    items.add(item);
                     monsterSession.setRewardFromMonster(0L);
                     model.addAttribute("monsterId", id);
                 }
@@ -85,35 +67,17 @@ public class RewardController {
                 if(hero.getMonsterKilled() >= 5) {
                     exp = id.intValue() * 200;
                     gold = id.intValue() * 1000;
-                    if(random.equals("weapon")) {
-                        Weapon weapon;
-                        if(id < 3) {
-                            weapon = itemService.getRandomWeapon(2);
-                        }else if(id < 6) {
-                            weapon = itemService.getRandomWeapon(3);
-                        }else {
-                            weapon = itemService.getRandomWeapon(4);
-                        }
-                        model.addAttribute("item",weapon);
-                        items.add(weapon);
-                    }else if(random.equals("armor")) {
-                        Armor armor;
-                        if(id < 3) {
-                            armor = itemService.getRandomArmor(2);
-                        }else if(id < 6) {
-                            armor = itemService.getRandomArmor(3);
-                        }else {
-                            armor = itemService.getRandomArmor(4);
-                        }
-                        model.addAttribute("item",armor);
-                        items.add(armor);
-                    }
+                    Item item = itemService.getSuitableRandomItem(monsterRepository.getOne(id).getTier(),hero.getRace());
+                    model.addAttribute("item",item);
+                    items.add(item);
                     hero.setMonsterKilled(0L);
-                    hero.setQuest(questRepository.getOne(id + 1));
+                    if(questRepository.findAll().size() != id) {
+                        hero.setQuest(questRepository.getOne(id + 1));
+                    }
                 }
                 break;
         }
-        hero.setItem(items);
+//        hero.setItem(items);
         hero.setExperienceCurrent(hero.getExperienceCurrent() + exp);
         hero.setGoldAmount(hero.getGoldAmount() + gold);
         heroService.endFight(hero);

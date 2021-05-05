@@ -41,7 +41,7 @@ public class Hero {
     @ManyToMany
     private Map<String,Item> itemEquiped;
     @ManyToMany
-    private List<Skill> skill;
+    private Map<String,Skill> skill;
     @ManyToMany
     private List<Item> item;
     @ManyToOne

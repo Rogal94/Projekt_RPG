@@ -3,6 +3,7 @@ package pl.coderslab.Projekt_RPG.project.items;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import pl.coderslab.Projekt_RPG.project.hero.races.Race;
 
 import java.util.List;
 
@@ -11,5 +12,8 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findAllByCategory(String category);
     Item findByName(String name);
+    List<Item> findAllByTier(Integer tier);
+    List<Item> findAllByTierAndRace(Integer tier, Race race);
+    List<Item> findAllByRace(Race race);
 }
 

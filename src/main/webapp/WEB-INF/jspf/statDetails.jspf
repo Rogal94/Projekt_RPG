@@ -1,0 +1,17 @@
+<div class="w3-hide" style="position:absolute" id="detailsStat">
+    <ul class="w3-ul w3-white w3-opacity w3-hover-opacity-off">
+        <li class="w3-dark-grey w3-xlarge w3-padding-16 w3-center">STATISTICS DETAILS</li>
+        <li class="w3-padding-16">
+            Name : Desc
+        </li>
+        <li class="w3-padding-16">
+            VITALITY : Gives Defense and HP
+        </li>
+        <li class="w3-padding-16">
+            SecName : SecDesc
+        </li>
+        <li class="w3-padding-16">
+            <button class="w3-button w3-dark-grey w3-hover-black" onclick="closeStatDetails()">CLOSE</button>
+        </li>
+    </ul>
+</div>

@@ -23,6 +23,6 @@ public class Monster {
     private Integer defense;
     private Integer healthPointsMax;
     private Integer levelPreferred;
-
+    private Integer tier;
 }
 

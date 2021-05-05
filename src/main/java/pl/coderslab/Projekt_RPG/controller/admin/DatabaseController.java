@@ -26,6 +26,8 @@ import pl.coderslab.Projekt_RPG.project.monster.MonsterRepository;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -102,8 +104,13 @@ public class DatabaseController {
                     String line = scanner.nextLine();
                     Weapon weapon = objectMapper.readValue(line, Weapon.class);
                     Map<String,String> map = objectMapper.readValue(line,Map.class);
-                    Race race = raceRepository.findByName(map.get("itemFor"));
-                    weapon.setRace(race);
+                    List<Race> raceList = new ArrayList<>();
+                    String[] raceTable = map.get("itemFor").split(",");
+                    for (String raceName : raceTable) {
+                        Race race = raceRepository.findByName(raceName);
+                        raceList.add(race);
+                    }
+                    weapon.setRace(raceList);
                     weaponRepository.save(weapon);
                 }catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -124,8 +131,13 @@ public class DatabaseController {
                     String line = scanner.nextLine();
                     Armor armor = objectMapper.readValue(line,Armor.class);
                     Map<String,String> map = objectMapper.readValue(line,Map.class);
-                    Race race = raceRepository.findByName(map.get("itemFor"));
-                    armor.setRace(race);
+                    List<Race> raceList = new ArrayList<>();
+                    String[] raceTable = map.get("itemFor").split(",");
+                    for (String raceName : raceTable) {
+                        Race race = raceRepository.findByName(raceName);
+                        raceList.add(race);
+                    }
+                    armor.setRace(raceList);
                     armorRepository.save(armor);
                 }catch (JsonProcessingException e) {
                     e.printStackTrace();

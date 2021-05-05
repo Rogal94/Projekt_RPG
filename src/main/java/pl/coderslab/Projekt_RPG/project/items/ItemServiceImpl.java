@@ -1,25 +1,26 @@
 package pl.coderslab.Projekt_RPG.project.items;
 
 import org.springframework.stereotype.Service;
+import pl.coderslab.Projekt_RPG.project.hero.races.Race;
 import pl.coderslab.Projekt_RPG.project.items.items.Armor;
 import pl.coderslab.Projekt_RPG.project.items.items.ArmorRepository;
 import pl.coderslab.Projekt_RPG.project.items.items.Weapon;
 import pl.coderslab.Projekt_RPG.project.items.items.WeaponRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ItemServiceImpl implements ItemService{
     private final ArmorRepository armorRepository;
     private final WeaponRepository weaponRepository;
+    private final ItemRepository itemRepository;
 
-    public ItemServiceImpl(ArmorRepository armorRepository, WeaponRepository weaponRepository) {
+    public ItemServiceImpl(ItemRepository itemRepository, ArmorRepository armorRepository, WeaponRepository weaponRepository) {
         this.armorRepository = armorRepository;
         this.weaponRepository = weaponRepository;
+        this.itemRepository = itemRepository;
     }
 
     @Override
@@ -43,100 +44,30 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public List<Armor> getSortedArmorFromItems(Map<String,Item> itemMap) {
-        List<Item> items = new ArrayList<>();
-        items.add(itemMap.get("helmet"));
-        items.add(itemMap.get("armor"));
-        items.add(itemMap.get("pants"));
-        items.add(itemMap.get("gloves"));
-        items.add(itemMap.get("boots"));
-        return getArmorFromItems(items);
+    public LinkedHashMap<String, Item> getSortedItems(Map<String,Item> itemMap) {
+        LinkedHashMap<String, Item> items = new LinkedHashMap<>();
+        items.put("weapon", itemMap.get("weapon"));
+        items.put("helmet", itemMap.get("helmet"));
+        items.put("armor", itemMap.get("armor"));
+        items.put("pants", itemMap.get("pants"));
+        items.put("gloves", itemMap.get("gloves"));
+        items.put("boots", itemMap.get("boots"));
+        return items;
     }
 
     @Override
-    public Armor getRandomArmor(int power) {
-        Armor armor;
+    public Item getRandomItem(int tier) {
         Random rand = new Random();
-        List<Armor> armorList = new ArrayList<>();
-        switch(power) {
-            case 1:
-                armorList = armorRepository.findAll().stream()
-                        .filter(a->a.getDefence()>0)
-                        .filter(a->a.getDefence()<15)
-                        .collect(Collectors.toList());
-
-                break;
-            case 2:
-                armorList = armorRepository.findAll().stream()
-                        .filter(a->a.getDefence()>5)
-                        .filter(a->a.getDefence()<35)
-                        .collect(Collectors.toList());
-                break;
-            case 3:
-                armorList = armorRepository.findAll().stream()
-                        .filter(a->a.getDefence()>15)
-                        .filter(a->a.getDefence()<60)
-                        .collect(Collectors.toList());
-                break;
-            case 4:
-                armorList = armorRepository.findAll().stream()
-                        .filter(a->a.getDefence()>35)
-                        .filter(a->a.getDefence()<60)
-                        .collect(Collectors.toList());
-                break;
-        }
-        int randomIndex = rand.nextInt(armorList.size());
-        armor = armorList.get(randomIndex);
-        return armor;
+        List<Item> itemList = itemRepository.findAllByTier(tier);
+        int randomIndex = rand.nextInt(itemList.size());
+        return itemList.get(randomIndex);
     }
 
     @Override
-    public Weapon getRandomWeapon(int power) {
-        Weapon weapon;
+    public Item getSuitableRandomItem(int tier , Race race) {
         Random rand = new Random();
-        List<Weapon> weaponList = new ArrayList<>();
-        switch(power) {
-            case 1:
-                weaponList = weaponRepository.findAll().stream()
-                        .filter(w->w.getAttack()>0)
-                        .filter(w->w.getAttack()<15)
-                        .filter(w->w.getId()<23)
-                        .collect(Collectors.toList());
-                break;
-            case 2:
-                weaponList = weaponRepository.findAll().stream()
-                        .filter(w->w.getAttack()>5)
-                        .filter(w->w.getAttack()<35)
-                        .filter(w->w.getId()<24)
-                        .collect(Collectors.toList());
-                break;
-            case 3:
-                weaponList = weaponRepository.findAll().stream()
-                        .filter(w->w.getAttack()>15)
-                        .filter(w->w.getAttack()<60)
-                        .collect(Collectors.toList());
-                weaponList.add(weaponRepository.getOne(24L));
-                break;
-            case 4:
-                weaponList = weaponRepository.findAll().stream()
-                        .filter(w->w.getAttack()>35)
-                        .filter(w->w.getAttack()<60)
-                        .collect(Collectors.toList());
-                weaponList.add(weaponRepository.getOne(25L));
-                break;
-        }
-        int randomIndex = rand.nextInt(weaponList.size());
-        weapon = weaponList.get(randomIndex);
-        return weapon;
-    }
-
-    @Override
-    public String randomItem() {
-        Random rand = new Random();
-        int random = rand.nextInt(5);
-        if(random <= 1) {
-            return "weapon";
-        }
-        return "armor";
+        List<Item> itemList = itemRepository.findAllByTierAndRace(tier,race);
+        int randomIndex = rand.nextInt(itemList.size());
+        return itemList.get(randomIndex);
     }
 }

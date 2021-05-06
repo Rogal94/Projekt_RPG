@@ -70,4 +70,26 @@ public class ItemServiceImpl implements ItemService{
         int randomIndex = rand.nextInt(itemList.size());
         return itemList.get(randomIndex);
     }
+
+    @Override
+    public Integer getChanceToUpgrade(Integer grade) {
+        switch (grade) {
+            case 1:
+                return 100;
+            case 2:
+                return 50;
+            case 3:
+                return 20;
+            case 4:
+                return 10;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean upgradeItem(Integer chance) {
+        Random r = new Random();
+        int result = r.nextInt(100) + 1;
+        return result <= chance;
+    }
 }

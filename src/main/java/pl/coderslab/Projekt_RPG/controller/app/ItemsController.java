@@ -11,6 +11,7 @@ import pl.coderslab.Projekt_RPG.project.hero.Hero;
 import pl.coderslab.Projekt_RPG.project.hero.HeroRepository;
 import pl.coderslab.Projekt_RPG.project.hero.HeroService;
 import pl.coderslab.Projekt_RPG.project.items.Item;
+import pl.coderslab.Projekt_RPG.project.items.ItemRepository;
 import pl.coderslab.Projekt_RPG.project.items.ItemService;
 import pl.coderslab.Projekt_RPG.user.UserService;
 
@@ -24,18 +25,20 @@ public class ItemsController {
     private final UserService userService;
     private final HeroService heroService;
     private final ItemService itemService;
+    private final ItemRepository itemRepository;
 
-    public ItemsController(ItemService itemService, HeroRepository heroRepository, UserService userService, HeroService heroService) {
+    public ItemsController(ItemRepository itemRepository, ItemService itemService, HeroRepository heroRepository, UserService userService, HeroService heroService) {
         this.heroRepository = heroRepository;
         this.userService = userService;
         this.heroService = heroService;
         this.itemService = itemService;
+        this.itemRepository = itemRepository;
     }
 
     @GetMapping("")
     public String items(@AuthenticationPrincipal UserDetails customUser, Model model) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
-        LinkedHashMap<String,Item> itemList = itemService.getSortedItems(new HashMap<>(hero.getItemEquiped()));
+        LinkedHashMap<String,Item> itemList = itemService.getSortedItems(new HashMap<>(hero.getItemEquipped()));
         model.addAttribute("hero", hero);
         model.addAttribute("itemList", itemList);
         return "app/items";
@@ -75,8 +78,8 @@ public class ItemsController {
         return "app/itemsChangeList";
     }
 
-    @GetMapping("/change/{type}/{id}")
-    public String itemsChange(@PathVariable String type, @PathVariable Long id, @AuthenticationPrincipal UserDetails customUser) {
+    @GetMapping("/change/{id}")
+    public String itemsChange(@PathVariable Long id, @AuthenticationPrincipal UserDetails customUser) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         Optional<Item> itemToEquip = hero.getItem().stream()
                 .filter(i->i.getId().equals(id))
@@ -84,10 +87,10 @@ public class ItemsController {
         if(itemToEquip.isPresent()) {
             Item itemNew = itemToEquip.get();
             if(itemNew.getRace().contains(hero.getRace())) {
-                Map<String, Item> itemMap = hero.getItemEquiped();
+                Map<String, Item> itemMap = hero.getItemEquipped();
                 List <Item> itemList = hero.getItem();
-                Item itemOld = itemMap.get(type);
-                itemMap.put(type,itemNew);
+                Item itemOld = itemMap.get(itemNew.getType());
+                itemMap.put(itemNew.getType(),itemNew);
                 itemList.remove(itemNew);
                 if(itemOld.getPrice() != null) {
                     itemList.add(itemOld);
@@ -134,14 +137,64 @@ public class ItemsController {
         return "redirect:/items";
     }
 
-//    @GetMapping("/details/{type}/{id}")
-//    public String itemsDetails(@PathVariable Long id,@PathVariable String type, Model model, @AuthenticationPrincipal UserDetails customUser) {
-//        if(type.equals("weapon")) {
-//            model.addAttribute("item", weaponRepository.getOne(id));
-//        }else {
-//            model.addAttribute("item", armorRepository.getOne(id));
-//        }
-//        model.addAttribute("type", type);
-//        return "app/itemsDetails";
-//    }
+    @GetMapping("/upgrade/{equipped}/{id}")
+    public String itemsUpgrade(@PathVariable Long id, @PathVariable String equipped, Model model, @AuthenticationPrincipal UserDetails customUser) {
+        Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
+        Optional<Item> itemToEquip;
+        if(equipped.equals("equipped")) {
+            itemToEquip = hero.getItemEquipped().values().stream()
+                    .filter(i->i.getId().equals(id))
+                    .findFirst();
+            model.addAttribute("equipped", true);
+        }else {
+            itemToEquip = hero.getItem().stream()
+                    .filter(i->i.getId().equals(id))
+                    .findFirst();
+            model.addAttribute("equipped", false);
+        }
+        if(itemToEquip.isPresent()) {
+            Item item = itemToEquip.get();
+            Integer chance = itemService.getChanceToUpgrade(item.getGrade());
+            model.addAttribute("chance", chance);
+            model.addAttribute("item", item);
+            model.addAttribute("hero", hero);
+        }
+        return "app/itemsUpgrade";
+    }
+
+    @GetMapping("/upgrade/try/{equipped}/{id}")
+    public String itemsUpgradeTry(@PathVariable Long id, @PathVariable String equipped, @AuthenticationPrincipal UserDetails customUser) {
+        Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
+        Optional<Item> itemToUpgrade;
+        Item itemNew = itemRepository.getOne(id);
+        if(equipped.equals("equipped")) {
+            itemToUpgrade = hero.getItemEquipped().values().stream()
+                    .filter(i->i.getId().equals(id))
+                    .findFirst();
+        }else {
+            itemToUpgrade = hero.getItem().stream()
+                    .filter(i->i.getId().equals(id))
+                    .findFirst();
+        }
+        if(itemToUpgrade.isPresent()) {
+            Item item = itemToUpgrade.get();
+            if(hero.getGoldAmount() >= item.getPrice()/2) {
+                boolean upgrade = itemService.upgradeItem(itemService.getChanceToUpgrade(item.getGrade()));
+                if(upgrade) {
+                    itemNew = itemRepository.findByNameAndGrade(item.getName(),item.getGrade() + 1);
+                }else{
+                    itemNew = itemRepository.findByNameAndGrade(item.getName(),item.getGrade() - 1);
+                }
+                if(equipped.equals("equipped")) {
+                    hero.getItemEquipped().put(item.getType(),itemNew);
+                }else {
+                    hero.getItem().set(hero.getItem().indexOf(item), itemNew);
+                }
+                hero.setGoldAmount(hero.getGoldAmount() - item.getPrice()/2);
+            }
+        }
+        heroService.updateHero(hero);
+        heroRepository.save(hero);
+        return "redirect:/items/upgrade/" + equipped + "/" + itemNew.getId();
+    }
 }

@@ -23,11 +23,6 @@ public class RankingController {
         this.userService = userService;
     }
 
-//    @GetMapping("")
-//    public String ranking() {
-//        return "app/ranking";
-//    }
-
     @GetMapping("/{ranking}")
     public String rankingList(@PathVariable String ranking, Model model) {
         List<Hero> rankingList = new ArrayList<>();

@@ -33,7 +33,7 @@
                 </div>
                 <p class="w3-wide"><c:out value="${fn:toUpperCase(hero.race.secPointsName)}"/></p>
                 <div class="w3-dark-gray w3-margin">
-                    <div class="w3-purple" style="height:36px;width:<c:out value="${(hero.secPointsCurrent/hero.secPointsMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.secPointsCurrent}"/>/<c:out value="${hero.secPointsMax}"/></p></div>
+                    <div class="points-${hero.race.secPointsName}" style="height:36px;width:<c:out value="${(hero.secPointsCurrent/hero.secPointsMax)*100}"/>%"><p class="w3-center w3-text-white w3-xlarge"><c:out value="${hero.secPointsCurrent}"/>/<c:out value="${hero.secPointsMax}"/></p></div>
                 </div>
                 <p class="w3-wide">STAMINA</p>
                 <div class="w3-dark-gray w3-margin">

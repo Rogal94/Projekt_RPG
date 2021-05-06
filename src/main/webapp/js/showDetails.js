@@ -29,12 +29,12 @@ function showItemDetails (obj, e) {
     if(obj.dataset.power > 0) {
         lines[4].innerHTML = 'Description: ' + obj.dataset.description;
         lines[5].children[0].classList.remove("w3-hide");
+        lines[5].children[0].href = "/items/upgrade/equipped/" + obj.dataset.id;
         lines[5].children[1].innerHTML = "CHANGE";
     }else{
         lines[2].innerHTML = 'Name : ' + obj.dataset.name.charAt(0).toUpperCase() + obj.dataset.name.slice(1);
         lines[4].innerHTML = 'Description : ' + 'You need ' + obj.dataset.name;
         lines[5].children[0].classList.add("w3-hide");
-        lines[5].children[0].href = "/items/upgrade/" + obj.dataset.id;
         lines[5].children[1].innerHTML = "EQUIP";
     }
     lines[5].children[1].href = "/items/list/change/" + obj.dataset.type;
@@ -54,7 +54,7 @@ function showItemDetailsList (obj, e) {
         lines[3].innerHTML = 'Defence : ' + obj.dataset.power;
     }
     lines[4].innerHTML = 'Description : ' + obj.dataset.description;
-    lines[5].children[0].href = "/items/upgrade/" + obj.dataset.id;
+    lines[5].children[0].href = "/items/upgrade/unequipped/" + obj.dataset.id;
     lines[5].children[1].classList.add("w3-hide");
 }
 

@@ -22,6 +22,7 @@ public class Item {
     private Integer price;
     private String type;
     private Integer tier;
+    private Integer grade;
     @Column(insertable = false, updatable = false)
     private String category;
     @ManyToMany

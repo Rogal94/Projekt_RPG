@@ -30,13 +30,11 @@ public class ShopController {
     private final HeroRepository heroRepository;
     private final ItemRepository itemRepository;
     private final UserService userService;
-    private final WeaponRepository weaponRepository;
 
-    public ShopController(HeroRepository heroRepository, ItemRepository itemRepository, UserService userService, WeaponRepository weaponRepository) {
+    public ShopController(HeroRepository heroRepository, ItemRepository itemRepository, UserService userService) {
         this.heroRepository = heroRepository;
         this.itemRepository = itemRepository;
         this.userService = userService;
-        this.weaponRepository = weaponRepository;
     }
 
     @GetMapping("")

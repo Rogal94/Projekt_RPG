@@ -26,7 +26,7 @@
                 </div>
                 <p class="w3-wide">MP</p>
                 <div class="w3-dark-gray w3-margin">
-                    <div class="w3-purple" style="height:28px;width:<c:out value="${(hero.secPointsCurrent/hero.secPointsMax) * 100}"/>%"><p class="w3-center w3-text-white"><c:out value="${hero.secPointsCurrent}"/>/<c:out value="${hero.secPointsMax}"/></p></div>
+                    <div class="points-${hero.race.secPointsName}" style="height:28px;width:<c:out value="${(hero.secPointsCurrent/hero.secPointsMax) * 100}"/>%"><p class="w3-center w3-text-white"><c:out value="${hero.secPointsCurrent}"/>/<c:out value="${hero.secPointsMax}"/></p></div>
                 </div>
                 <span class="w3-xlarge">
                     <img src='<c:url value="/images/hero/${hero.race.name}.jpg"/>' alt="hero" class="w3-image" id = "heroImg" width="300" height="400">

@@ -1893,3 +1893,60 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     -ms-transform: translate(-50%, -50%);
     opacity: 1;
 }
+
+.grade1 {
+    box-shadow: 0 0 15px 10px white;
+}
+
+.grade2 {
+    box-shadow: 0 0 15px 10px green;
+}
+
+.grade3 {
+    box-shadow: 0 0 15px 10px blue;
+}
+
+.grade4 {
+    box-shadow: 0 0 15px 10px purple;
+}
+
+.grade5 {
+    box-shadow: 0 0 15px 10px yellow;
+}
+
+.points-rage {
+    color: #fff !important;
+    background-color: #f44336 !important
+}
+
+.points-essence {
+    color: #fff !important;
+    background-color: #9c27b0 !important
+}
+
+.points-mana {
+    color: #fff !important;
+    background-color: #2196F3 !important
+}
+
+.points-energy {
+    color: #fff !important;
+    background-color: #ff9800 !important
+}
+
+.upgrade-animate {
+    position: relative;
+    animation: shake 2s linear;
+}
+
+@keyframes shake {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

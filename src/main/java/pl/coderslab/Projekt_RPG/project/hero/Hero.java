@@ -39,7 +39,7 @@ public class Hero {
     private Integer potionStamina;
 
     @ManyToMany
-    private Map<String,Item> itemEquiped;
+    private Map<String,Item> itemEquipped;
     @ManyToMany
     private Map<String,Skill> skill;
     @ManyToMany

@@ -35,16 +35,16 @@ public abstract class RaceService {
     public abstract void endFight(Hero hero);
 
     protected Integer sumDefence (Hero hero) {
-        List<Armor> armorList = itemService.getArmorFromItems(new ArrayList<>(hero.getItemEquiped().values()));
+        List<Armor> armorList = itemService.getArmorFromItems(new ArrayList<>(hero.getItemEquipped().values()));
         return armorList.stream().map(Armor::getDefence).reduce(0, Integer::sum);
     }
 
     protected Integer sumAttack (Hero hero) {
-        return weaponRepository.getOne(hero.getItemEquiped().get("weapon").getId()).getAttack();
+        return weaponRepository.getOne(hero.getItemEquipped().get("weapon").getId()).getAttack();
     }
 
     protected Integer damage(Integer attackOfAttacker, Integer defenceOfDefender) {
-        return (attackOfAttacker * 100)/(100+defenceOfDefender);
+        return (attackOfAttacker * 5 * 100)/(100+defenceOfDefender);
     }
 
     protected void dealDamage(Hero hero, Monster monster) {

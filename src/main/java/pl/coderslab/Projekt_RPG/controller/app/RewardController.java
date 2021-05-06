@@ -16,6 +16,7 @@ import pl.coderslab.Projekt_RPG.project.items.Item;
 import pl.coderslab.Projekt_RPG.project.items.ItemService;
 import pl.coderslab.Projekt_RPG.project.items.items.Armor;
 import pl.coderslab.Projekt_RPG.project.items.items.Weapon;
+import pl.coderslab.Projekt_RPG.project.monster.Monster;
 import pl.coderslab.Projekt_RPG.project.monster.MonsterRepository;
 import pl.coderslab.Projekt_RPG.project.monster.MonsterSession;
 import pl.coderslab.Projekt_RPG.user.UserService;
@@ -55,7 +56,7 @@ public class RewardController {
             case "monster":
                 if(monsterSession.getRewardFromMonster().equals(id) && id > 0) {
                     exp = id.intValue() * 10;
-                    gold = id.intValue() * 20;
+                    gold = id.intValue() * 100;
                     Item item = itemService.getRandomItem(monsterRepository.getOne(id).getTier());
                     model.addAttribute("item",item);
                     items.add(item);
@@ -65,9 +66,10 @@ public class RewardController {
                 break;
             case "quest":
                 if(hero.getMonsterKilled() >= 5) {
-                    exp = id.intValue() * 200;
+                    exp = id.intValue() * 100;
                     gold = id.intValue() * 1000;
-                    Item item = itemService.getSuitableRandomItem(monsterRepository.getOne(id).getTier(),hero.getRace());
+                    Monster monster = monsterRepository.findByName(questRepository.getOne(id).getMonsterName());
+                    Item item = itemService.getSuitableRandomItem(monster.getTier(),hero.getRace());
                     model.addAttribute("item",item);
                     items.add(item);
                     hero.setMonsterKilled(0L);

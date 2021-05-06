@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MonsterRepository extends JpaRepository<Monster, Long> {
+    Monster findByName(String name);
 }

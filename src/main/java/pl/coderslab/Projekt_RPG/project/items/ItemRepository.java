@@ -11,9 +11,9 @@ import java.util.List;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findAllByCategory(String category);
-    Item findByName(String name);
     List<Item> findAllByTier(Integer tier);
     List<Item> findAllByTierAndRace(Integer tier, Race race);
     List<Item> findAllByRace(Race race);
+    Item findByNameAndGrade(String name, Integer grade);
 }
 

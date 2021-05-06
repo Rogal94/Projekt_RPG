@@ -17,4 +17,6 @@ public interface ItemService {
     LinkedHashMap<String, Item> getSortedItems(Map<String,Item> items);
     Item getRandomItem (int tier);
     Item getSuitableRandomItem (int tier, Race race);
+    Integer getChanceToUpgrade(Integer grade);
+    boolean upgradeItem(Integer chance);
 }

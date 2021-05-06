@@ -61,8 +61,10 @@ public class MonsterController {
             } else if (!monsterSession.getId().equals(id)) {
                 return "redirect:/monsters";
             }
-
-            if (monsterSession.getHealthPointsCurrent() <= 0) {
+            if (hero.getHealthPointsCurrent() <= 0) {
+                monsterSession.setId(null);
+                return "redirect:/character/died";
+            } else if (monsterSession.getHealthPointsCurrent() <= 0) {
                 monsterSession.setId(null);
                 monsterSession.setRewardFromMonster(id);
                 if (hero.getQuest().getMonsterName().equals(monster.getName())) {
@@ -70,9 +72,6 @@ public class MonsterController {
                 }
                 heroRepository.save(hero);
                 return "redirect:/reward/monster/" + id;
-            } else if (hero.getHealthPointsCurrent() <= 0) {
-                monsterSession.setId(null);
-                return "redirect:/character/died";
             }
 
             model.addAttribute("user", user);

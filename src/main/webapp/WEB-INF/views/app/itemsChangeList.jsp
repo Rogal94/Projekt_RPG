@@ -80,7 +80,7 @@
                     </div>
                     <div class="w3-quarter w3-section">
                     <span class="w3-xlarge">
-                        <img src='<c:url value="${item.imageUrl}"/>' alt="icon" class="w3-image" width="64" height="64">
+                        <img src='<c:url value="${item.imageUrl}"/>' alt="icon" class="w3-image grade<c:out value="${item.grade}"/>" width="64" height="64">
                     </span>
                     </div>
                     <div class="w3-quarter w3-section">
@@ -90,7 +90,7 @@
                     </div>
                     <div class="w3-quarter w3-section">
                     <span class="w3-xlarge">
-                        <a href='<c:url value="/items/change/${type}/${item.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black">EQUIP<br/><c:out value="${fn:toUpperCase(item.type)}"/></a>
+                        <a href='<c:url value="/items/change/${item.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black">EQUIP<br/><c:out value="${fn:toUpperCase(item.type)}"/></a>
                     </span>
                     </div>
                 </div>

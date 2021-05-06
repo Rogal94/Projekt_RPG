@@ -105,32 +105,32 @@ public class ItemsController {
     public String itemsPoints(@PathVariable String points, @AuthenticationPrincipal UserDetails customUser) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         if(points.equals("health") && hero.getPotionHealth() > 0) {
-            hero.setHealthPointsCurrent(hero.getHealthPointsCurrent() + 100);
+            hero.setHealthPointsCurrent(hero.getHealthPointsCurrent() + 200);
             if(hero.getHealthPointsCurrent() > hero.getHealthPointsMax()) {
                 hero.setHealthPointsCurrent(hero.getHealthPointsMax());
             }
             hero.setPotionHealth(hero.getPotionHealth() - 1);
         }
         if(points.equals("stamina") && hero.getPotionStamina() > 0) {
-            hero.setStaminaCurrent(hero.getStaminaCurrent() + 10);
+            hero.setStaminaCurrent(hero.getStaminaCurrent() + 20);
             if(hero.getStaminaCurrent() > hero.getStaminaMax()) {
                 hero.setStaminaCurrent(hero.getStaminaMax());
             }
             hero.setPotionStamina(hero.getPotionStamina() - 1);
         }
-        if(points.equals("health10") && hero.getPotionHealth() > 9) {
+        if(points.equals("health5") && hero.getPotionHealth() > 4) {
             hero.setHealthPointsCurrent(hero.getHealthPointsCurrent() + 1000);
             if(hero.getHealthPointsCurrent() > hero.getHealthPointsMax()) {
                 hero.setHealthPointsCurrent(hero.getHealthPointsMax());
             }
-            hero.setPotionHealth(hero.getPotionHealth() - 10);
+            hero.setPotionHealth(hero.getPotionHealth() - 5);
         }
-        if(points.equals("stamina10") && hero.getPotionStamina() > 9) {
+        if(points.equals("stamina5") && hero.getPotionStamina() > 4) {
             hero.setStaminaCurrent(hero.getStaminaCurrent() + 100);
             if(hero.getStaminaCurrent() > hero.getStaminaMax()) {
                 hero.setStaminaCurrent(hero.getStaminaMax());
             }
-            hero.setPotionStamina(hero.getPotionStamina() - 10);
+            hero.setPotionStamina(hero.getPotionStamina() - 5);
         }
         heroRepository.save(hero);
         return "redirect:/items";

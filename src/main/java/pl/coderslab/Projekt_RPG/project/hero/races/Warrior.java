@@ -11,8 +11,8 @@ import pl.coderslab.Projekt_RPG.project.monster.MonsterSession;
 
 @Service
 public class Warrior extends RaceService {
-    public Warrior(MonsterSession monsterSession, WeaponRepository weaponRepository, ItemService itemService, SkillRepository skillRepository) {
-        super(monsterSession, weaponRepository, itemService, skillRepository);
+    public Warrior(MonsterSession monsterSession, ItemService itemService, SkillRepository skillRepository) {
+        super(monsterSession, itemService, skillRepository);
     }
 
     @Override
@@ -49,6 +49,7 @@ public class Warrior extends RaceService {
             monsterSession.setSpecialAttack(true);
             hero.setSecPointsCurrent(hero.getSecPointsCurrent() - getBuffSkill(hero).getCost());
             hero.setAttack(0);
+            dealDamage(hero,monster);
         }else if(getDamageSkill(hero).getName().equals(skill.getName()) && hero.getSecPointsCurrent() >= getDamageSkill(hero).getCost()) {
             hero.setAttack(hero.getAttack() + skill.getDamage());
             if(buff) {
@@ -57,8 +58,8 @@ public class Warrior extends RaceService {
                 }
             }
             hero.setSecPointsCurrent(hero.getSecPointsCurrent() - getDamageSkill(hero).getCost());
+            dealDamage(hero,monster);
         }
-        dealDamage(hero,monster);
     }
 
     @Override

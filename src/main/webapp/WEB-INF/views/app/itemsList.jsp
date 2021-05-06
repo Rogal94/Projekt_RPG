@@ -77,6 +77,7 @@
                      data-name="<c:out value="${item.name}"/>"
                      data-url="<c:out value="${item.imageUrl}"/>"
                      data-description="<c:out value="${item.description}"/>"
+                     data-grade="<c:out value="${item.grade}"/>"
                      data-type="<c:out value="${item.type}"/>"
                         <c:if test="${item.type.equals('weapon') || item.type.equals('ring') || item.type.equals('necklace')}">
                             data-power="<c:out value="${item.attack}"/>"

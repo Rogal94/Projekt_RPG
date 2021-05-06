@@ -16,11 +16,9 @@ import java.util.List;
 @RequestMapping("/ranking")
 public class RankingController {
     private final HeroRepository heroRepository;
-    private final UserService userService;
 
-    public RankingController(HeroRepository heroRepository, UserService userService) {
+    public RankingController(HeroRepository heroRepository) {
         this.heroRepository = heroRepository;
-        this.userService = userService;
     }
 
     @GetMapping("/{ranking}")
@@ -33,7 +31,7 @@ public class RankingController {
             case "attack":
                 rankingList = heroRepository.findTop10ByOrderByAttackDesc();
                 break;
-            case "defense":
+            case "defence":
                 rankingList = heroRepository.findTop10ByOrderByDefenceDesc();
                 break;
         }

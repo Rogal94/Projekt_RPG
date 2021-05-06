@@ -13,8 +13,8 @@ import pl.coderslab.Projekt_RPG.project.monster.MonsterSession;
 @Service
 public class Necromancer extends RaceService {
 
-    public Necromancer(MonsterSession monsterSession, WeaponRepository weaponRepository, ItemService itemService, SkillRepository skillRepository) {
-        super(monsterSession, weaponRepository, itemService, skillRepository);
+    public Necromancer(MonsterSession monsterSession, ItemService itemService, SkillRepository skillRepository) {
+        super(monsterSession, itemService, skillRepository);
     }
 
     @Override
@@ -52,6 +52,13 @@ public class Necromancer extends RaceService {
             monsterSession.setSpecialAttack(true);
             hero.setSecPointsCurrent(hero.getSecPointsCurrent() - getBuffSkill(hero).getCost());
             hero.setAttack(0);
+            Integer points = hero.getSecPointsCurrent();
+            if(points>100){
+                hero.setHealthPointsCurrent(hero.getHealthPointsCurrent() + points);
+            }else if(points<100){
+                hero.setHealthPointsCurrent(hero.getHealthPointsCurrent() - points);
+            }
+            dealDamage(hero,monster);
         }else if(getDamageSkill(hero).getName().equals(skill.getName()) && hero.getSecPointsCurrent() >= getDamageSkill(hero).getCost()) {
             hero.setAttack(hero.getAttack() + skill.getDamage());
             if(buff) {
@@ -62,13 +69,13 @@ public class Necromancer extends RaceService {
             }
             Integer points = hero.getSecPointsCurrent();
             if(points>100){
-                hero.setHealthPointsCurrent(hero.getHealthPointsCurrent() + points * 2);
+                hero.setHealthPointsCurrent(hero.getHealthPointsCurrent() + points);
             }else if(points<100){
-                hero.setHealthPointsCurrent(hero.getHealthPointsCurrent() - points * 2);
+                hero.setHealthPointsCurrent(hero.getHealthPointsCurrent() - points);
             }
             hero.setSecPointsCurrent(hero.getSecPointsCurrent() - getDamageSkill(hero).getCost());
+            dealDamage(hero,monster);
         }
-        dealDamage(hero,monster);
     }
 
     @Override

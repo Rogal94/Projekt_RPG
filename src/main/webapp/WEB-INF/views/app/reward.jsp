@@ -43,9 +43,29 @@
                         <span class="w3-xlarge">${item.name}</span>
                     </div>
                     <div class="w3-half w3-section">
-                        <img src='<c:url value="${item.imageUrl}"/>' alt="icon" class="w3-image" width="32" height="32">
+                        <img src='<c:url value="${item.imageUrl}"/>' alt="icon" class="w3-image" width="64" height="64">
                     </div>
                 </div>
+                <c:if test="${potionHP}">
+                    <div class="w3-row w3-center w3-section w3-light-grey w3-margin">
+                        <div class="w3-half w3-section">
+                            <span class="w3-xlarge">Health Potion</span>
+                        </div>
+                        <div class="w3-half w3-section">
+                            <img src='<c:url value="/images/items/potion/healthPotion.png"/>' alt="icon" class="w3-image" width="64" height="64">
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${potionStamina}">
+                    <div class="w3-row w3-center w3-section w3-light-grey w3-margin">
+                        <div class="w3-half w3-section">
+                            <span class="w3-xlarge">Stamina Potion</span>
+                        </div>
+                        <div class="w3-half w3-section">
+                            <img src='<c:url value="/images/items/potion/staminaPotion.png"/>' alt="icon" class="w3-image" width="64" height="64">
+                        </div>
+                    </div>
+                </c:if>
             </div>
             <div class="w3-row w3-section">
                     <span class="w3-xxlarge">

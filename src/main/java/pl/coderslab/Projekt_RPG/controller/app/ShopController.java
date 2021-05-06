@@ -51,7 +51,9 @@ public class ShopController {
             model.addAttribute("itemList", hero.getItem());
 
         }else if(transaction.equals("buy")){
-            List<Item> itemList = Stream.concat(itemRepository.findAllByTier(1).stream(), itemRepository.findAllByTier(2).stream()).collect(Collectors.toList());
+            List<Item> itemList = Stream.concat(itemRepository.findAllByTier(1).stream(), itemRepository.findAllByTier(2).stream())
+                    .filter(i->i.getRace().contains(hero.getRace()))
+                    .collect(Collectors.toList());
             model.addAttribute("itemList", itemList);
         }
 
@@ -67,7 +69,7 @@ public class ShopController {
             case "health":
                 if(hero.getGoldAmount() >= 100) {
                     hero.setPotionHealth(hero.getPotionHealth() + 1);
-                    hero.setGoldAmount(hero.getGoldAmount() - 100);
+                    hero.setGoldAmount(hero.getGoldAmount() - 200);
                 }
                 break;
             case "stamina":

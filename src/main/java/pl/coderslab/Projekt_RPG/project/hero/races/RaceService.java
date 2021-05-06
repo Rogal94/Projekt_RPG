@@ -15,13 +15,11 @@ import java.util.List;
 @Service
 public abstract class RaceService {
 
-    private final WeaponRepository weaponRepository;
     private final ItemService itemService;
     protected final MonsterSession monsterSession;
     private final SkillRepository skillRepository;
 
-    public RaceService(MonsterSession monsterSession, WeaponRepository weaponRepository, ItemService itemService, SkillRepository skillRepository) {
-        this.weaponRepository = weaponRepository;
+    public RaceService(MonsterSession monsterSession, ItemService itemService, SkillRepository skillRepository) {
         this.itemService = itemService;
         this.monsterSession = monsterSession;
         this.skillRepository = skillRepository;
@@ -45,7 +43,7 @@ public abstract class RaceService {
     }
 
     protected Integer damage(Integer attackOfAttacker, Integer defenceOfDefender) {
-        return (attackOfAttacker * 5 * 100)/(100+defenceOfDefender);
+        return (attackOfAttacker * 2 * 100)/(100+defenceOfDefender);
     }
 
     protected void dealDamage(Hero hero, Monster monster) {

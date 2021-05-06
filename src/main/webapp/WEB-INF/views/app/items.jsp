@@ -35,13 +35,14 @@
                     <li class="w3-row w3-center w3-xlarge">
                         <div class="w3-third">
                             <img src='<c:url value="${itemList.get('necklace').imageUrl}"/>' alt="necklace" class="w3-image grade<c:out value="${itemList.get('necklace').grade}"/>" width="128" height="128"
-                                data-id="<c:out value="${itemList.get('necklace').id}"/>"
-                                data-name="<c:out value="${itemList.get('necklace').name}"/>"
-                                data-url="<c:out value="${itemList.get('necklace').imageUrl}"/>"
-                                data-description="<c:out value="${itemList.get('necklace').description}"/>"
-                                data-type="<c:out value="${itemList.get('necklace').type}"/>"
-                                data-power="<c:out value="${itemList.get('necklace').attack}"/>"
-                                onclick="showItemDetails(this, event)">
+                                 data-id="<c:out value="${itemList.get('necklace').id}"/>"
+                                 data-name="<c:out value="${itemList.get('necklace').name}"/>"
+                                 data-url="<c:out value="${itemList.get('necklace').imageUrl}"/>"
+                                 data-description="<c:out value="${itemList.get('necklace').description}"/>"
+                                 data-type="<c:out value="${itemList.get('necklace').type}"/>"
+                                 data-grade="<c:out value="${itemList.get('necklace').grade}"/>"
+                                 data-power="<c:out value="${itemList.get('necklace').attack}"/>"
+                                 onclick="showItemDetails(this, event)">
                         </div>
                         <div class="w3-third">
                             <img src='<c:url value="${itemList.get('helmet').imageUrl}"/>' alt="helmet" class="w3-image grade<c:out value="${itemList.get('helmet').grade}"/>" width="128" height="128"
@@ -50,6 +51,7 @@
                                  data-url="<c:out value="${itemList.get('helmet').imageUrl}"/>"
                                  data-description="<c:out value="${itemList.get('helmet').description}"/>"
                                  data-type="<c:out value="${itemList.get('helmet').type}"/>"
+                                 data-grade="<c:out value="${itemList.get('helmet').grade}"/>"
                                  data-power="<c:out value="${itemList.get('helmet').defence}"/>"
                                  onclick="showItemDetails(this, event)">
                         </div>
@@ -60,6 +62,7 @@
                                  data-url="<c:out value="${itemList.get('ring').imageUrl}"/>"
                                  data-description="<c:out value="${itemList.get('ring').description}"/>"
                                  data-type="<c:out value="${itemList.get('ring').type}"/>"
+                                 data-grade="<c:out value="${itemList.get('ring').grade}"/>"
                                  data-power="<c:out value="${itemList.get('ring').attack}"/>"
                                  onclick="showItemDetails(this, event)">
                         </div>
@@ -72,6 +75,7 @@
                                  data-url="<c:out value="${itemList.get('weapon').imageUrl}"/>"
                                  data-description="<c:out value="${itemList.get('weapon').description}"/>"
                                  data-type="<c:out value="${itemList.get('weapon').type}"/>"
+                                 data-grade="<c:out value="${itemList.get('weapon').grade}"/>"
                                  data-power="<c:out value="${itemList.get('weapon').attack}"/>"
                                  onclick="showItemDetails(this, event)">
                         </div>
@@ -82,6 +86,7 @@
                                  data-url="<c:out value="${itemList.get('armor').imageUrl}"/>"
                                  data-description="<c:out value="${itemList.get('armor').description}"/>"
                                  data-type="<c:out value="${itemList.get('armor').type}"/>"
+                                 data-grade="<c:out value="${itemList.get('armor').grade}"/>"
                                  data-power="<c:out value="${itemList.get('armor').defence}"/>"
                                  onclick="showItemDetails(this, event)">
                         </div>
@@ -92,6 +97,7 @@
                                  data-url="<c:out value="${itemList.get('gloves').imageUrl}"/>"
                                  data-description="<c:out value="${itemList.get('gloves').description}"/>"
                                  data-type="<c:out value="${itemList.get('gloves').type}"/>"
+                                 data-grade="<c:out value="${itemList.get('gloves').grade}"/>"
                                  data-power="<c:out value="${itemList.get('gloves').defence}"/>"
                                  onclick="showItemDetails(this, event)">
                         </div>
@@ -103,6 +109,7 @@
                              data-url="<c:out value="${itemList.get('pants').imageUrl}"/>"
                              data-description="<c:out value="${itemList.get('pants').description}"/>"
                              data-type="<c:out value="${itemList.get('pants').type}"/>"
+                             data-grade="<c:out value="${itemList.get('pants').grade}"/>"
                              data-power="<c:out value="${itemList.get('pants').defence}"/>"
                              onclick="showItemDetails(this, event)">
                     </li>
@@ -113,6 +120,7 @@
                              data-url="<c:out value="${itemList.get('boots').imageUrl}"/>"
                              data-description="<c:out value="${itemList.get('boots').description}"/>"
                              data-type="<c:out value="${itemList.get('boots').type}"/>"
+                             data-grade="<c:out value="${itemList.get('boots').grade}"/>"
                              data-power="<c:out value="${itemList.get('boots').defence}"/>"
                              onclick="showItemDetails(this, event)">
                     </li>
@@ -134,7 +142,7 @@
                     <div class="w3-quarter w3-section">HEALTH POTION<br>x <c:out value="${hero.potionHealth}"/></div>
                     <div class="w3-quarter w3-section">
                         <a href='<c:url value="/items/add/health"/>' class="w3-button w3-dark-grey w3-hover-black">USE</a>
-                        <a href='<c:url value="/items/add/health10"/>' class="w3-button w3-dark-grey w3-hover-black">USE x 10</a>
+                        <a href='<c:url value="/items/add/health5"/>' class="w3-button w3-dark-grey w3-hover-black">USE x 5</a>
                     </div>
                 </li>
                 <li class="w3-row w3-center w3-xlarge">
@@ -149,7 +157,7 @@
                     <div class="w3-quarter w3-section">STAMINA POTION<br>x <c:out value="${hero.potionStamina}"/></div>
                     <div class="w3-quarter w3-section">
                         <a href='<c:url value="/items/add/stamina"/>' class="w3-button w3-dark-grey w3-hover-black">USE</a>
-                        <a href='<c:url value="/items/add/stamina10"/>' class="w3-button w3-dark-grey w3-hover-black">USE x 10</a>
+                        <a href='<c:url value="/items/add/stamina5"/>' class="w3-button w3-dark-grey w3-hover-black">USE x 5</a>
                     </div>
                 </li>
             </ul>

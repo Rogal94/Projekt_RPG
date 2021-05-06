@@ -26,7 +26,7 @@
                     <a href='<c:url value="/ranking/attack"/>' class="w3-button w3-white w3-padding-large w3-hover-black w3-xlarge">ATTACK</a>
                 </div>
                 <div class="w3-third w3-center">
-                    <a href='<c:url value="/ranking/defense"/>' class="w3-button w3-white w3-padding-large w3-hover-black w3-xlarge">DEFENSE</a>
+                    <a href='<c:url value="/ranking/defence"/>' class="w3-button w3-white w3-padding-large w3-hover-black w3-xlarge">DEFENCE</a>
                 </div>
             </div>
             <div class="w3-row w3-padding w3-dark-grey">

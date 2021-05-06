@@ -9,6 +9,7 @@
 <link href='<c:url value="/css/w3.css"/>' rel="stylesheet" type="text/css">
 <link href='<c:url value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>' rel="stylesheet" type="text/css">
 <script src='<c:url value="/js/fightAnim.js"/>'></script>
+<script src='<c:url value="/js/hideSkills.js"/>'></script>
 
 <body class="w3-black">
 
@@ -51,8 +52,8 @@
             <button onclick="setTimeout(buttonRedirectAttack, 1000, '${monster.id}'); buttonAttack()" id="normalAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">NORMAL ATTACK!</button>
         </div>
         <c:forEach items="${hero.skill}" var="skill">
-        <div class="w3-padding-large w3-center">
-            <button onclick="setTimeout(buttonRedirectSkill, 1000, '${monster.id}' ,'${skill.value.id}'); buttonAttack()" id="skillAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">${fn:toUpperCase(skill.value.name)} ATTACK!</button>
+        <div class="w3-padding-large w3-center skills" data-cost="${skill.value.cost}">
+            <button onclick="setTimeout(buttonRedirectSkill, 1000, '${monster.id}' ,'${skill.value.id}'); buttonAttack()" id="skillAttackButton" class="w3-button w3-light-grey w3-hover-red w3-xxlarge">${fn:toUpperCase(skill.value.name)}!</button>
         </div>
         </c:forEach>
         </c:if>
@@ -66,5 +67,6 @@
 <%@include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
 <script src='<c:url value="/js/canvas.js"/>'></script>
+<script>hideSkills(${hero.secPointsCurrent})</script>
 </html>
 

@@ -23,6 +23,7 @@ import pl.coderslab.Projekt_RPG.user.UserService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/reward")
@@ -51,6 +52,8 @@ public class RewardController {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
         int exp = 0;
         int gold = 0;
+        boolean hp = false;
+        boolean stamina = false;
         List<Item> items = hero.getItem();
         switch (from) {
             case "monster":
@@ -61,6 +64,15 @@ public class RewardController {
                     model.addAttribute("item",item);
                     items.add(item);
                     monsterSession.setRewardFromMonster(0L);
+                    Random r = new Random();
+                    if(r.nextInt(100) < 50) {
+                        hero.setPotionHealth(hero.getPotionHealth() + 1);
+                        hp = true;
+                    }
+                    if(r.nextInt(100) < 10) {
+                        hero.setPotionStamina(hero.getPotionStamina() + 1);
+                        stamina = true;
+                    }
                     model.addAttribute("monsterId", id);
                 }
                 break;
@@ -73,6 +85,10 @@ public class RewardController {
                     model.addAttribute("item",item);
                     items.add(item);
                     hero.setMonsterKilled(0L);
+                    hero.setPotionHealth(hero.getPotionHealth() + 1);
+                    hp = true;
+                    hero.setPotionStamina(hero.getPotionStamina() + 1);
+                    stamina = true;
                     if(questRepository.findAll().size() != id) {
                         hero.setQuest(questRepository.getOne(id + 1));
                     }
@@ -88,6 +104,8 @@ public class RewardController {
             heroService.updateHero(hero);
         }
         heroRepository.save(hero);
+        model.addAttribute("potionHP", hp);
+        model.addAttribute("potionStamina", stamina);
         model.addAttribute("exp", exp);
         model.addAttribute("gold", gold);
         model.addAttribute("hero", hero);

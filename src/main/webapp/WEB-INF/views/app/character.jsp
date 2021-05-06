@@ -10,6 +10,7 @@
 <link href='<c:url value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>' rel="stylesheet" type="text/css">
 <script src='<c:url value="/js/navBar.js"/>'></script>
 <script src='<c:url value="/js/showDetails.js"/>'></script>
+<script src='<c:url value="/js/hideButton.js"/>'></script>
 
 <body class="w3-black">
 <%@include file="/WEB-INF/jspf/navBarLoginChar.jspf"%>
@@ -94,8 +95,8 @@
                                     </c:forEach>
                                 </c:if>
                             onclick="setTimeout(showSkillDetails, 100 , this , event)">
-                            <c:out value="${fn:toUpperCase(skill.value.name)}"/>
-                            <a href='<c:url value="/character/skill/add/${skill.value.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-left">ADD</a>
+                            <c:out value="${fn:toUpperCase(skill.value.name)}"/>  RANK : <c:out value="${skill.value.skillRank}"/>
+                            <a href='<c:url value="/character/skill/add/${skill.value.id}"/>' class="w3-button w3-dark-grey w3-padding-small w3-hover-black w3-right w3-margin-left adds" data-rank="${skill.value.skillRank}">ADD</a>
                         </li>
                     </c:forEach>
                     <li class="w3-light-grey w3-padding-16 w3-center">

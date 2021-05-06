@@ -31,10 +31,10 @@
                     <div class="w3-quarter w3-section">
                         <img src='<c:url value="/images/items/potion/healthPotion.png"/>' alt="potion" class="w3-image" width="64" height="64" style="border: 5px solid green">
                     </div>
-                    <div class="w3-quarter w3-section">HEALTH POTION<br>x <c:out value="${hero.potionHealth}"/></div>
+                    <div class="w3-quarter w3-section">RECOVER<br>200 HP</div>
                     <div class="w3-quarter w3-section">
                         <img src='<c:url value="/images/shop/gold.png"/>' alt="icon" class="w3-image" width="64" height="64">
-                        100
+                        200
                     </div>
                     <div class="w3-quarter w3-section">
                         <a href='<c:url value="/shop/buy/potion/health"/>' class="w3-button w3-dark-grey w3-hover-black">BUY</a>
@@ -44,7 +44,7 @@
                     <div class="w3-quarter w3-section">
                         <img src='<c:url value="/images/items/potion/staminaPotion.png"/>' alt="potion" class="w3-image" width="64" height="64" style="border: 5px solid pink">
                     </div>
-                    <div class="w3-quarter w3-section">STAMINA POTION<br>x <c:out value="${hero.potionStamina}"/></div>
+                    <div class="w3-quarter w3-section">RECOVER<br>20 STAMINA</div>
                     <div class="w3-quarter w3-section">
                         <img src='<c:url value="/images/shop/gold.png"/>' alt="icon" class="w3-image" width="64" height="64">
                         2000

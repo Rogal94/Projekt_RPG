@@ -59,6 +59,8 @@ public class HeroServiceImpl implements HeroService{
         hero.setQuest(questRepository.getOne(1L));
         LinkedHashMap<String,Item> itemMap = new LinkedHashMap<>();
         itemMap.put("weapon",itemRepository.findByNameAndGrade("Small Axe",1));
+        itemMap.put("necklace",itemRepository.findByNameAndGrade("necklace",null));
+        itemMap.put("ring",itemRepository.findByNameAndGrade("ring",null));
         itemMap.put("helmet",itemRepository.findByNameAndGrade("helmet", null));
         itemMap.put("armor",itemRepository.findByNameAndGrade("armor", null));
         itemMap.put("pants",itemRepository.findByNameAndGrade("pants", null));
@@ -122,7 +124,7 @@ public class HeroServiceImpl implements HeroService{
         hero.setExperienceCurrent(hero.getExperienceCurrent()-hero.getExperienceMax());
         hero.setLevel(hero.getLevel() + 1);
         hero.setStatisticPoints(hero.getStatisticPoints() + 2);
-        if(hero.getLevel() % 5 == 0) {
+        if(hero.getLevel() % 3 == 0) {
             hero.setSkillPoints(hero.getSkillPoints() + 1);
         }
     }

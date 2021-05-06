@@ -30,6 +30,10 @@
             <button type="submit" class="w3-button w3-light-grey w3-padding-large w3-circle w3-margin" style="width:250px; font-size:20px">ADD ARMORS</button>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
+        <form method="post" action="/add/accessories">
+            <button type="submit" class="w3-button w3-light-grey w3-padding-large w3-circle w3-margin" style="width:250px; font-size:20px">ADD ACCESSORIES</button>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
         <form method="post" action="/add/skills">
             <button type="submit" class="w3-button w3-light-grey w3-padding-large w3-circle w3-margin" style="width:250px; font-size:20px">ADD SKILLS</button>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

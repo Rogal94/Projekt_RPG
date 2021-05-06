@@ -22,10 +22,22 @@
                 <div class="w3-center w3-margin">
                     <a href='<c:url value="/items/list/change/item"/>' class="w3-button w3-white w3-hover-black w3-xlarge w3-padding-small">ALL <c:out value="${fn:toUpperCase(hero.race.name)}"/> ITEMS</a>
                 </div>
-                <div class="w3-third">
+                <div class="w3-quarter">
                     <div class="w3-center w3-half">
                         <a href='<c:url value="/items/list/change/weapon"/>' class="w3-white w3-hover-black w3-button w3-padding-small">
                             <img src='<c:url value="/images/items/weapon/weapon.png"/>' alt="weapon" class="w3-image" width="64" height="64">
+                        </a>
+                    </div>
+                    <div class="w3-center w3-half">
+                        <a href='<c:url value="/items/list/change/necklace"/>' class="w3-white w3-hover-black w3-button w3-padding-small">
+                            <img src='<c:url value="/images/items/accessory/necklace.png"/>' alt="helmet" class="w3-image" width="64" height="64">
+                        </a>
+                    </div>
+                </div>
+                <div class="w3-quarter">
+                    <div class="w3-center w3-half">
+                        <a href='<c:url value="/items/list/change/ring"/>' class="w3-white w3-hover-black w3-button w3-padding-small">
+                            <img src='<c:url value="/images/items/accessory/ring.png"/>' alt="weapon" class="w3-image" width="64" height="64">
                         </a>
                     </div>
                     <div class="w3-center w3-half">
@@ -34,7 +46,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="w3-third">
+                <div class="w3-quarter">
                     <div class="w3-center w3-half">
                         <a href='<c:url value="/items/list/change/armor"/>' class="w3-white w3-hover-black w3-button w3-padding-small">
                             <img src='<c:url value="/images/items/armor/armor.png"/>' alt="armor" class="w3-image" width="64" height="64">
@@ -46,7 +58,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="w3-third">
+                <div class="w3-quarter">
                     <div class="w3-center w3-half">
                         <a href='<c:url value="/items/list/change/gloves"/>' class="w3-white w3-hover-black w3-button w3-padding-small">
                             <img src='<c:url value="/images/items/armor/gloves.png"/>' alt="gloves" class="w3-image" width="64" height="64">
@@ -66,10 +78,10 @@
                      data-url="<c:out value="${item.imageUrl}"/>"
                      data-description="<c:out value="${item.description}"/>"
                      data-type="<c:out value="${item.type}"/>"
-                        <c:if test="${item.type.equals('weapon')}">
+                        <c:if test="${item.type.equals('weapon') || item.type.equals('ring') || item.type.equals('necklace')}">
                             data-power="<c:out value="${item.attack}"/>"
                         </c:if>
-                        <c:if test="${!item.type.equals('weapon')}">
+                        <c:if test="${!(item.type.equals('weapon') || item.type.equals('ring') || item.type.equals('necklace'))}">
                             data-power="<c:out value="${item.defence}"/>"
                         </c:if>
                      onclick="setTimeout(showItemDetailsList, 100 , this , event)">

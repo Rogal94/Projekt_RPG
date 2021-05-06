@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.Projekt_RPG.project.items.Item;
 import pl.coderslab.Projekt_RPG.project.items.ItemRepository;
+import pl.coderslab.Projekt_RPG.project.items.items.Weapon;
 
 
 import java.util.List;
@@ -21,8 +22,6 @@ public class Test {
 
     @GetMapping("")
     public String showAdd() {
-        List<Item> itemList = itemRepository.findAllByCategory("Weapon");
-        itemList.forEach(System.out::println);
         return "/";
     }
 }

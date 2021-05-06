@@ -21,7 +21,7 @@ function showItemDetails (obj, e) {
     const lines = details.querySelectorAll('li');
     lines[1].firstElementChild.src = obj.dataset.url;
     lines[2].innerHTML = 'Name : ' + obj.dataset.name;
-    if(obj.dataset.type === "weapon") {
+    if(obj.dataset.type === "weapon" || obj.dataset.type === "necklace" || obj.dataset.type === "ring") {
         lines[3].innerHTML = 'Attack : ' + obj.dataset.power;
     }else{
         lines[3].innerHTML = 'Defence : ' + obj.dataset.power;
@@ -48,7 +48,7 @@ function showItemDetailsList (obj, e) {
     const lines = details.querySelectorAll('li');
     lines[1].firstElementChild.src = obj.dataset.url;
     lines[2].innerHTML = 'Name : ' + obj.dataset.name;
-    if(obj.dataset.type === "weapon") {
+    if(obj.dataset.type === "weapon" || obj.dataset.type === "necklace" || obj.dataset.type === "ring") {
         lines[3].innerHTML = 'Attack : ' + obj.dataset.power;
     }else{
         lines[3].innerHTML = 'Defence : ' + obj.dataset.power;
@@ -66,7 +66,7 @@ function showItemDetailsList (obj, e) {
      const lines = details.querySelectorAll('li');
      lines[1].firstElementChild.src = obj.dataset.url;
      lines[2].innerHTML = 'Name : ' + obj.dataset.name;
-     if(obj.dataset.type === "weapon") {
+     if(obj.dataset.type === "weapon" || obj.dataset.type === "necklace" || obj.dataset.type === "ring") {
          lines[3].innerHTML = 'Attack : ' + obj.dataset.power;
      }else{
          lines[3].innerHTML = 'Defence : ' + obj.dataset.power;

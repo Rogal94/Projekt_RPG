@@ -5,9 +5,7 @@ import pl.coderslab.Projekt_RPG.project.hero.Hero;
 import pl.coderslab.Projekt_RPG.project.hero.Skill;
 import pl.coderslab.Projekt_RPG.project.hero.SkillRepository;
 import pl.coderslab.Projekt_RPG.project.items.ItemService;
-import pl.coderslab.Projekt_RPG.project.items.items.Armor;
-import pl.coderslab.Projekt_RPG.project.items.items.ArmorRepository;
-import pl.coderslab.Projekt_RPG.project.items.items.WeaponRepository;
+import pl.coderslab.Projekt_RPG.project.items.items.*;
 import pl.coderslab.Projekt_RPG.project.monster.Monster;
 import pl.coderslab.Projekt_RPG.project.monster.MonsterSession;
 
@@ -40,7 +38,10 @@ public abstract class RaceService {
     }
 
     protected Integer sumAttack (Hero hero) {
-        return weaponRepository.getOne(hero.getItemEquipped().get("weapon").getId()).getAttack();
+        List<Weapon> weaponList = itemService.getWeaponFromItems(new ArrayList<>(hero.getItemEquipped().values()));
+        List<Accessory> accessoryList = itemService.getAccessoryFromItems(new ArrayList<>(hero.getItemEquipped().values()));
+        return weaponList.stream().map(Weapon::getAttack).reduce(0,Integer::sum) +
+                accessoryList.stream().map(Accessory::getAttack).reduce(0,Integer::sum);
     }
 
     protected Integer damage(Integer attackOfAttacker, Integer defenceOfDefender) {

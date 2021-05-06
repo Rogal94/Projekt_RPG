@@ -28,10 +28,10 @@
                         data-url="<c:out value="${item.imageUrl}"/>"
                         data-description="<c:out value="${item.description}"/>"
                         data-type="<c:out value="${item.type}"/>"
-                            <c:if test="${item.type.equals('weapon')}">
+                            <c:if test="${item.type.equals('weapon') || item.type.equals('ring') || item.type.equals('necklace')}">
                                 data-power="<c:out value="${item.attack}"/>"
                             </c:if>
-                            <c:if test="${!item.type.equals('weapon')}">
+                            <c:if test="${!(item.type.equals('weapon') || item.type.equals('ring') || item.type.equals('necklace'))}">
                                 data-power="<c:out value="${item.defence}"/>"
                             </c:if>
                         onclick="setTimeout(showItemDetailsShop, 100 , this , event)">

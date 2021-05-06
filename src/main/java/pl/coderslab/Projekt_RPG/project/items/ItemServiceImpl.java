@@ -2,10 +2,7 @@ package pl.coderslab.Projekt_RPG.project.items;
 
 import org.springframework.stereotype.Service;
 import pl.coderslab.Projekt_RPG.project.hero.races.Race;
-import pl.coderslab.Projekt_RPG.project.items.items.Armor;
-import pl.coderslab.Projekt_RPG.project.items.items.ArmorRepository;
-import pl.coderslab.Projekt_RPG.project.items.items.Weapon;
-import pl.coderslab.Projekt_RPG.project.items.items.WeaponRepository;
+import pl.coderslab.Projekt_RPG.project.items.items.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,11 +12,13 @@ import java.util.stream.Stream;
 public class ItemServiceImpl implements ItemService{
     private final ArmorRepository armorRepository;
     private final WeaponRepository weaponRepository;
+    private final AccessoryRepository accessoryRepository;
     private final ItemRepository itemRepository;
 
-    public ItemServiceImpl(ItemRepository itemRepository, ArmorRepository armorRepository, WeaponRepository weaponRepository) {
+    public ItemServiceImpl(ItemRepository itemRepository, ArmorRepository armorRepository, WeaponRepository weaponRepository, AccessoryRepository accessoryRepository) {
         this.armorRepository = armorRepository;
         this.weaponRepository = weaponRepository;
+        this.accessoryRepository = accessoryRepository;
         this.itemRepository = itemRepository;
     }
 
@@ -44,9 +43,21 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
+    public List<Accessory> getAccessoryFromItems(List<Item> itemList) {
+        List<Accessory> items = new ArrayList<>();
+        itemList.stream().filter(i->i.getCategory().equals("Accessory")).forEach(i->{
+            Accessory accessory = accessoryRepository.getOne(i.getId());
+            items.add(accessory);
+        });
+        return items;
+    }
+
+    @Override
     public LinkedHashMap<String, Item> getSortedItems(Map<String,Item> itemMap) {
         LinkedHashMap<String, Item> items = new LinkedHashMap<>();
         items.put("weapon", itemMap.get("weapon"));
+        items.put("necklace", itemMap.get("necklace"));
+        items.put("ring", itemMap.get("ring"));
         items.put("helmet", itemMap.get("helmet"));
         items.put("armor", itemMap.get("armor"));
         items.put("pants", itemMap.get("pants"));

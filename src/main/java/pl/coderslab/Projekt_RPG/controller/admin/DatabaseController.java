@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.util.SerializationUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +18,7 @@ import pl.coderslab.Projekt_RPG.project.hero.races.Race;
 import pl.coderslab.Projekt_RPG.project.hero.races.RaceRepository;
 import pl.coderslab.Projekt_RPG.project.items.Item;
 import pl.coderslab.Projekt_RPG.project.items.ItemRepository;
-import pl.coderslab.Projekt_RPG.project.items.items.Armor;
-import pl.coderslab.Projekt_RPG.project.items.items.ArmorRepository;
-import pl.coderslab.Projekt_RPG.project.items.items.Weapon;
-import pl.coderslab.Projekt_RPG.project.items.items.WeaponRepository;
+import pl.coderslab.Projekt_RPG.project.items.items.*;
 import pl.coderslab.Projekt_RPG.project.monster.Monster;
 import pl.coderslab.Projekt_RPG.project.monster.MonsterRepository;
 
@@ -42,12 +40,13 @@ public class DatabaseController {
     private final ObjectMapper objectMapper;
     private final WeaponRepository weaponRepository;
     private final ArmorRepository armorRepository;
+    private final AccessoryRepository accessoryRepository;
     private final MonsterRepository monsterRepository;
     private final QuestRepository questRepository;
     private final SkillRepository skillRepository;
     private final RaceRepository raceRepository;
 
-    public DatabaseController(ObjectMapper objectMapper, WeaponRepository weaponRepository, ArmorRepository armorRepository, MonsterRepository monsterRepository, QuestRepository questRepository, SkillRepository skillRepository, RaceRepository raceRepository) {
+    public DatabaseController(ObjectMapper objectMapper, WeaponRepository weaponRepository, ArmorRepository armorRepository, MonsterRepository monsterRepository, QuestRepository questRepository, SkillRepository skillRepository, RaceRepository raceRepository, AccessoryRepository accessoryRepository) {
         this.objectMapper = objectMapper;
         this.weaponRepository = weaponRepository;
         this.armorRepository = armorRepository;
@@ -55,6 +54,7 @@ public class DatabaseController {
         this.questRepository = questRepository;
         this.skillRepository = skillRepository;
         this.raceRepository = raceRepository;
+        this.accessoryRepository = accessoryRepository;
     }
 
     @Value("${database.location}")
@@ -72,6 +72,7 @@ public class DatabaseController {
         addQuests();
         addWeapons();
         addArmors();
+        addAccessories();
         addSkills();
         return "redirect:/";
     }
@@ -111,7 +112,12 @@ public class DatabaseController {
                         raceList.add(race);
                     }
                     weapon.setRace(raceList);
-                    weaponRepository.save(weapon);
+                    if(weapon.getPrice() == null) {
+                        weaponRepository.save(weapon);
+                    }else{
+                        List<Weapon> weaponList = getAllGradesOfWeapon(weapon);
+                        weaponList.forEach(weaponRepository::save);
+                    }
                 }catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
@@ -138,7 +144,44 @@ public class DatabaseController {
                         raceList.add(race);
                     }
                     armor.setRace(raceList);
-                    armorRepository.save(armor);
+                    if(armor.getPrice() == null) {
+                        armorRepository.save(armor);
+                    }else{
+                        List<Armor> armorList = getAllGradesOfArmor(armor);
+                        armorList.forEach(armorRepository::save);
+                    }
+                }catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/accessories")
+    public String addAccessories() {
+        try(Scanner scanner = new Scanner(new File(filePath+"\\accessories.txt"))) {
+            while (scanner.hasNext()) {
+                try {
+                    objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+                    String line = scanner.nextLine();
+                    Accessory accessory = objectMapper.readValue(line,Accessory.class);
+                    Map<String,String> map = objectMapper.readValue(line,Map.class);
+                    List<Race> raceList = new ArrayList<>();
+                    String[] raceTable = map.get("itemFor").split(",");
+                    for (String raceName : raceTable) {
+                        Race race = raceRepository.findByName(raceName);
+                        raceList.add(race);
+                    }
+                    accessory.setRace(raceList);
+                    if(accessory.getPrice() == null) {
+                        accessoryRepository.save(accessory);
+                    }else{
+                        List<Accessory> accessoryList = getAllGradesOfAccessory(accessory);
+                        accessoryList.forEach(accessoryRepository::save);
+                    }
                 }catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
@@ -206,4 +249,65 @@ public class DatabaseController {
         }
         return "redirect:/";
     }
+
+    private List<Weapon> getAllGradesOfWeapon(Weapon item) {
+        List <Weapon> itemList = new ArrayList<>();
+        itemList.add(item);
+        for(int i = 2 ; i <= 5 ; i++) {
+            Weapon itemToAdd = new Weapon();
+            itemToAdd.setName(item.getName());
+            itemToAdd.setDescription(item.getDescription());
+            itemToAdd.setCategory(item.getCategory());
+            itemToAdd.setRace(item.getRace());
+            itemToAdd.setImageUrl(item.getImageUrl());
+            itemToAdd.setType(item.getType());
+            itemToAdd.setPrice(item.getPrice() * i);
+            itemToAdd.setGrade(i);
+            itemToAdd.setTier(0);
+            itemToAdd.setAttack(item.getAttack() + 5 * (i-1));
+            itemList.add(itemToAdd);
+        }
+        return itemList;
+    }
+
+    private List<Armor> getAllGradesOfArmor(Armor item) {
+        List <Armor> itemList = new ArrayList<>();
+        itemList.add(item);
+        for(int i = 2 ; i <= 5 ; i++) {
+            Armor itemToAdd = new Armor();
+            itemToAdd.setName(item.getName());
+            itemToAdd.setDescription(item.getDescription());
+            itemToAdd.setCategory(item.getCategory());
+            itemToAdd.setRace(item.getRace());
+            itemToAdd.setImageUrl(item.getImageUrl());
+            itemToAdd.setType(item.getType());
+            itemToAdd.setPrice(item.getPrice() * i);
+            itemToAdd.setGrade(i);
+            itemToAdd.setTier(0);
+            itemToAdd.setDefence(item.getDefence() + 5 * (i-1));
+            itemList.add(itemToAdd);
+        }
+        return itemList;
+    }
+
+    private List<Accessory> getAllGradesOfAccessory(Accessory item) {
+        List <Accessory> itemList = new ArrayList<>();
+        itemList.add(item);
+        for(int i = 2 ; i <= 5 ; i++) {
+            Accessory itemToAdd = new Accessory();
+            itemToAdd.setName(item.getName());
+            itemToAdd.setDescription(item.getDescription());
+            itemToAdd.setCategory(item.getCategory());
+            itemToAdd.setRace(item.getRace());
+            itemToAdd.setImageUrl(item.getImageUrl());
+            itemToAdd.setType(item.getType());
+            itemToAdd.setPrice(item.getPrice() * i);
+            itemToAdd.setGrade(i);
+            itemToAdd.setTier(0);
+            itemToAdd.setAttack(item.getAttack() + 5 * (i-1));
+            itemList.add(itemToAdd);
+        }
+        return itemList;
+    }
 }
+

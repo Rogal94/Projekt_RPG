@@ -33,14 +33,36 @@
                 <ul class="w3-ul w3-white">
                     <li class="w3-dark-grey w3-xlarge w3-padding-24">EQUIPMENT</li>
                     <li class="w3-row w3-center w3-xlarge">
-                        <img src='<c:url value="${itemList.get('helmet').imageUrl}"/>' alt="helmet" class="w3-image grade<c:out value="${itemList.get('helmet').grade}"/>" width="128" height="128"
-                             data-id="<c:out value="${itemList.get('helmet').id}"/>"
-                             data-name="<c:out value="${itemList.get('helmet').name}"/>"
-                             data-url="<c:out value="${itemList.get('helmet').imageUrl}"/>"
-                             data-description="<c:out value="${itemList.get('helmet').description}"/>"
-                             data-type="<c:out value="${itemList.get('helmet').type}"/>"
-                             data-power="<c:out value="${itemList.get('helmet').defence}"/>"
-                             onclick="showItemDetails(this, event)">
+                        <div class="w3-third">
+                            <img src='<c:url value="${itemList.get('necklace').imageUrl}"/>' alt="necklace" class="w3-image grade<c:out value="${itemList.get('necklace').grade}"/>" width="128" height="128"
+                                data-id="<c:out value="${itemList.get('necklace').id}"/>"
+                                data-name="<c:out value="${itemList.get('necklace').name}"/>"
+                                data-url="<c:out value="${itemList.get('necklace').imageUrl}"/>"
+                                data-description="<c:out value="${itemList.get('necklace').description}"/>"
+                                data-type="<c:out value="${itemList.get('necklace').type}"/>"
+                                data-power="<c:out value="${itemList.get('necklace').attack}"/>"
+                                onclick="showItemDetails(this, event)">
+                        </div>
+                        <div class="w3-third">
+                            <img src='<c:url value="${itemList.get('helmet').imageUrl}"/>' alt="helmet" class="w3-image grade<c:out value="${itemList.get('helmet').grade}"/>" width="128" height="128"
+                                 data-id="<c:out value="${itemList.get('helmet').id}"/>"
+                                 data-name="<c:out value="${itemList.get('helmet').name}"/>"
+                                 data-url="<c:out value="${itemList.get('helmet').imageUrl}"/>"
+                                 data-description="<c:out value="${itemList.get('helmet').description}"/>"
+                                 data-type="<c:out value="${itemList.get('helmet').type}"/>"
+                                 data-power="<c:out value="${itemList.get('helmet').defence}"/>"
+                                 onclick="showItemDetails(this, event)">
+                        </div>
+                        <div class="w3-third">
+                            <img src='<c:url value="${itemList.get('ring').imageUrl}"/>' alt="ring" class="w3-image grade<c:out value="${itemList.get('ring').grade}"/>" width="128" height="128"
+                                 data-id="<c:out value="${itemList.get('ring').id}"/>"
+                                 data-name="<c:out value="${itemList.get('ring').name}"/>"
+                                 data-url="<c:out value="${itemList.get('ring').imageUrl}"/>"
+                                 data-description="<c:out value="${itemList.get('ring').description}"/>"
+                                 data-type="<c:out value="${itemList.get('ring').type}"/>"
+                                 data-power="<c:out value="${itemList.get('ring').attack}"/>"
+                                 onclick="showItemDetails(this, event)">
+                        </div>
                     </li>
                     <li class="w3-row w3-center w3-xlarge">
                         <div class="w3-third">

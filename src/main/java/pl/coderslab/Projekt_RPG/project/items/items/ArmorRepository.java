@@ -5,5 +5,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ArmorRepository extends JpaRepository<Armor, Long> {
-    Armor findByName(String name);
 }

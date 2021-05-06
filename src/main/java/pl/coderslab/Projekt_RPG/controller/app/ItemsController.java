@@ -38,9 +38,8 @@ public class ItemsController {
     @GetMapping("")
     public String items(@AuthenticationPrincipal UserDetails customUser, Model model) {
         Hero hero = heroRepository.getOne(userService.findByUserName(customUser.getUsername()).getLoggedHero());
-        LinkedHashMap<String,Item> itemList = itemService.getSortedItems(new HashMap<>(hero.getItemEquipped()));
         model.addAttribute("hero", hero);
-        model.addAttribute("itemList", itemList);
+        model.addAttribute("itemList", hero.getItemEquipped());
         return "app/items";
     }
 
